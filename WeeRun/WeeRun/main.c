@@ -28,7 +28,8 @@
 *			## Summary:
 *				Main Entry point of a program
 *			## Parameters:
-*				- int argc : argument count
+*				- footype fpp : foo foo
+*				- footype fpp : foo foo
 *				- char** argv : argument vector
 *			## Returns:
 *				zero on successful run otherwise Error Hexadecimal
@@ -120,7 +121,15 @@
 
 //!NOTE: Methods
 
-//!	Main Entry Point.
+/*
+* NAME: main
+* SUMMARY:
+*	Main entrypoint for program
+* PARAMETERS: 
+*	- int : argc
+*	- char** : argv
+* 
+*/
 int main(int argc, char** argv) {
 
 
