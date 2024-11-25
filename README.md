@@ -98,6 +98,9 @@ Kind of basic stuff but... I want to ensure all data is described cleeanly as po
 you know...
 
 </details>
+
+<blockquote>
+
 <details>
 <summary>
 
@@ -109,6 +112,9 @@ for console so that it is easier to recognize exceptions warnings and logs from 
 kinda helping factor when debuggng you know.
 
 </details>
+
+<blockquote>
+
 <details>
 <summary>
 
@@ -131,6 +137,9 @@ Well here is the documentation of OpenGL Window management API thingy...
 it is used for managing windows and key callbacks Yay!
 
 </details>
+
+<blockquote>
+
 <details>
 <summary>
 
