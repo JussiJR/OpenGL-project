@@ -13,6 +13,7 @@ Program uses few Open Source and documented libraries but is mostly self written
 # Contents:
 
 - [Depencies](#Depencies)
+- [Exeption codes](#Exceptions)
 
 #Depencies 
 
@@ -49,3 +50,9 @@ And Well this does excactly it. Btw the real link to headers and other is [here]
 </summary>
 
 </details>
+
+
+# Exceptions
+
+## - 
+
