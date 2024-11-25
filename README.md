@@ -34,7 +34,9 @@ any one right? well in any case it is used as such in this program. only for cre
 
 <details>
 <summary>
+
 ## [OpenGL (glad)](https://www.opengl.org/)
+
 </summary>
 
 So even tho it is linked to opengl's web page it is convienient to have some sort of loader for methods and functions behid the scenes...
