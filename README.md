@@ -101,7 +101,7 @@ Exception is raised when ever program fails to load OpenGL methods.
 
 </summary>
 
-Kind of basic stuff but... I want to ensure all data is described cleeanly as possible.
+Kind of basic stuff but... I want to ensure all data is described clearly as possible.
 you know...
 
 </details>
