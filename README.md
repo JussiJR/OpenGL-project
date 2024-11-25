@@ -16,7 +16,7 @@ Program uses few Open Source and documented libraries but is mostly self written
 - [Exeption codes](#Exceptions)
 - [Links used](#Links)
 
-#Depencies 
+# Depencies 
 
 Project uses some third party open source documented libraries. Libraries used in this project are:
 
