@@ -87,6 +87,11 @@ Exception is raised when ever program fails to load OpenGL methods.
 
 ## Main.C
 
+</summary>
+
+
+<blockquote>
+
 <details>
 <summary>
 
@@ -99,7 +104,6 @@ you know...
 
 </details>
 
-<blockquote>
 
 <details>
 <summary>
@@ -113,7 +117,6 @@ kinda helping factor when debuggng you know.
 
 </details>
 
-<blockquote>
 
 <details>
 <summary>
@@ -138,7 +141,7 @@ it is used for managing windows and key callbacks Yay!
 
 </details>
 
-<blockquote>
+
 
 <details>
 <summary>
