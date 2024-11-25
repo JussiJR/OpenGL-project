@@ -14,6 +14,7 @@ Program uses few Open Source and documented libraries but is mostly self written
 
 - [Depencies](#Depencies)
 - [Exeption codes](#Exceptions)
+- [Links used](#Links)
 
 #Depencies 
 
@@ -41,18 +42,103 @@ And Well this does excactly it. Btw the real link to headers and other is [here]
 
 </details>
 
-<details>
 
-<Summary>
-
-## 
-
-</summary>
-
-</details>
 
 
 # Exceptions
 
-## - 
 
+<details>
+<Summary>
+
+##  - GLFW_INITIALIZATION_SELF_FAILURE -2735 
+
+</summary>
+
+Exception is raised when ever program fails to initialize GLFW API. 
+
+</details>
+<details>
+<Summary>
+
+## - GLFW_INITIALIZATION_WINDOW_FAILURE -2751
+
+</summary>
+
+Exception is raiseed when ever program fails to create window.
+
+</details>
+<details>
+<Summary>
+
+## - OPENGL_INITIALIZATION_SELF_FAILURE -2991
+
+</summary>
+
+Exception is raised when ever program fails to load OpenGL methods.
+
+</details>
+
+
+# Links
+
+<details>
+<summary>
+
+## Main.C
+
+<details>
+<summary>
+
+### 1. [Information about main method in C](https://www.ibm.com/docs/en/i/7.4?topic=functions-main-function)
+
+</summary>
+
+Kind of basic stuff but... I want to ensure all data is described cleeanly as possible.
+you know...
+
+</details>
+<details>
+<summary>
+
+### 2. [ANSII Color codes](https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a)
+
+</summary>
+
+for console so that it is easier to recognize exceptions warnings and logs from eatch other.
+kinda helping factor when debuggng you know.
+
+</details>
+<details>
+<summary>
+
+### 3. [OpenGL documentation](https://www.opengl.org/)
+
+</summary>
+
+I Know someone would want to see chat gpt code... But you wont instead you see my horrible codee to be impressed
+I actually feel sorry for you my boy
+
+</details>
+<details>
+<summary>
+
+### 4. [GLFW documentation](https://www.glfw.org/documentation)
+
+</summary>
+
+Well here is the documentation of OpenGL Window management API thingy...
+it is used for managing windows and key callbacks Yay!
+
+</details>
+<details>
+<summary>
+
+
+
+</summary>
+
+
+
+</details>
+</details>
