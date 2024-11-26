@@ -5,8 +5,10 @@
 
 </summary>
 
-Project is written in C and is part of the School activity of Writing program what uses APIs. 
+Project is written in c++ and is part of the School activity of Writing program what uses APIs. 
 Program uses few Open Source and documented libraries but is mostly self written. you can read more about libraries used in [here](#Depencies)
+
+I got this bad idea after watching some guy building cool Doom like game with exciting looking rendering system. so here we are :). Enjoy
 
 </details>
 
@@ -23,7 +25,7 @@ Project uses some third party open source documented libraries. Libraries used i
 <details>
 <summary>
 
-## [GLFW: OpenGL Library](https://www.glfw.org/)
+## 1. [GLFW: OpenGL Library.](https://www.glfw.org/)
 
 </summary>
 
@@ -35,7 +37,7 @@ any one right? well in any case it is used as such in this program. only for cre
 <details>
 <summary>
 
-## [OpenGL (glad)](https://www.opengl.org/)
+## 2. [OpenGL (glad).](https://www.opengl.org/)
 
 </summary>
 
@@ -44,8 +46,15 @@ And Well this does excactly it. Btw the real link to headers and other is [here]
 
 </details>
 
+<details>
+<summary>
 
+## 3. [GLM: OpenGL mathemathics library.](https://github.com/g-truc/glm)
+</summary>
 
+You know it is such a pain to do a lot of work while you know there is some library what already does it and most likely better... Well her we are.
+
+</details>
 
 # Exceptions
 
@@ -53,7 +62,7 @@ And Well this does excactly it. Btw the real link to headers and other is [here]
 <details>
 <Summary>
 
-##  - GLFW_INITIALIZATION_SELF_FAILURE -2735 
+##  - GLFW initialization failure. 0x100F
 
 </summary>
 
@@ -63,7 +72,7 @@ Exception is raised when ever program fails to initialize GLFW API.
 <details>
 <Summary>
 
-## - GLFW_INITIALIZATION_WINDOW_FAILURE -2751
+## - Window creation failure. 0x101F
 
 </summary>
 
@@ -73,7 +82,7 @@ Exception is raiseed when ever program fails to create window.
 <details>
 <Summary>
 
-## - OPENGL_INITIALIZATION_SELF_FAILURE -2991
+## - OpenGL initialization failure 0x200F
 
 </summary>
 
@@ -81,13 +90,12 @@ Exception is raised when ever program fails to load OpenGL methods.
 
 </details>
 
-
 # Links
 
 <details>
 <summary>
 
-## Main.C
+## Main
 
 </summary>
 
@@ -97,33 +105,7 @@ Exception is raised when ever program fails to load OpenGL methods.
 <details>
 <summary>
 
-### 1. [Information about main method in C](https://www.ibm.com/docs/en/i/7.4?topic=functions-main-function)
-
-</summary>
-
-Kind of basic stuff but... I want to ensure all data is described clearly as possible.
-you know...
-
-</details>
-
-
-<details>
-<summary>
-
-### 2. [ANSII Color codes](https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a)
-
-</summary>
-
-for console so that it is easier to recognize exceptions warnings and logs from eatch other.
-kinda helping factor when debuggng you know.
-
-</details>
-
-
-<details>
-<summary>
-
-### 3. [OpenGL documentation](https://www.opengl.org/)
+### 1. [OpenGL documentation](https://www.opengl.org/)
 
 </summary>
 
@@ -134,7 +116,7 @@ I actually feel sorry for you my boy
 <details>
 <summary>
 
-### 4. [GLFW documentation](https://www.glfw.org/documentation)
+### 2. [GLFW documentation](https://www.glfw.org/documentation)
 
 </summary>
 
