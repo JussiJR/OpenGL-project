@@ -176,13 +176,14 @@ int main(int argc, char** argv) {
 
 		//! Add GameManager
 		GameManager gameManager = { 0 };
-		if (!InitializeGameManager(&gameManager)) {
+		int success = InitializeGameManager(&gameManager);
+		if (!success) {
 #ifdef _DEBUG
 			CONSOLE_LOG_ERROR("Failed to initialize GameManager.");
 #endif
 			glfwDestroyWindow(window);
 			glfwTerminate();
-			return 
+			return success;
 		}
 
 		//! Initialize OpenGL

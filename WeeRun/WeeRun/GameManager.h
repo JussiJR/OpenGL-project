@@ -1,12 +1,16 @@
 
 //https://ktstephano.github.io/rendering/opengl/ssbos - SSBOs usage
-
+//https://learnopengl.com/Getting-started/Shaders - Shader creation
 
 #ifndef __gamemanager_h__
 #define __gamemanager_h__
 #pragma once
 #pragma pack(1)
 
+
+#define GAMEMANAGER_INITIALIZATION_VERTEXSHADER_FAILURE -0xCAAF
+#define GAMEMANAGER_INITIALIZATION_FRAGMENTSHADER_FAILURE -0xCABF
+#define GAMEMANAGER_INITIALIZATION_SHADERPROGRAM_FAILURE -0xCACF
 
 #define GAMEMANAGER_DIFFICULTY_NULL 0
 #define GAMEMANAGER_DIFFICULTY_EASY 1
@@ -55,16 +59,37 @@ typedef struct GameManager{
 	//!	OpenGL stuff
 	GLuint VertexPoints;	// SSBOs
 	GLuint Entitys;			// SSBOs
-	GLuint VBO;				// VBO
-	GLuint EBO;				// EBO
-	GLuint VAO;				// VAO
 	GLuint ViewMatrix;		// Uniform
 	GLuint ShaderProgram;	//Shader program
 
 
 }GameManager;
 
+/*
+* NAME: InitializeGameManager
+* SUMMARY:
+*	Constructor for GameManager struct
+* PARAMS:
+*	- GameManager* gameManager : target GameManager to be initialized
+*	- char* Vertexpath : Path to Vertexshader file
+*	- char* Fragmentpath : Path to Fragment file
+* KNOWN ISSUES: 
+*	- NoN
+* RETURNS: 
+*	0 if success otherwise error code as integer
+*/
+int InitializeGameManager(GameManager* gameManager,char* Vertexpath,char* Fragmentpath);
 
-int InitializeGameManager(GameManager* gameManager,char Vertexpath[],char Fragmentpath[]);
+
+/*
+* NAME: InitializeGameManager
+* SUMMARY:
+*	Clean up method for GameManager struct
+* PARAMS:
+*	- GameManager* gameManager : target GameManager to be cleaned
+* KNOWN ISSUES:
+*	- NoN
+*/
+void CleanupGameManager(GameManager* gameManager);
 #pragma pack(pop)
 #endif
