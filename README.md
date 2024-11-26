@@ -1,16 +1,13 @@
-<details>
-<summary>
+
 
 # Project Summary:
 
-</summary>
 
 Project is written in c++ and is part of the School activity of Writing program what uses APIs. 
 Program uses few Open Source and documented libraries but is mostly self written. you can read more about libraries used in [here](#Depencies)
 
 I got this bad idea after watching some guy building cool Doom like game with exciting looking rendering system. so here we are :). Enjoy
 
-</details>
 
 # Contents:
 
