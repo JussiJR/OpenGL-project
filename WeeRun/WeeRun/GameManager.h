@@ -1,7 +1,7 @@
 #ifndef __gamemanager_h__
 #define __gamemanager_h__
 #pragma once
-
+#pragma pack(1)
 
 
 #define GAMEMANAGER_DIFFICULTY_NULL 0
@@ -50,5 +50,5 @@ typedef struct GameManager{
 
 
 void InitializeGameManager(GameManager* gameManager);
-
+#pragma pack(pop)
 #endif
