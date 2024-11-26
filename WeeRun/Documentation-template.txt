@@ -8,7 +8,7 @@ MAIN PLAIN
 * 
 * METHODS:
 * 
-* USED REFRENCES
+* USED REFERENCES
 * 
 */
 

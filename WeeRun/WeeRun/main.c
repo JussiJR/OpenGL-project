@@ -28,8 +28,7 @@
 *			## Summary:
 *				Main Entry point of a program
 *			## Parameters:
-*				- footype fpp : foo foo
-*				- footype fpp : foo foo
+*				- int argc : Argument count
 *				- char** argv : argument vector
 *			## Returns:
 *				zero on successful run otherwise Error Hexadecimal

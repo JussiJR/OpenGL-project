@@ -46,3 +46,11 @@ you see since
  and just realized since we have 32 bit before it would be wiser to use 2 float we can now store one 7 bit to y or better if our player cannot jump it does not need to have that preecise what if we umm give 16 y levels since 4 bit can hold up to 16 unique number
  and player will never fall right? we lose precision but oh boy it is fun:D or lets make them dynamic and give 5 bits for it so we can have 1 sign bit to get get positions to in signed versions so up to +- 16 but wait aren't we now in dilemma? nothing cannot be on same level as our player? right? well.. bruh i go sleep now lol it is 1 am ....
 
+
+
+ |00000	_	000000000000|
+ |exp	|mantissa		|
+
+ Well this is what I came with 18bit floating point. if we tho use 7 bit for exp and 11 bit for mantissa we have stuff what
+ we can do with like 32bit and like half precision
+
