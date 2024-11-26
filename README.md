@@ -53,6 +53,19 @@ You know it is such a pain to do a lot of work while you know there is some libr
 
 </details>
 
+<details>
+<summary>
+
+## 4. [STB Image](https://github.com/nothings/stb/blob/master/stb_image.h)
+
+</summary>
+
+I know the page mentions something about security well... it was only one what I was familiar with already except SDL2 Image well I would have been needed to change GLFW to it and so on...
+
+</details>
+
+
+
 # Exceptions
 
 
@@ -84,7 +97,6 @@ Exception is raiseed when ever program fails to create window.
 </summary>
 
 Exception is raised when ever program fails to load OpenGL methods.
-
 </details>
 
 # Links
