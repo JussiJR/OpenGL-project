@@ -82,6 +82,11 @@
 #ifndef _STDINT
 #include <stdint.h>
 #endif
+
+#ifndef __gamemanager_h__
+#include "GameManager.h"
+#endif // !__gamemanager_h__
+
 //!NOTE: Typedefs
 
 /*
@@ -90,40 +95,18 @@
 *	Represents object's position in world space
 */
 typedef struct Transform {
-	
-	// World Position
 
-	//	Vector point A
-	unsigned char VectorpointA : 4;
-
-	//	Vector point B
-	unsigned char VectorpointB : 4;
-
-	//	Correction Vector point
-	uint_fast64_t CorrectionVectorpoint : 4;
 
 	//	Distance (0.000... - 1.000000...)
-	uint_fast64_t DistanceDecimal : 18;
+	uint_fast64_t DistanceDecimal : 19;
 
 	//	Correction decimal (0.000... - 1.000000...)
-	uint_fast64_t CorrectionDecimal : 18;
-	
-	//	Y position
-	uint_fast64_t yLevel : 5;
+	uint_fast64_t CorrectionDecimal : 19;
 
 	//	Current chunk
-	uint_fast64_t Chunk : 6;
-	
-	//	Scale 
-	uint_fast64_t Scale : 13;
-
-	//	Yawn
-	float yawn;
-
-	//	pitch
-	float pitch;
-
-
+	uint_fast64_t VectorPointA : 6;
+	uint_fast64_t VectorPointB : 6;
+	uint_fast64_t CorrectionPoint : 6;
 } Transform;
 
 //!NOTE: Methods
@@ -138,7 +121,7 @@ typedef struct Transform {
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformxTransform(Transform* target, Transform* mult);
+Transform TransformxTransform(Transform* target, Transform* mult,GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -150,7 +133,7 @@ Transform TransformxTransform(Transform* target, Transform* mult);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformxFloat(Transform* target, float mult);
+Transform TransformxFloat(Transform* target, float mult, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -162,18 +145,8 @@ Transform TransformxFloat(Transform* target, float mult);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformxInt(Transform* target, int mult);
+Transform TransformxInt(Transform* target, int mult, GameManager* manager, unsigned char currentChunk);
 
-/*
-* NAME: TransformxTransform
-* SUMMARY:
-*	Used for  multiplications between floats and Transforms
-* PRAMATERS:
-*	- Transform* target : object to be added into
-*	- float mult : float to be added
-* RETURNS:
-*	Result of a multiplication
-*/
 
 
 /*
@@ -185,7 +158,7 @@ Transform TransformxInt(Transform* target, int mult);
 *	- Transform* target : object to be multiplied
 *	- Transform* mult : Transform to be multiplied with
 */
-void TransformxTransformSelf(Transform* target, Transform* mult);
+void TransformxTransformSelf(Transform* target, Transform* mult, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -197,7 +170,7 @@ void TransformxTransformSelf(Transform* target, Transform* mult);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformxFloatSelf(Transform* target, float mult);
+void TransformxFloatSelf(Transform* target, float mult, GameManager* manager, unsigned char currentChunk);
 
 
 /*
@@ -210,7 +183,7 @@ void TransformxFloatSelf(Transform* target, float mult);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformxIntSelf(Transform* target, int mult);
+void TransformxIntSelf(Transform* target, int mult, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -222,7 +195,7 @@ void TransformxIntSelf(Transform* target, int mult);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformdTransform(Transform* target, Transform* div);
+Transform TransformdTransform(Transform* target, Transform* div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -234,7 +207,7 @@ Transform TransformdTransform(Transform* target, Transform* div);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformdFloat(Transform* target, float div);
+Transform TransformdFloat(Transform* target, float div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -246,7 +219,7 @@ Transform TransformdFloat(Transform* target, float div);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform Transformdint(Transform* target, int div);
+Transform Transformdint(Transform* target, int div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -258,7 +231,7 @@ Transform Transformdint(Transform* target, int div);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformdTransformSelf(Transform* target, Transform* div);
+void TransformdTransformSelf(Transform* target, Transform* div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -270,7 +243,7 @@ void TransformdTransformSelf(Transform* target, Transform* div);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformdFloatSelf(Transform* target, float div);
+void TransformdFloatSelf(Transform* target, float div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -282,7 +255,7 @@ void TransformdFloatSelf(Transform* target, float div);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformdIntSelf(Transform* target, int div);
+void TransformdIntSelf(Transform* target, int div, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -294,7 +267,7 @@ void TransformdIntSelf(Transform* target, int div);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformsTransform(Transform* targert, Transform* sub);
+Transform TransformsTransform(Transform* targert, Transform* sub, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -306,7 +279,7 @@ Transform TransformsTransform(Transform* targert, Transform* sub);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformsFloat(Transform* targert, float sub);
+Transform TransformsFloat(Transform* targert, float sub, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -318,7 +291,7 @@ Transform TransformsFloat(Transform* targert, float sub);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformsInt(Transform* targert, int sub);
+Transform TransformsInt(Transform* targert, int sub, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -330,7 +303,7 @@ Transform TransformsInt(Transform* targert, int sub);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformsTransformSelf(Transform* targert, Transform* sub);
+void TransformsTransformSelf(Transform* targert, Transform* sub, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -342,7 +315,7 @@ void TransformsTransformSelf(Transform* targert, Transform* sub);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformsFloatSelf(Transform* targert, float sub);
+void TransformsFloatSelf(Transform* targert, float sub, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -354,7 +327,7 @@ void TransformsFloatSelf(Transform* targert, float sub);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformsIntSelf(Transform* targert, int sub);
+void TransformsIntSelf(Transform* targert, int sub, GameManager* manager, unsigned char currentChunk);
 
 
 
@@ -368,7 +341,7 @@ void TransformsIntSelf(Transform* targert, int sub);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformaTransform(Transform* targert, Transform* add);
+Transform TransformaTransform(Transform* targert, Transform* add, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -380,7 +353,7 @@ Transform TransformaTransform(Transform* targert, Transform* add);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformaFloat(Transform* targert, float add);
+Transform TransformaFloat(Transform* targert, float add, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -392,7 +365,7 @@ Transform TransformaFloat(Transform* targert, float add);
 * RETURNS:
 *	Result of a multiplication
 */
-Transform TransformaInt(Transform* targert, int add);
+Transform TransformaInt(Transform* targert, int add, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -404,7 +377,7 @@ Transform TransformaInt(Transform* targert, int add);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformaTransformSelf(Transform* targert, Transform* add);
+void TransformaTransformSelf(Transform* targert, Transform* add, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -416,7 +389,7 @@ void TransformaTransformSelf(Transform* targert, Transform* add);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformaFloatSelf(Transform* targert, float add);
+void TransformaFloatSelf(Transform* targert, float add, GameManager* manager, unsigned char currentChunk);
 
 /*
 * NAME: TransformxTransform
@@ -428,7 +401,7 @@ void TransformaFloatSelf(Transform* targert, float add);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformaIntSelf(Transform* targert, int add);
+void TransformaIntSelf(Transform* targert, int add, GameManager* manager, unsigned char currentChunk);
 
 
 /*
@@ -440,6 +413,9 @@ void TransformaIntSelf(Transform* targert, int add);
 * RETURNS:
 *	Result of a packing
 */
-void TransformExport(Transform* target);
+long long TransformExport(Transform* target, GameManager* manager, unsigned char currentChunk);
+
+
+
 #pragma pack(pop)
 #endif

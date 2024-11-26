@@ -7,14 +7,11 @@
 
 #include "transform.h"
 
-
 typedef struct Entity {
-	
-	Transform transform;
-	short int currentChunk : 5;
-	short int baseSpeed : 6;
-	short int Texture: 5;
-
+	Transform transform;				
+	unsigned char baseSpeed : 5;			// Base speed of the entity
+	unsigned char Texture : 3;				// Texture what entity has
+	unsigned char Chunk;					// Chunk where entity is in
 } Entity;
 
 #pragma pack(pop)

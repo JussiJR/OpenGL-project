@@ -7,17 +7,16 @@
 
 
 typedef struct VectorPoint {
-	int portalwidth : 5;
-	int index : 4;
-	int Normal : 3;
-	int connection : 4;
-	int PortalRoomIndex : 8;
-	int textureIndex : 5;
-	int PointFlags : 3;
-	unsigned char position[2];
-	short int floorHeight : 5;
-	short int portalheight : 5;
-	short int roofHeight : 5;
+	unsigned long long index : 6;
+	unsigned long long Normal : 3;
+	unsigned long long connection : 6;
+	unsigned long long textureIndex : 6;
+	unsigned long long floorHeight : 8;
+	unsigned long long portalheight : 8;
+	unsigned long long roofHeight : 8;
+	unsigned long long positionX : 9;
+	unsigned long long positionY : 9;
+
 };
 #pragma pack(pop)
 #endif

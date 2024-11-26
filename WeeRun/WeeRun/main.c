@@ -117,7 +117,7 @@
 #include <stdio.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include "GameManager.h"
 
 //!NOTE: Typedefs
 
@@ -144,54 +144,82 @@ int main(int argc, char** argv) {
 		return GLFW_INITIALIZATION_SELF_FAILURE;
 	}
 
-	//! Initialize Window
-	GLFWwindow* window = glfwCreateWindow(GLFW_WINDOW_SIZE_WIDTH, GLFW_WINDOW_SIZE_HEIGHT, "Test", NULL, NULL); // Lmao
-	if (!window) {
+	//!	GLFW Window Hints
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
+	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//!		Setup GLFW VSync
+	glfwSwapInterval(1);
+	{
+		//! Initialize Window
+		GLFWwindow* window = glfwCreateWindow(GLFW_WINDOW_SIZE_WIDTH, GLFW_WINDOW_SIZE_HEIGHT, "Test", NULL, NULL); // Lmao
+		if (!window) {
 #ifdef _DEBUG
-		CONSOLE_LOG_ERROR("Failed to create Window.");
-		CONSOLE_LOG_ERROR("Failed to create Window.");
+			CONSOLE_LOG_ERROR("Failed to create Window.");
+			CONSOLE_LOG_ERROR("Failed to create Window.");
 #endif // _DEBUG
-		glfwTerminate();
-		return GLFW_INITIALIZATION_WINDOW_FAILURE;
-	}
-	
-	//! glfw Context setup
-	glfwMakeContextCurrent(window); 
-	
-	//! Initialize OpenGL
-	if (!gladLoadGL()) {
+			glfwTerminate();
+			return GLFW_INITIALIZATION_WINDOW_FAILURE;
+		}
+
+		//! glfw Context setup
+		glfwMakeContextCurrent(window);
+
+		//!		GLFW Call back set up
+		{
+			
+		}
+
+		//! Add GameManager
+		GameManager gameManager = { 0 };
+		if (!InitializeGameManager(&gameManager)) {
 #ifdef _DEBUG
-		CONSOLE_LOG_ERROR("Failed to load OpenGL methods");
+			CONSOLE_LOG_ERROR("Failed to initialize GameManager.");
+#endif
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			return 
+		}
+
+		//! Initialize OpenGL
+		if (!gladLoadGL()) {
+#ifdef _DEBUG
+			CONSOLE_LOG_ERROR("Failed to load OpenGL methods");
 #endif // _DEBUG
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			return OPENGL_INITIALIZATION_SELF_FAILURE;
+		}
+
+		//! setup OpenGL window 
+		glClearColor(OPENGL_NORMALIZED_CLEAR_COLOR_RED, OPENGL_NORMALIZED_CLEAR_COLOR_GREEN,
+			OPENGL_NORMALIZED__CLEAR_COLOR_BLUE, OPENGL_NORMALIZED_CLEAR_COLOR_ALFA);
+
+
+		//! Main Loop
+		while (!glfwWindowShouldClose(window)) {
+
+			//! Clear buffers
+			glClear(GL_COLOR_BUFFER_BIT);
+
+
+
+			//! Swap front and back buffer
+			glfwSwapBuffers(window);
+
+			//! Poll events
+			glfwPollEvents();
+		}
+
+
+
+		//! GLFW clean up
 		glfwDestroyWindow(window);
 		glfwTerminate();
-		return OPENGL_INITIALIZATION_SELF_FAILURE;
 	}
-
-	//! setup OpenGL window 
-	glClearColor(OPENGL_NORMALIZED_CLEAR_COLOR_RED,OPENGL_NORMALIZED_CLEAR_COLOR_GREEN,
-		OPENGL_NORMALIZED__CLEAR_COLOR_BLUE,OPENGL_NORMALIZED_CLEAR_COLOR_ALFA);
-
-
-	//! Main Loop
-	while (!glfwWindowShouldClose(window)) {
-		
-		//! Clear buffers
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		
-		
-		//! Swap front and back buffer
-		glfwSwapBuffers(window);
-
-		//! Poll events
-		glfwPollEvents();
-	}
-
-
-
-	//! GLFW clean up
-	glfwDestroyWindow(window);
-	glfwTerminate();
 }
 
