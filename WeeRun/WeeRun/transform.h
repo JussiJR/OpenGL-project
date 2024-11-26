@@ -52,6 +52,7 @@
 *	- https://en.wikipedia.org/wiki/Matrix_(mathematics) - Matrix Wikipedia
 *	- https://www.youtube.com/watch?v=p48uw2vFWQs - matrix maths
 *	- https://en.wikipedia.org/wiki/Transformation_matrix - Transform matri
+*	- https://www.geeksforgeeks.org/calling-conventions-in-c-cpp/ - Calling Conversions
 */
 
 #ifndef _transform_h_
@@ -60,6 +61,9 @@
 #pragma pack(1)
 
 //!NOTE: Defines
+
+//!	Header Lock
+#define _transform_h_
 
 //!	Vector
 //!		MinMax values
@@ -74,8 +78,10 @@
 
 
 //!NOTE: Includes
-#include <stdint.h>
 
+#ifndef _STDINT
+#include <stdint.h>
+#endif
 //!NOTE: Typedefs
 
 /*
@@ -179,7 +185,7 @@ Transform TransformxInt(Transform* target, int mult);
 *	- Transform* target : object to be multiplied
 *	- Transform* mult : Transform to be multiplied with
 */
-void TransformxTransformSelf(Transform* target, Transform* mult);
+__fastcall TransformxTransformSelf(Transform* target, Transform* mult);
 
 /*
 * NAME: TransformxTransform
@@ -191,7 +197,7 @@ void TransformxTransformSelf(Transform* target, Transform* mult);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformxFloatSelf(Transform* target, float mult);
+__fastcall TransformxFloatSelf(Transform* target, float mult);
 
 
 /*
@@ -204,5 +210,236 @@ void TransformxFloatSelf(Transform* target, float mult);
 * RETURNS:
 *	Result of a multiplication
 */
-void TransformxIntSelf(Transform* target, int mult);
+__fastcall TransformxIntSelf(Transform* target, int mult);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformdTransform(Transform* target, Transform* div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformdFloat(Transform* target, float div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform Transformdint(Transform* target, int div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformdTransformSelf(Transform* target, Transform* div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformdFloatSelf(Transform* target, float div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformdIntSelf(Transform* target, int div);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformsTransform(Transform* targert, Transform* sub);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformsFloat(Transform* targert, float sub);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformsInt(Transform* targert, int sub);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformsTransformSelf(Transform* targert, Transform* sub);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformsFloatSelf(Transform* targert, float sub);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformsIntSelf(Transform* targert, int sub);
+
+
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformaTransform(Transform* targert, Transform* add);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformaFloat(Transform* targert, float add);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+Transform TransformaInt(Transform* targert, int add);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformaTransformSelf(Transform* targert, Transform* add);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformaFloatSelf(Transform* targert, float add);
+
+/*
+* NAME: TransformxTransform
+* SUMMARY:
+*	Used for  divide between Transforms and Transforms
+* PRAMATERS:
+*	- Transform* target : object to be added into
+*	- float mult : float to be added
+* RETURNS:
+*	Result of a multiplication
+*/
+__fastcall TransformaIntSelf(Transform* targert, int add);
+
+
+/*
+* NAME: TransformExport
+* SUMMARY:
+*	Used for  Exporting object for vertex shader to use
+* PRAMATERS:
+*	- Transform* target : target object
+* RETURNS:
+*	Result of a packing
+*/
+__fastcall TransformExport(Transform* target);
+
 #endif

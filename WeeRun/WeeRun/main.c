@@ -54,17 +54,20 @@
 //!	GLFW
 
 //!		GLFW custom error hexadecimals
-#define GLFW_INITIALIZATION_SELF_FAILURE -2735 // GLFW initialization failure.
-#define GLFW_INITIALIZATION_WINDOW_FAILURE -2751 // GLFW Window initialization failure.
+#define GLFW_INITIALIZATION_SELF_FAILURE -2735			// GLFW initialization failure.
+#define GLFW_INITIALIZATION_WINDOW_FAILURE -2751		// GLFW Window initialization failure.
+
+//!			Header loading Definitions;
+#define GLFW_INCLUDE_NONE
 
 //!			Window
-#define GLFW_WINDOW_SIZE_WIDTH 800 // Window Width
-#define GLFW_WINDOW_SIZE_HEIGHT 540 // Widnow Height
+#define GLFW_WINDOW_SIZE_WIDTH 800						// Window Width
+#define GLFW_WINDOW_SIZE_HEIGHT 540						// Widnow Height
 
 //!	OpenGL
 
 //!		OpenGL custom error hexadecimals
-#define OPENGL_INITIALIZATION_SELF_FAILURE -2991 // OPENGL initialization failure.
+#define OPENGL_INITIALIZATION_SELF_FAILURE -2991		// OPENGL initialization failure.
 
 //!		OpenGL Clear Color
 
@@ -91,7 +94,7 @@
 //			Colors
 #define COLOR_CODE_RED "\e[0;31m"			// Red
 #define COLOR_CODE_YELLOW "\e[0;33m"		//Yellow
-
+#define COLOR_CODE_WHITE "\e[0;37m"			//White
 
 //			Reset
 #define COLOR_CODE_RESET "\e[0m"
@@ -101,9 +104,10 @@
 #ifdef _DEBUG
 //!		Debugging
 
-//			Debug Logs
+//!			Debug Logs
 #define CONSOLE_LOG_ERROR(message) fprintf(stderr,COLOR_CODE_RED message COLOR_CODE_RESET)			// Error log
 #define CONSOLE_LOG_WARNING(message) fprintf(stderr, COLOR_CODE_YELLOW message COLOR_CODE_RESET)	// Warning log
+#define CONSOLE_LOG(message) fprintf(stderr, COLOR_CODE_WHITE message COLOR_CODE_RESET)	// log
 
 
 
@@ -144,6 +148,7 @@ int main(int argc, char** argv) {
 	GLFWwindow* window = glfwCreateWindow(GLFW_WINDOW_SIZE_WIDTH, GLFW_WINDOW_SIZE_HEIGHT, "Test", NULL, NULL); // Lmao
 	if (!window) {
 #ifdef _DEBUG
+		CONSOLE_LOG_ERROR("Failed to create Window.");
 		CONSOLE_LOG_ERROR("Failed to create Window.");
 #endif // _DEBUG
 		glfwTerminate();
