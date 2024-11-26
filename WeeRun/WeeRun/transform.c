@@ -20,19 +20,19 @@ Transform TransformxInt(Transform* target, int mult)
 }
 
 //! Tranform X Transform Set
-__fastcall TransformxTransformSelf(Transform* target, Transform* mult)
+void TransformxTransformSelf(Transform* target, Transform* mult)
 {
 
 }
 
 //! Tranform X float Set
-__fastcall TransformxFloatSelf(Transform* target, float mult)
+void TransformxFloatSelf(Transform* target, float mult)
 {
 
 }
 
 //! Tranform X int self
-__fastcall TransformxIntSelf(Transform* target, int mult)
+void TransformxIntSelf(Transform* target, int mult)
 {
 
 
@@ -56,16 +56,16 @@ Transform Transformdint(Transform* target, int div)
 
 }
 //! Transform D Transform
-__fastcall TransformdTransformSelf(Transform* target, Transform* div)
+void TransformdTransformSelf(Transform* target, Transform* div)
 {
 }
 //! Transform D Transform
-__fastcall TransformdFloatSelf(Transform* target, float div)
+void TransformdFloatSelf(Transform* target, float div)
 {
 }
 
 //! Transform D Transform
-__fastcall TransformdIntSelf(Transform* target, int div)
+void TransformdIntSelf(Transform* target, int div)
 {
 }
 
@@ -88,17 +88,17 @@ Transform TransformsInt(Transform* targert, int sub)
 }
 
 //! Transform S Transform
-__fastcall TransformsTransformSelf(Transform* targert, Transform* sub)
+void  TransformsTransformSelf(Transform* targert, Transform* sub)
 {
 }
 
 //! Transform S Transform
-__fastcall TransformsFloatSelf(Transform* targert, float sub)
+void  TransformsFloatSelf(Transform* targert, float sub)
 {
 }
 
 //! Transform S Transform
-__fastcall TransformsIntSelf(Transform* targert, int sub)
+void  TransformsIntSelf(Transform* targert, int sub)
 {
 }
 
@@ -121,21 +121,21 @@ Transform TransformaInt(Transform* targert, int add)
 }
 
 //! Transform A Transform
-__fastcall TransformaTransformSelf(Transform* targert, Transform* add)
+void  TransformaTransformSelf(Transform* targert, Transform* add)
 {
 }
 
 //! Transform A Transform
-__fastcall TransformaFloatSelf(Transform* targert, float add)
+void  TransformaFloatSelf(Transform* targert, float add)
 {
 }
 
 //! Transform A Transform
-__fastcall TransformaIntSelf(Transform* targert, int add)
+void  TransformaIntSelf(Transform* targert, int add)
 {
 }
 
 //! Transform A Transform
-__fastcall TransformExport(Transform* target)
+void  TransformExport(Transform* target)
 {
 }

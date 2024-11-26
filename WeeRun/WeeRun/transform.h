@@ -185,7 +185,7 @@ Transform TransformxInt(Transform* target, int mult);
 *	- Transform* target : object to be multiplied
 *	- Transform* mult : Transform to be multiplied with
 */
-__fastcall TransformxTransformSelf(Transform* target, Transform* mult);
+void TransformxTransformSelf(Transform* target, Transform* mult);
 
 /*
 * NAME: TransformxTransform
@@ -197,7 +197,7 @@ __fastcall TransformxTransformSelf(Transform* target, Transform* mult);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformxFloatSelf(Transform* target, float mult);
+void TransformxFloatSelf(Transform* target, float mult);
 
 
 /*
@@ -210,7 +210,7 @@ __fastcall TransformxFloatSelf(Transform* target, float mult);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformxIntSelf(Transform* target, int mult);
+void TransformxIntSelf(Transform* target, int mult);
 
 /*
 * NAME: TransformxTransform
@@ -258,7 +258,7 @@ Transform Transformdint(Transform* target, int div);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformdTransformSelf(Transform* target, Transform* div);
+void TransformdTransformSelf(Transform* target, Transform* div);
 
 /*
 * NAME: TransformxTransform
@@ -270,7 +270,7 @@ __fastcall TransformdTransformSelf(Transform* target, Transform* div);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformdFloatSelf(Transform* target, float div);
+void TransformdFloatSelf(Transform* target, float div);
 
 /*
 * NAME: TransformxTransform
@@ -282,7 +282,7 @@ __fastcall TransformdFloatSelf(Transform* target, float div);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformdIntSelf(Transform* target, int div);
+void TransformdIntSelf(Transform* target, int div);
 
 /*
 * NAME: TransformxTransform
@@ -330,7 +330,7 @@ Transform TransformsInt(Transform* targert, int sub);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformsTransformSelf(Transform* targert, Transform* sub);
+void TransformsTransformSelf(Transform* targert, Transform* sub);
 
 /*
 * NAME: TransformxTransform
@@ -342,7 +342,7 @@ __fastcall TransformsTransformSelf(Transform* targert, Transform* sub);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformsFloatSelf(Transform* targert, float sub);
+void TransformsFloatSelf(Transform* targert, float sub);
 
 /*
 * NAME: TransformxTransform
@@ -354,7 +354,7 @@ __fastcall TransformsFloatSelf(Transform* targert, float sub);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformsIntSelf(Transform* targert, int sub);
+void TransformsIntSelf(Transform* targert, int sub);
 
 
 
@@ -404,7 +404,7 @@ Transform TransformaInt(Transform* targert, int add);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformaTransformSelf(Transform* targert, Transform* add);
+void TransformaTransformSelf(Transform* targert, Transform* add);
 
 /*
 * NAME: TransformxTransform
@@ -416,7 +416,7 @@ __fastcall TransformaTransformSelf(Transform* targert, Transform* add);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformaFloatSelf(Transform* targert, float add);
+void TransformaFloatSelf(Transform* targert, float add);
 
 /*
 * NAME: TransformxTransform
@@ -428,7 +428,7 @@ __fastcall TransformaFloatSelf(Transform* targert, float add);
 * RETURNS:
 *	Result of a multiplication
 */
-__fastcall TransformaIntSelf(Transform* targert, int add);
+void TransformaIntSelf(Transform* targert, int add);
 
 
 /*
@@ -440,6 +440,6 @@ __fastcall TransformaIntSelf(Transform* targert, int add);
 * RETURNS:
 *	Result of a packing
 */
-__fastcall TransformExport(Transform* target);
-
+void TransformExport(Transform* target);
+#pragma pack(pop)
 #endif

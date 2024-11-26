@@ -15,7 +15,7 @@ typedef struct Entity {
 	short int baseSpeed : 6;
 	short int Texture: 5;
 
-
 } Entity;
 
+#pragma pack(pop)
 #endif

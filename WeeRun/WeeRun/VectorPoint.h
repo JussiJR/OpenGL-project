@@ -19,5 +19,5 @@ typedef struct VectorPoint {
 	short int portalheight : 5;
 	short int roofHeight : 5;
 };
-
+#pragma pack(pop)
 #endif

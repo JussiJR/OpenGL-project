@@ -142,11 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.c" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="transform.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="VectorPoint.h" />
   </ItemGroup>
