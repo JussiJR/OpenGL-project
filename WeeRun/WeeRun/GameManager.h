@@ -1,6 +1,7 @@
 
 //https://ktstephano.github.io/rendering/opengl/ssbos - SSBOs usage
 //https://learnopengl.com/Getting-started/Shaders - Shader creation
+//https://community.khronos.org/t/multiple-ssbos-access/111107 - SSBOs info more
 
 #ifndef __gamemanager_h__
 #define __gamemanager_h__
