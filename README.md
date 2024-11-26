@@ -14,6 +14,7 @@ I got this bad idea after watching some guy building cool Doom like game with ex
 - [Depencies](#Depencies)
 - [Exeption codes](#Exceptions)
 - [Links used](#Links)
+- [Devlog](#Devlog)
 
 # Depencies 
 
@@ -60,7 +61,7 @@ You know it is such a pain to do a lot of work while you know there is some libr
 
 </summary>
 
-I know the page mentions something about security well... it was only one what I was familiar with already except SDL2 Image well I would have been needed to change GLFW to it and so on...
+I know the page mentions something about security well... it was only one what I was familiar with already except SDL2 Image well I would have been needed to change GLFW to it and so on... so for the sake of this we use it like this.
 
 </details>
 
@@ -144,6 +145,34 @@ it is used for managing windows and key callbacks Yay!
 </summary>
 
 It was pain to find documentation but here some sort of :)
+
+</details>
+</details>
+
+<details>
+<summary>
+
+# Devlog
+
+</summary>
+ <blockquote>
+<details>
+<summary>
+
+## 1. week
+
+</summary>
+
+<blockquote>
+<details>
+<summary>
+
+### - Monday
+
+</summary>
+
+<blockquote>
+I crashed to my newly created project and wasted 10 hours with random ass shit aka how IEEE 754 Single, half and double precision flaoting points work... Then I took hold of my self and created this wholesome Window with purple background
 
 </details>
 </details>
