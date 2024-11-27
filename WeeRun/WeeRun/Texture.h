@@ -8,7 +8,7 @@ class TextureBase {
 public:
 
 	GLuint ID;
-
+	TextureBase();
 	TextureBase(const char* path);
 
 

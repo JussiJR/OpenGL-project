@@ -1,5 +1,9 @@
 #include "ShaderProgram.h"
 inline string readFile(const char* path);
+ShaderProgram::ShaderProgram()
+{
+	ID = 0;
+}
 ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 {
 	{

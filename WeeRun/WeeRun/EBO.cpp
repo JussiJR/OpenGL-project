@@ -1,5 +1,10 @@
 #include"EBO.h"
 
+EBO::EBO()
+{
+	ID = 0;
+}
+
 // Constructor that generates a Elements Buffer Object and links it to indices
 EBO::EBO(std::vector<GLubyte>& indices)
 {

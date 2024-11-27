@@ -15,6 +15,7 @@ class ShaderProgram {
 public:
 	GLuint ID;
 
+	ShaderProgram();
 	ShaderProgram(const char* vertexPath, const char* fragmentPath);
 
 	void Activate();

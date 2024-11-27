@@ -3,8 +3,8 @@
 GameManager::GameManager()
 {
 	//!		Textures
-	_mapTextures = TextureBase("");
-	_Textures = TextureBase("");
+	_mapTextures;
+	_Textures;
 	vector<GLubyte> x;
 	//!		Rendering
 	_shader = ShaderProgram("","");
