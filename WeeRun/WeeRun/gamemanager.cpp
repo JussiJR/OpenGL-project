@@ -1,5 +1,6 @@
 #include "gamemanager.h"
 
+
 GameManager::GameManager(const char* path)
 {
 	//!		Initialized
@@ -30,8 +31,9 @@ GameManager::GameManager(const char* path)
 	//!		Render settings
 	_fieldOfView = 90;
 
+	_currentChunk = 0;
 
-
+	_yaw = 0.0f;
 
 }
 
@@ -66,24 +68,24 @@ GameManager::~GameManager()
 
 int GameManager::Update(int* errorc)
 {
-	*errorc = 0;
-
-
 	return *errorc;
+	return EXIT_SUCCESS;
 }
 
 int GameManager::FixedUpdate(int* errorc)
 {
-	*errorc = 0;
 
 	return *errorc;
+	return EXIT_SUCCESS;
 }
 
-int GameManager::Render(int* errorc,float render_distance)
+int GameManager::Render(int* errorc,int render_distance)
 {
-	*errorc = 0; // set return code into default
-	
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
 
+
+
 	return *errorc;
+	return EXIT_SUCCESS;
+
 }

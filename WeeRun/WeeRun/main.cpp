@@ -100,6 +100,7 @@ int main(int argc, char** argv){
 
 	
 	{
+		int errorc = 0;
 
 		//!			Game manager
 		GameManager manager = GameManager("");
@@ -127,7 +128,8 @@ int main(int argc, char** argv){
 
 			//!	WeeRun
 			//TODO: Add Update methods 
-			//TODO: Add Rendering methods 
+			//!		Rendering
+			manager.Render(&errorc, GAMEMANAGER_RENDERER_DISTANCE);
 
 			//! GLFW
 			//!		Swap buffers

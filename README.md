@@ -1,6 +1,6 @@
 
 
-# Project Summary:
+# Information about project:
 
 
 Project is written in c++ and is part of the School activity of Writing program what uses APIs. 
@@ -10,7 +10,7 @@ I got this bad idea after watching some guy building cool Doom like game with ex
 
 ### Rendering
 
-So well many think that I just render all well yes and no this uses some ideas I found youtube and some 1990 game industry's fans may know :). it renders each scene or room player sees as own scene. Well this is atleast the idea is that. (this is written before any part of the rendering part was really written).
+So well many think that I just render all well yes and no this uses some ideas I found youtube and some 1990 game industry's fans may know :). it renders each scene or room player sees as own scene. Well this is atleast the idea is that. (this is written before any part of the rendering part was really written). So idea is to run 
 
 ### Initialization
 

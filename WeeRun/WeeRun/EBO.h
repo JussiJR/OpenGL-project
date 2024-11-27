@@ -1,28 +1,62 @@
+
+
+
+
+
 #ifndef EBO_CLASS_H
 #define EBO_CLASS_H
 
+
+//!Includes
+//!		OpenGL
 #include<glad/glad.h>
+
+//!		Vector
 #include<vector>
 
+
+//!	Defines
+
+
+//!	Classes
+//!		Element buffer object
+
+/// <summary>
+/// EBO or Element buffer object is for rendering it gives info how the objects are drawn
+/// </summary>
 class EBO
 {
 public:
 
-	// ID reference of Elements Buffer Object
+	/// <summary>
+	/// ID for Elemeent buffer object
+	/// </summary>
 	GLuint ID;
 	
+	/// <summary>
+	/// Empty contructor
+	/// </summary>
 	EBO();
-	// Constructor that generates a Elements Buffer Object and links it to indices
+	
+	/// <summary>
+	/// Actual constructor
+	/// </summary>
+	/// <param name="indices"> Indices</param>
 	EBO(std::vector<GLubyte>& indices);
 
-	// Binds the EBO
+	/// <summary>
+	/// Bind method for EBO
+	/// </summary>
 	void Bind();
 	
-	// Unbinds the EBO
+	/// <summary>
+	/// Unbind method for EBO
+	/// </summary>
 	void Unbind();
 	
-	// Deletes the EBO
+	/// <summary>
+	/// Delete method for EBO
+	/// </summary>
 	void Delete();
 };
-
 #endif

@@ -30,7 +30,7 @@
 *	                                                    __/ |
 *	                                                   |___/
 *
-*		
+*		this object is used for storing lot of stuff more than 16kb to be precise aka chunks XD
 *
 *
 *
