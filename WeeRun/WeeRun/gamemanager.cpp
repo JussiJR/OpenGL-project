@@ -72,6 +72,13 @@ int GameManager::Update(int* errorc)
 	return *errorc;
 }
 
+int GameManager::FixedUpdate(int* errorc)
+{
+	*errorc = 0;
+
+	return *errorc;
+}
+
 int GameManager::Render(int* errorc,float render_distance)
 {
 	*errorc = 0; // set return code into default

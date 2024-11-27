@@ -128,13 +128,18 @@ public:
 	int Update(int* errorc);
 
 	/// <summary>
+	/// Method for fixed updating game ( Called fixed amount in second )
+	/// </summary>
+	/// <param name="errorc"> call back return for backtracking etc.</param>
+	/// <returns>0 if all goes according to plan otherwise error code as hexadecimal.</returns>
+	int FixedUpdate(int* errorc);
+
+	/// <summary>
 	/// Method for rendering ( called once every frame )
 	/// </summary>
 	/// <param name="errorc"> callback kind of value</param>
 	/// <param name="render_distance">constant float of render distance ( aka how much game will render</param>
 	int Render(int* errorc,float render_distance);
-
-
 };
 
 #endif
