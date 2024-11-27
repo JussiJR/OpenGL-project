@@ -80,6 +80,11 @@
 //!			Header files
 #include <stdio.h>
 
+//!		Game manager
+#ifndef __gameamanager_h_
+//!			Header files
+#include "gamemanager.h"
+#endif
 //!		GLFW 
 #if !defined(_glfw3_h_)
 
@@ -113,7 +118,7 @@
 #define INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_RED 0.675f
 #define INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_GREEN 0.522f
 #define INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_BLUE 1.0f
-#define INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_ALFA 0.937
+#define INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_ALFA 0.6937f
 
 //!		Exceptions
 //!			GLFW

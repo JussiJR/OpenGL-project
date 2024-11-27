@@ -1,7 +1,6 @@
 #pragma once
 #ifndef __gamemanager_h_
 #define __gamemanager_h_
-#pragma pack(1)
 
 #include "Texture.h"
 #include "VBO.h"
@@ -11,6 +10,10 @@
 #include <iostream>
 #include "SSBO.h"
 
+#define EXCEPTION_GAMEMANAGER_INITIALIZATION_MAPNOTFOUND 0x301F
+#define EXCEPTION_GAMEMANAGER_INITÍALIZATION_SHADER_VERTEXNOTFOUND 0x302F
+#define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
+#define EXCEPTION_GAMEMANAGER_INITIA
 
 #define ENTITY_PLAYER_INDEX 0
 
@@ -52,9 +55,10 @@ private:
 	//!		Render settings
 	unsigned int _fieldOfView: 7;
 
-	//!		Time scale
-	unsigned int _timeScale : 1;
+
 public:
+	//!		Time scale
+	unsigned int Initialized;
 
 	GameManager(const char* path);
 	~GameManager();
@@ -64,5 +68,4 @@ public:
 	void Render(int* errorc,float render_distance);
 };
 
-#pragma pack(pop)
 #endif

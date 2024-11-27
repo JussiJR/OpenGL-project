@@ -2,6 +2,9 @@
 
 GameManager::GameManager(const char* path)
 {
+	//!		Initialized
+	Initialized = 0;
+
 	//!		Textures
 	_mapTextures;
 	_Textures;
@@ -28,8 +31,7 @@ GameManager::GameManager(const char* path)
 	//!		Render settings
 	_fieldOfView = 90;
 
-	//!		Time scale
-	_timeScale = 0;
+
 
 
 }
@@ -60,7 +62,7 @@ GameManager::~GameManager()
 	_fieldOfView = 90;
 
 	//!		Time scale
-	_timeScale = 0;
+	Initialized = 0;
 }
 
 void GameManager::Update(int* errorc)

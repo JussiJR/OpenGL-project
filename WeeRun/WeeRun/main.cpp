@@ -98,30 +98,46 @@ int main(int argc, char** argv){
 #endif
 	}
 
-	//!			Color buffer
-	glClearColor(INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_RED,INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_GREEN,
-		INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_BLUE,INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_ALFA);
+	
+	{
 
-	//!	Main loop
-	while (!glfwWindowShouldClose(window)) {
+		//!			Game manager
+		GameManager manager = GameManager("");
+		if (manager.Initialized) {
+			manager.~GameManager();
+			 
+			//Possible problem if refrenced
+			int eMessage = manager.Initialized;
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			return eMessage;
+		}
 
-		//!	OpenGL
-		//!		Clear buffers
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		//!			Color buffer
+		glClearColor(INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_RED, INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_GREEN,
+			INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_BLUE, INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_ALFA);
+
+		//!	Main loop
+		while (!glfwWindowShouldClose(window)) {
+
+			//!	OpenGL
+			//!		Clear buffers
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 
-		//!	WeeRun
-		//TODO: Add Update methods 
-		//TODO: Add Rendering methods 
+			//!	WeeRun
+			//TODO: Add Update methods 
+			//TODO: Add Rendering methods 
 
-		//! GLFW
-		//!		Swap buffers
-		glfwSwapBuffers(window);
+			//! GLFW
+			//!		Swap buffers
+			glfwSwapBuffers(window);
 #ifdef _DEBUG
-		glfwWaitEvents();
+			glfwWaitEvents();
 #else
-		glfwPollEvents();
+			glfwPollEvents();
 #endif
+		}
 	}
 
 	glfwTerminate();

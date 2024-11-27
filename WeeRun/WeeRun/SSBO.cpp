@@ -2,10 +2,16 @@
 
 SSBO::SSBO()
 {
+	ID = 0;
+}
+
+SSBO::SSBO(std::vector<void*> data, GLenum type)
+{
 	glGenBuffers(1, &ID);
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ID);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(int) * , data​, GLenum usage); //sizeof(data) only works for statically sized C/C++ arrays.
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, ID);
+	glNamedBufferStorage(ID,
+		sizeof(uint_fast64_t) *data.size(),
+		(const void*)data.data(),
+		GL_DYNAMIC_STORAGE_BIT);
 }
 
 void SSBO::Update(void* data)
