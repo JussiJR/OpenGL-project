@@ -42,14 +42,42 @@
 *	 | |  | ||  __/| |_ | | | || (_) || (_| |\__ \ _
 *	 \_|  |_/ \___| \__||_| |_| \___/  \__,_||___/(_)
 *
+* 
+* 
+*	
+*		<summary>
+*		Empty contstructor
+*		</summary>
+*		SSBO();
+*	
+*		<summary>
+*		Real constructor
+*		</summary>
+*		<param name="data"> Data to be init</param>
+*		<param name="type"> Type of the memory space</param>
+*		<param name="index"> Index where ssbo will be inserted in buffer</param>
+*		SSBO(std::vector<void*> data, GLenum type, int index);
+*		
+*
+*		<summary>
+*		Update method for data inside of a SSBO
+*		</summary>
+*		<param name="size">Size of the are</param>
+*		<param name="offset">Offset for the starting point</param>
+*		<param name="data">data to be inserted</param>
+*		void Update(GLintptr size, GLintptr offset, const void* data);
 *
 *
-*
-*
-*
-*
-*
-*
+*		<summary>
+*		Activation method
+*		</summary>
+*		void Activate();
+*	
+*	
+*		<summary>
+*		Disposing method or more precisely wrapper around opengl
+*		</summary>
+*		void Delete();
 *
 *	  _   __                                   _
 *	 | | / /                                  (_)                             _
