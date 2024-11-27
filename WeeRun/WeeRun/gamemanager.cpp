@@ -15,7 +15,6 @@ GameManager::GameManager(const char* path)
 
 	//!		Uniforms
 	_viewMatrixUniform = 0;
-	_basePositionUniform = 0;
 
 	//!		Player	
 	_haunted = 0;
@@ -65,18 +64,19 @@ GameManager::~GameManager()
 	Initialized = 0;
 }
 
-void GameManager::Update(int* errorc)
+int GameManager::Update(int* errorc)
 {
-	errorc = 0;
+	*errorc = 0;
 
 
-
+	return *errorc;
 }
 
-void GameManager::Render(int* errorc,float render_distance)
+int GameManager::Render(int* errorc,float render_distance)
 {
-	errorc = 0; // set return code into default
+	*errorc = 0; // set return code into default
 	
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
 
+	return *errorc;
 }

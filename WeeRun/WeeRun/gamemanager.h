@@ -29,43 +29,112 @@ private:
 	TextureBase _Textures;
 
 	//!		Objects
+	
+	/// <summary>
+	/// SSBO for _Map's data ( Will not change after loading map
+	/// </summary>
 	SSBO _mapData;
+
+	/// <summary>
+	/// SSBO for Entitys
+	/// </summary>
 	SSBO _entityData;
 
 	//!		Rendering
+	
+	/// <summary>
+	/// Shader program 
+	/// </summary>
 	ShaderProgram _shader;
+
+	/// <summary>
+	/// vertexArray of sizes for instanced rendering
+	/// </summary>
 	VAO _vertexArray;
+
+	/// <summary>
+	/// Indices 
+	/// </summary>
 	EBO _indices;
 
 	//!		Uniforms
+	
+	/// <summary>
+	/// ViewMatrix uniform link 
+	/// </summary>
 	GLuint _viewMatrixUniform;
-	GLuint _basePositionUniform;
 
 	//!		Player	
+	
+	/// <summary>
+	/// Is player haunted (does enemies get your location
+	/// </summary>
 	unsigned int _haunted : 1;
 	
 	//!		Game settings
+	
+	/// <summary>
+	/// Difficulty level or damage multiplier and health multiplier
+	/// </summary>
 	unsigned int _difficulty : 3;
+	
+	/// <summary>
+	/// Game objective
+	/// </summary>
 	unsigned int _gameMode : 1;
 
 	//!		Counters
+	
+	/// <summary>
+	/// Timer with atleast of 1 hour or 68 minutes to be exact and 1/4 of minute on top 
+	/// </summary>
 	unsigned int _unixTimer : 12;
+
+	/// <summary>
+	/// how many entities are in map ( includes entity that represents player ) 
+	/// </summary>
 	unsigned int _entityCount : 7;
 
 	//!		Render settings
+	
+	/// <summary>
+	/// Field of View for calculations and for those who wish to use cheat engine to break rendering system.
+	/// </summary>
 	unsigned int _fieldOfView: 7;
 
 
 public:
-	//!		Time scale
+
+	/// <summary>
+	/// Gives data about is game manager properly initialized.
+	/// </summary>
 	unsigned int Initialized;
 
+	/// <summary>
+	/// One and only constructor
+	/// </summary>
+	/// <param name="path">Path to map</param>
 	GameManager(const char* path);
+
+	/// <summary>
+	/// Destructor
+	/// </summary>
 	~GameManager();
 
-	void Update(int* errorc);
+	/// <summary>
+	/// Method for updating game ( called once every frame )
+	/// </summary>
+	/// <param name="errorc">kind of call back to return error it may have countered</param>
+	int Update(int* errorc);
 
-	void Render(int* errorc,float render_distance);
+	/// <summary>
+	/// Method for rendering ( called once every frame )
+	/// </summary>
+	/// <param name="errorc"> callback kind of value</param>
+	/// <param name="render_distance">constant float of render distance ( aka how much game will render</param>
+	int Render(int* errorc,float render_distance);
+
+
 };
 
 #endif

@@ -112,11 +112,11 @@
 #if !defined(__glfw3_h_)
 
 //!			Definitions
-#if !defined(GLFW_INCLUDE_NONE)
-#define GLFW_INCLUDE_NONE
-#endif
+	#if !defined(GLFW_INCLUDE_NONE)
+	#define GLFW_INCLUDE_NONE
+	#endif
 //!			Header files
-#include <GLFW/glfw3.h>
+	#include <GLFW/glfw3.h>
 
 #endif
 
@@ -128,6 +128,8 @@
 
 //!		Vector
 #include <vector>
+
+//! Definitions
 
 
 //!	Classes
