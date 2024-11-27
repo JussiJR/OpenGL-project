@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{9944fa87-856f-45eb-8d8c-34b9e8e9878f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{40ec75fc-d4dc-4012-8b14-768972dd5bcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -43,9 +46,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SSBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,11 +74,16 @@
     <ClInclude Include="SSBO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="chunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex.vert" />
+    <None Include="map_test.json">
+      <Filter>Resource Files\Maps</Filter>
+    </None>
+    <None Include="vertex.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
