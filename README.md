@@ -28,6 +28,12 @@ Program was not written that in mind and there for it does not have very high de
 
 Well when I started to plan this project I wanted just some kind of surfing idea but then I saw cool 3D game with same kind of idea where there was dynamicly animated eye ball... One of my friends also talked on the same time about some random steam games and that lead to doom kind of game graphic level with amateur graphics creator with too mutch on his plate.
 
+
+### Use of AI
+
+Good question in my opinion since I have only month it is wise to use some kind of map creation thing to make maps but I do not have that mutch time so as long as it is not used in commercial use it is fine... Well I had to make some kind of map creator and to save time I just made about 5000 copyright infringement... YAY pls dont sue me... anyways... since my main thing is in openGL part and 3D rendering month to do it is little time counting up also to the matter that it needs to be playable. me doing json files by hand oh boy lol.
+
+
 # Contents:
 
 - [Depencies](#Depencies)
