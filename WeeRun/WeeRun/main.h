@@ -76,9 +76,9 @@
 
 //!	Includes
 
-//!		iostream
+//!		stdio
 //!			Header files
-#include <iostream>
+#include <stdio.h>
 
 //!		GLFW 
 #if !defined(_glfw3_h_)
@@ -124,6 +124,12 @@
 //!			OpenGL
 //!				Initialization
 #define EXCEPTIONS_OPENGL_INITIALIZATION_GLADLOADGL 0x20F
+
+//!		Misc
+//!			Exit codes
+#if !defined(EXIT_SUCCESS)
+#define EXIT_SUCCESS 0
+#endif
 
 #if defined(_DEBUG)
 //!		Debug

@@ -142,14 +142,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SSBO.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VAO.cpp" />
+    <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="transform-note.txt" />
+    <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EBO.h" />
+    <ClInclude Include="gamemanager.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SSBO.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VAO.h" />
+    <ClInclude Include="VBO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

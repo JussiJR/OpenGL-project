@@ -58,7 +58,7 @@ int main(int argc, char** argv){
 	//!				Window's context version
 
 	//!					Window's context version major
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 
 	//!					Window's context version minor
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -111,7 +111,8 @@ int main(int argc, char** argv){
 
 
 		//!	WeeRun
-		
+		//TODO: Add Update methods 
+		//TODO: Add Rendering methods 
 
 		//! GLFW
 		//!		Swap buffers
