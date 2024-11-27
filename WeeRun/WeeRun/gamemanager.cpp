@@ -68,9 +68,15 @@ GameManager::~GameManager()
 void GameManager::Update(int* errorc)
 {
 	errorc = 0;
+
+
+
 }
 
 void GameManager::Render(int* errorc,float render_distance)
 {
-	errorc = 0;
+	errorc = 0; // set return code into default
+	
+	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
+
 }

@@ -8,6 +8,25 @@ Program uses few Open Source and documented libraries but is mostly self written
 
 I got this bad idea after watching some guy building cool Doom like game with exciting looking rendering system. so here we are :). Enjoy
 
+### Rendering
+
+So well many think that I just render all well yes and no this uses some ideas I found youtube and some 1990 game industry's fans may know :). it renders each scene or room player sees as own scene. Well this is atleast the idea is that. (this is written before any part of the rendering part was really written).
+
+### Initialization
+
+So idea is to use Json files to load map's and spawn points for enemies
+
+### Optimization
+
+so the problem here is that this had to be written in one month and also documented in that time so I had to already multitask... Where I am going with this is that there is not that mutch put mind into optimization... well other than the fact of the game testing was done with literal potato... well atleast by 2010 standards.
+
+### Versetility 
+
+Program was not written that in mind and there for it does not have very high definition of it in it
+
+### Graphics
+
+Well when I started to plan this project I wanted just some kind of surfing idea but then I saw cool 3D game with same kind of idea where there was dynamicly animated eye ball... One of my friends also talked on the same time about some random steam games and that lead to doom kind of game graphic level with amateur graphics creator with too mutch on his plate.
 
 # Contents:
 

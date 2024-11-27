@@ -21,6 +21,7 @@ void SSBO::Update(GLintptr size,GLintptr offset,const void* data)
 
 void SSBO::Activate()
 {
+
 }
 
 void SSBO::Delete()
