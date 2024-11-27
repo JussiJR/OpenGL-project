@@ -9,6 +9,7 @@
 #include "VAO.h"
 #include "ShaderProgram.h"
 #include <iostream>
+#include "SSBO.h"
 
 
 #define ENTITY_PLAYER_INDEX 0
@@ -23,6 +24,10 @@ private:
 	//!		Textures
 	TextureBase _mapTextures;
 	TextureBase _Textures;
+
+	//!		Objects
+	SSBO _mapData;
+	SSBO _entityData;
 
 	//!		Rendering
 	ShaderProgram _shader;
@@ -51,16 +56,12 @@ private:
 	unsigned int _timeScale : 1;
 public:
 
-	GameManager();
-
+	GameManager(const char* path);
+	~GameManager();
 
 	void Update(int* errorc);
 
-
-	void Render(int* errorc);
-
-	
-
+	void Render(int* errorc,float render_distance);
 };
 
 #pragma pack(pop)

@@ -2,6 +2,7 @@
 
 TextureBase::TextureBase()
 {
+	ID = 0;
 }
 
 TextureBase::TextureBase(const char* path)

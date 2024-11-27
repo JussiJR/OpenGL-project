@@ -21,11 +21,6 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 			glShaderSource(fragmentShader, 1, &fragCode, NULL);
 			glCompileShader(fragmentShader);
 
-			//! Free codes
-			//? NOTE: might do something with life time
-			free(&vertexCode);
-			free(&vertexCode);
-
 			//!	Shader program
 			ID = glCreateProgram();
 			glAttachShader(ID, vertexShader);
@@ -34,6 +29,11 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
+			
+			//! Free codes
+			//? NOTE: might do something with life time
+			free(&vertexCode);
+			free(&vertexCode);
 		}
 	}
 
