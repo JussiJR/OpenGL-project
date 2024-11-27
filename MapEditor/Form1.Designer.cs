@@ -29,6 +29,8 @@ namespace MapEditor
         /// </summary>
         private void InitializeComponent()
         {
+
+
             this.lstChunks = new System.Windows.Forms.ListBox();
             this.btnAddChunk = new System.Windows.Forms.Button();
             this.btnRemoveChunk = new System.Windows.Forms.Button();
@@ -145,7 +147,7 @@ namespace MapEditor
             // 
             // btnSaveToJson
             // 
-            this.btnSaveToJson.Location = new System.Drawing.Point(301, 217);
+            this.btnSaveToJson.Location = new System.Drawing.Point(301, 350);
             this.btnSaveToJson.Name = "btnSaveToJson";
             this.btnSaveToJson.Size = new System.Drawing.Size(120, 23);
             this.btnSaveToJson.TabIndex = 10;
@@ -168,7 +170,7 @@ namespace MapEditor
             this.cmbChunks.FormattingEnabled = true;
             this.cmbChunks.Location = new System.Drawing.Point(301, 74);
             this.cmbChunks.Name = "cmbChunks";
-            this.cmbChunks.Size = new System.Drawing.Size(120, 23);
+            this.cmbChunks.Size = new System.Drawing.Size(200, 23);
             this.cmbChunks.TabIndex = 12;
             this.cmbChunks.SelectedIndexChanged += new System.EventHandler(this.cmbChunks_SelectedIndexChanged);
             // 
@@ -222,6 +224,122 @@ namespace MapEditor
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+
+            this.Name = "Form1";
+            this.Text = "Map Editor";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudFloor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRoof)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTexture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPortal)).EndInit();
+
+
+
+            // Add new NumericUpDown controls for X and Y coordinates
+            this.nudX = new System.Windows.Forms.NumericUpDown();
+            this.nudY = new System.Windows.Forms.NumericUpDown();
+
+            // X Coordinate
+            this.nudX.Location = new System.Drawing.Point(301, 202);
+            this.nudX.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            this.nudX.Name = "nudX";
+            this.nudX.Size = new System.Drawing.Size(120, 23);
+            this.nudX.TabIndex = 18;
+
+            // Y Coordinate
+            this.nudY.Location = new System.Drawing.Point(301, 231);
+            this.nudY.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            this.nudY.Name = "nudY";
+            this.nudY.Size = new System.Drawing.Size(120, 23);
+            this.nudY.TabIndex = 19;
+
+            // Add the controls to the form
+            this.Controls.Add(this.nudX);
+            this.Controls.Add(this.nudY);
+
+            // Add labels for X and Y
+            this.labelX = new System.Windows.Forms.Label();
+            this.labelY = new System.Windows.Forms.Label();
+
+            // Label for X
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(227, 204);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(14, 15);
+            this.labelX.TabIndex = 20;
+            this.labelX.Text = "X";
+
+            // Label for Y
+            this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(227, 233);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(14, 15);
+            this.labelY.TabIndex = 21;
+            this.labelY.Text = "Y";
+
+            // Add the labels to the form
+            this.Controls.Add(this.labelX);
+            this.Controls.Add(this.labelY);
+
+
+            // Initialize the existing controls (as shown earlier)
+
+            // Add new NumericUpDown controls for Portal Link and Portal Index
+            this.nudPortalLink = new System.Windows.Forms.NumericUpDown();
+            this.nudPortalIndex = new System.Windows.Forms.NumericUpDown();
+
+            // Portal Link (New NumericUpDown)
+            this.nudPortalLink.Location = new System.Drawing.Point(301, 202); // Adjust position as needed
+            this.nudPortalLink.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
+            this.nudPortalLink.Name = "nudPortalLink";
+            this.nudPortalLink.Size = new System.Drawing.Size(120, 23);
+            this.nudPortalLink.TabIndex = 22;
+
+            // Portal Index (New NumericUpDown)
+            this.nudPortalIndex.Location = new System.Drawing.Point(301, 231); // Adjust position as needed
+            this.nudPortalIndex.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
+            this.nudPortalIndex.Name = "nudPortalIndex";
+            this.nudPortalIndex.Size = new System.Drawing.Size(120, 23);
+            this.nudPortalIndex.TabIndex = 23;
+
+            // Add the controls to the form
+
+
+            // Add labels for Portal Link and Portal Index
+            this.labelPortalLink = new System.Windows.Forms.Label();
+            this.labelPortalIndex = new System.Windows.Forms.Label();
+
+            // Label for Portal Link
+            this.labelPortalLink.AutoSize = true;
+            this.labelPortalLink.Location = new System.Drawing.Point(227, 204); // Adjust position as needed
+            this.labelPortalLink.Name = "labelPortalLink";
+            this.labelPortalLink.Size = new System.Drawing.Size(64, 15);
+            this.labelPortalLink.TabIndex = 24;
+            this.labelPortalLink.Text = "Portal Link";
+
+            // Label for Portal Index
+            this.labelPortalIndex.AutoSize = true;
+            this.labelPortalIndex.Location = new System.Drawing.Point(227, 233); // Adjust position as needed
+            this.labelPortalIndex.Name = "labelPortalIndex";
+            this.labelPortalIndex.Size = new System.Drawing.Size(70, 15);
+            this.labelPortalIndex.TabIndex = 25;
+            this.labelPortalIndex.Text = "Portal Index";
+
+            // Adjust position of X and Y controls to be below Portal Link and Portal Index
+            this.nudX.Location = new System.Drawing.Point(301, 260); // New location under Portal Link/Index
+            this.nudY.Location = new System.Drawing.Point(301, 289); // New location under Portal Link/Index
+
+            // Adjust position of labels for X and Y
+            this.labelX.Location = new System.Drawing.Point(227, 262); // New location under Portal Link/Index
+            this.labelY.Location = new System.Drawing.Point(227, 291); // New location under Portal Link/Index
+
+
+            // Add the labels to the form
+            this.Controls.Add(this.labelPortalLink);
+            this.Controls.Add(this.labelPortalIndex);
+            this.Controls.Add(this.nudPortalLink);
+            this.Controls.Add(this.nudPortalIndex);
             this.Controls.Add(this.labelPortal);
             this.Controls.Add(this.labelTexture);
             this.Controls.Add(this.labelLink);
@@ -240,22 +358,11 @@ namespace MapEditor
             this.Controls.Add(this.btnRemoveChunk);
             this.Controls.Add(this.btnAddChunk);
             this.Controls.Add(this.lstChunks);
-            this.Name = "Form1";
-            this.Text = "Map Editor";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudFloor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRoof)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLink)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTexture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPortal)).EndInit();
+
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private void CmbChunks_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 
@@ -277,5 +384,16 @@ namespace MapEditor
         private System.Windows.Forms.Label labelLink;
         private System.Windows.Forms.Label labelTexture;
         private System.Windows.Forms.Label labelPortal;
+        private System.Windows.Forms.NumericUpDown nudX;
+        private System.Windows.Forms.NumericUpDown nudY;
+        private System.Windows.Forms.Label labelX;
+        private System.Windows.Forms.Label labelY;
+
+        private System.Windows.Forms.NumericUpDown nudPortalLink;
+        private System.Windows.Forms.NumericUpDown nudPortalIndex;
+        private System.Windows.Forms.Label labelPortalLink;
+        private System.Windows.Forms.Label labelPortalIndex;
     }
 }
+
+

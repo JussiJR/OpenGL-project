@@ -16,21 +16,30 @@ namespace MapEditor
             edges = new List<Edge>();
         }
     }
-
     [Serializable]
     public class Edge
     {
-        public int link;    // Link index (0-31)
-        public int texture; // Texture value (0-255)
-        public int portal;  // Portal height (0-255)
+        public int link;        // Link index (0-31)
+        public int texture;     // Texture value (0-255)
+        public int portal;      // Portal height (0-255)
+        public int x;           // X position (0-1000 or your desired range)
+        public int y;           // Y position (0-1000 or your desired range)
+        public int portalLink;  // Portal Link (0-255 or your desired range)
+        public int portalIndex; // Portal Index (0-255 or your desired range)
 
-        public Edge(int link, int texture, int portal)
+        // Constructor with portalLink and portalIndex added
+        public Edge(int link, int texture, int portal, int x, int y, int portalLink, int portalIndex)
         {
             this.link = link;
             this.texture = texture;
             this.portal = portal;
+            this.x = x;
+            this.y = y;
+            this.portalLink = portalLink;
+            this.portalIndex = portalIndex;
         }
     }
+
 
     [Serializable]
     public class ChunkData
@@ -61,10 +70,19 @@ namespace MapEditor
         // Button to add a new chunk
         private void btnAddChunk_Click(object sender, EventArgs e)
         {
-            var newChunk = new Chunk(0, 0); // Default values for floor and roof
+            // Get the values from the NumericUpDown controls for floor and roof
+            int floor = (int)nudFloor.Value;  // Value from nudFloor (0-255)
+            int roof = (int)nudRoof.Value;    // Value from nudRoof (0-255)
+
+            // Create a new chunk using the values from the controls
+            var newChunk = new Chunk(floor, roof);
+
+            // Add the new chunk to the chunk data
             chunkData.chunks.Add(newChunk);
+
+            // Update the chunk list and ComboBox to reflect the new chunk
             UpdateChunkList();
-            UpdateComboBox(); // Update ComboBox to reflect the new chunk
+            UpdateComboBox();
         }
 
         // Button to add a new edge
@@ -73,11 +91,27 @@ namespace MapEditor
             if (lstChunks.SelectedItem != null)
             {
                 var selectedChunk = chunkData.chunks[lstChunks.SelectedIndex];
-                var newEdge = new Edge(0, 0, 0); // Default values for link, texture, portal
+
+                // Get the values from the numeric controls for link, texture, portal, x, y, portalLink, and portalIndex
+                int link = (int)nudLink.Value;        // Value from nudLink (0-31)
+                int texture = (int)nudTexture.Value;  // Value from nudTexture (0-255)
+                int portal = (int)nudPortal.Value;    // Value from nudPortal (0-255)
+                int x = (int)nudX.Value;              // Value from nudX (0-1000 or your chosen range)
+                int y = (int)nudY.Value;              // Value from nudY (0-1000 or your chosen range)
+                int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-255 or your chosen range)
+                int portalIndex = (int)nudPortalIndex.Value; // Value from nudPortalIndex (0-255 or your chosen range)
+
+                // Create a new edge using the updated constructor with portalLink and portalIndex
+                var newEdge = new Edge(link, texture, portal, x, y, portalLink, portalIndex);
+
+                // Add the new edge to the selected chunk
                 selectedChunk.edges.Add(newEdge);
+
+                // Update the edge list for the selected chunk
                 UpdateEdgeList();
             }
         }
+
 
         // When a chunk is selected in the list, show its edges
         private void lstChunks_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,7 +138,7 @@ namespace MapEditor
                 var selectedChunk = chunkData.chunks[lstChunks.SelectedIndex];
                 foreach (var edge in selectedChunk.edges)
                 {
-                    lstEdges.Items.Add($"Link: {edge.link}, Texture: {edge.texture}, Portal: {edge.portal}");
+                    lstEdges.Items.Add($"Link: {edge.link}, Texture: {edge.texture}, Portal: {edge.portal}, X: {edge.x}, Y: {edge.y}");
                 }
             }
         }
