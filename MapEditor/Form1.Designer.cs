@@ -334,6 +334,12 @@ namespace MapEditor
             this.labelX.Location = new System.Drawing.Point(227, 262); // New location under Portal Link/Index
             this.labelY.Location = new System.Drawing.Point(227, 291); // New location under Portal Link/Index
 
+            this.panelVisualizer = new System.Windows.Forms.Panel();
+            this.panelVisualizer.Location = new System.Drawing.Point(600, 600);  // Position it on your form
+            this.panelVisualizer.Size = new System.Drawing.Size(600, 400);      // Adjust size as needed
+            this.panelVisualizer.Paint += panelVisualizer_Paint;
+            this.Controls.Add(this.panelVisualizer);
+
 
             // Add the labels to the form
             this.Controls.Add(this.labelPortalLink);
@@ -388,7 +394,7 @@ namespace MapEditor
         private System.Windows.Forms.NumericUpDown nudY;
         private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label labelY;
-
+        private Panel panelVisualizer;
         private System.Windows.Forms.NumericUpDown nudPortalLink;
         private System.Windows.Forms.NumericUpDown nudPortalIndex;
         private System.Windows.Forms.Label labelPortalLink;

@@ -60,6 +60,9 @@ namespace MapEditor
         {
             InitializeComponent();
             chunkData = new ChunkData();
+            nudLink.Value = 1;
+            this.Size = new Size(1000, 900);
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -107,8 +110,41 @@ namespace MapEditor
                 // Add the new edge to the selected chunk
                 selectedChunk.edges.Add(newEdge);
 
+                nudLink.Value = ((int)nudLink.Value) + 1;
+
                 // Update the edge list for the selected chunk
                 UpdateEdgeList();
+            }
+        }
+
+        private void panelVisualizer_Paint(object sender, PaintEventArgs e)
+        {
+            if (lstChunks.SelectedItem != null)
+            {
+                var selectedChunk = chunkData.chunks[lstChunks.SelectedIndex];
+
+                // Create a Graphics object for drawing on the panel
+                Graphics g = e.Graphics;
+
+                // Optional: Set the drawing settings (background, line color, etc.)
+                g.Clear(Color.White);  // Clear the panel with white color
+                Pen pen = new Pen(Color.Black, 2);  // Black lines, with thickness of 2
+
+                // Loop through each edge in the selected chunk
+                for (int i = 0; i < selectedChunk.edges.Count; i++)
+                {
+                    var edge = selectedChunk.edges[i];
+
+                    // Draw the point representing the edge's position (x, y)
+                    g.FillEllipse(Brushes.Red, edge.x, edge.y, 5, 5);  // Draw a small red dot
+
+                    // If the edge has a "link" to another edge, connect them with a line
+                    if (i + 1 < selectedChunk.edges.Count)
+                    {
+                        var nextEdge = selectedChunk.edges[i + 1];
+                        g.DrawLine(pen, edge.x + 2, edge.y + 2, nextEdge.x + 2, nextEdge.y + 2);  // Draw a line from one edge to the next
+                    }
+                }
             }
         }
 
@@ -141,6 +177,7 @@ namespace MapEditor
                     lstEdges.Items.Add($"Link: {edge.link}, Texture: {edge.texture}, Portal: {edge.portal}, X: {edge.x}, Y: {edge.y}");
                 }
             }
+            panelVisualizer.Invalidate();
         }
 
         // Save the chunk data to a JSON file
