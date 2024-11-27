@@ -5,17 +5,18 @@ SSBO::SSBO()
 	ID = 0;
 }
 
-SSBO::SSBO(std::vector<void*> data, GLenum type)
+SSBO::SSBO(std::vector<void*> data, GLenum type,int index)
 {
 	glGenBuffers(1, &ID);
-	glNamedBufferStorage(ID,
-		sizeof(uint_fast64_t) *data.size(),
-		(const void*)data.data(),
-		GL_DYNAMIC_STORAGE_BIT);
+	glNamedBufferStorage(ID, sizeof(uint_fast64_t) *data.size(),(const void*)data.data(),type);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER,index,ID);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
 }
 
-void SSBO::Update(void* data)
+void SSBO::Update(GLintptr size,GLintptr offset,const void* data)
 {
+	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, data);
 }
 
 void SSBO::Activate()
