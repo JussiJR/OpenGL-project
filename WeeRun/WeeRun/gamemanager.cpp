@@ -60,13 +60,12 @@ GameManager::GameManager(const char* path)
 		fillBuffer(buffer, &root, &Initialized);
 
 		//!		Setup SSBOs
-		glGenBuffers(1, &_mapData);
-		glNamedBufferStorage(_mapData, sizeof(int) * edgecount, (const void*)buffer
-			,GL_DYNAMIC_STORAGE_BIT);
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, _mapData);
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+		_mapData = SSBO<int>(edgecount,buffer,GL_DYNAMIC_STORAGE_BIT,0);
 		free(buffer);
 	}
+
+
+
 
 	//!		Player state
 	_haunted = 0;
@@ -81,9 +80,6 @@ GameManager::GameManager(const char* path)
 
 	//!		Render settings
 	_fieldOfView = 90;
-
-
-
 }
 
 GameManager::~GameManager()
@@ -168,6 +164,8 @@ inline Json::Value getRoot(const char* path, unsigned int* error) {
 	Json::CharReaderBuilder builder;
 	Json::Value root;
 	std::string errs;
+
+	//? create stream
 	std::istringstream s(readFile(path, error));
 	if (!Json::parseFromStream(builder, s, &root, &errs)) {
 		cout << errs << endl;

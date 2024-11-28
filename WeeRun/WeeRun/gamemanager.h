@@ -82,7 +82,7 @@ private:
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	GLuint _mapData;
+	SSBO<int> _mapData;
 
 
 	//!		Rendering

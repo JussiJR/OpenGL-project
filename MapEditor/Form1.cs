@@ -73,24 +73,24 @@ namespace MapEditor
                 var selectedChunk = chunkData.chunks[lstChunks.SelectedIndex];
 
                 // Get the values from the numeric controls for link, texture, portal, x, y, portalLink, and portalIndex
-                int link = (int)nudLink.Value;        // Value from nudLink (0-31)
-                int texture = (int)nudTexture.Value;  // Value from nudTexture (0-255)
+                int link = (int)nudLink.Value;        // Value from nudLink (0-15)
+                int texture = (int)nudTexture.Value;  // Value from nudTexture (0-15)
                 int portal = (int)nudPortal.Value;    // Value from nudPortal (0-255)
-                int x = (int)nudX.Value;              // Value from nudX (0-1000 or your chosen range)
-                int y = (int)nudY.Value;              // Value from nudY (0-1000 or your chosen range)
-                int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-255 or your chosen range)
-                int portalChunkIndex = (int)chunkIndex.Value; // Value from nudPortalIndex (0-255 or your chosen range)
+                int x = (int)nudX.Value;              // Value from nudX (0-127 or your chosen range)
+                int y = (int)nudY.Value;              // Value from nudY (0-127 or your chosen range)
+                int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-127 or your chosen range)
+                int portalChunkIndex = (int)chunkIndex.Value; // Value from nudPortalIndex (0-127 or your chosen range)
 
 
                 /**
                  * 
-                 * Link 5, texture 4, X 7, Y 7, portal link 5, chunk 4  
+                 * Link 4, texture 4, X 7, Y 7, portal link 4, chunk 6  
                  * 
                  */
 
                 // Create a new edge using the updated constructor with portalLink and portalIndex
-                var newEdge = (int)(((link & 0x1F) << 27) | ((texture & 0xF) << 23)) | // Holy fk
-                    ((x & 0x7F) << 16) | ((y & 0x7F) << 9) | ((portalLink & 0x1F) << 6 | (portalChunkIndex & 0x1F));
+                var newEdge = (int)(((link & 0xF) << 28) | ((texture & 0xF) << 24)) | // Holy fk
+                    ((x & 0x7F) << 17) | ((y & 0x7F) << 10) | ((portalLink & 0xF) << 6 | (portalChunkIndex & 0x3F));
 
                 // Add the new edge to the selected chunk
                 selectedChunk.edges.Add(newEdge);

@@ -159,7 +159,7 @@ public:
 	/// <param name="data"> Data to be init</param>
 	/// <param name="type"> Type of the memory space</param>
 	/// <param name="index"> Index where ssbo will be inserted in buffer</param>
-	SSBO(std::vector<T> data, GLenum type, int index);
+	SSBO<T>::SSBO(int size, void* data, GLenum type, int index);
 
 	/// <summary>
 	/// Update method for data inside of a SSBO

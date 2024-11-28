@@ -34,12 +34,12 @@ Well when I started to plan this project I wanted just some kind of surfing idea
 Good question in my opinion since I have only month it is wise to use some kind of map creation thing to make maps but I do not have that mutch time so as long as it is not used in commercial use it is fine... Well I had to make some kind of map creator and to save time I just made about 5000 copyright infringement... YAY pls dont sue me... anyways... since my main thing is in openGL part and 3D rendering month to do it is little time counting up also to the matter that it needs to be playable. me doing json files by hand oh boy lol.
 
 
+
 # Contents:
 
 - [Depencies](#Depencies)
 - [Exeption codes](#Exceptions)
 - [Links used](#Links)
-- [Devlog](#Devlog)
 
 # Depencies 
 
@@ -177,27 +177,3 @@ It was pain to find documentation but here some sort of :)
 <details>
 <summary>
 
-# Devlog
-
-</summary>
- <blockquote>
-<details>
-<summary>
-
-## 1. week
-
-</summary>
-
-<blockquote>
-<details>
-<summary>
-
-### - Monday
-
-</summary>
-
-<blockquote>
-I crashed to my newly created project and wasted 10 hours with random ass shit aka how IEEE 754 Single, half and double precision flaoting points work... Then I took hold of my self and created this wholesome Window with purple background
-
-</details>
-</details>
