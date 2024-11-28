@@ -163,7 +163,6 @@
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="chunk.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="main.h" />

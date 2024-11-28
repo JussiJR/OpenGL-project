@@ -7,36 +7,13 @@ namespace MapEditor
     {
         public int floor;  // Floor height (0-255)
         public int roof;   // Roof height (0-255)
-        public List<Edge> edges;  // List of edges in the chunk
+        public List<int> edges;  // List of edges in the chunk
 
         public Chunk(int floor, int roof)
         {
             this.floor = floor;
             this.roof = roof;
-            edges = new List<Edge>();
-        }
-    }
-    [Serializable]
-    public class Edge
-    {
-        public int link;        // Link index (0-31)
-        public int texture;     // Texture value (0-255)
-        public int portal;      // Portal height (0-255)
-        public int x;           // X position (0-1000 or your desired range)
-        public int y;           // Y position (0-1000 or your desired range)
-        public int portalLink;  // Portal Link (0-255 or your desired range)
-        public int portalIndex; // Portal Index (0-255 or your desired range)
-
-        // Constructor with portalLink and portalIndex added
-        public Edge(int link, int texture, int portal, int x, int y, int portalLink, int portalIndex)
-        {
-            this.link = link;
-            this.texture = texture;
-            this.portal = portal;
-            this.x = x;
-            this.y = y;
-            this.portalLink = portalLink;
-            this.portalIndex = portalIndex;
+            edges = new List<int>(31);
         }
     }
 
@@ -45,10 +22,14 @@ namespace MapEditor
     public class ChunkData
     {
         public List<Chunk> chunks;  // List of chunks
+        public int[] chunkOffsets;
+
+        public int gameMode;
 
         public ChunkData()
         {
-            chunks = new List<Chunk>();
+            chunks = new List<Chunk>(15);
+            chunkOffsets = new int[16];
         }
     }
 
@@ -102,10 +83,18 @@ namespace MapEditor
                 int x = (int)nudX.Value;              // Value from nudX (0-1000 or your chosen range)
                 int y = (int)nudY.Value;              // Value from nudY (0-1000 or your chosen range)
                 int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-255 or your chosen range)
-                int portalIndex = (int)nudPortalIndex.Value; // Value from nudPortalIndex (0-255 or your chosen range)
+                int portalChunkIndex = (int)chunkIndex.Value; // Value from nudPortalIndex (0-255 or your chosen range)
+
+
+                /**
+                 * 
+                 * Link 5, texture 4, X 7, Y 7, portal link 5, chunk 4  
+                 * 
+                 */
 
                 // Create a new edge using the updated constructor with portalLink and portalIndex
-                var newEdge = new Edge(link, texture, portal, x, y, portalLink, portalIndex);
+                var newEdge = (int)(((link & 0x1F) << 27) | ((texture & 0xF) << 23)) | // Holy fk
+                    ((x & 0x7F) << 16) | ((y & 0x7F) << 9) | ((portalLink & 0x1F) << 6 | (portalChunkIndex & 0x1F));
 
                 // Add the new edge to the selected chunk
                 selectedChunk.edges.Add(newEdge);
@@ -135,14 +124,23 @@ namespace MapEditor
                 {
                     var edge = selectedChunk.edges[i];
 
+                    var x = (int)(edge >> 16) & 0x7f;
+                    var y = (int)(edge >> 9) & 0x7f;
+
                     // Draw the point representing the edge's position (x, y)
-                    g.FillEllipse(Brushes.Red, edge.x, edge.y, 5, 5);  // Draw a small red dot
+                    g.FillEllipse(Brushes.Red, x, y, 5, 5);  // Draw a small red dot
 
                     // If the edge has a "link" to another edge, connect them with a line
                     if (i + 1 < selectedChunk.edges.Count)
                     {
                         var nextEdge = selectedChunk.edges[i + 1];
-                        g.DrawLine(pen, edge.x + 2, edge.y + 2, nextEdge.x + 2, nextEdge.y + 2);  // Draw a line from one edge to the next
+
+
+                        var nx = (int)(nextEdge >> 16) & 0x7f;
+                        var ny = (int)(nextEdge >> 9) & 0x7f;
+
+
+                        g.DrawLine(pen, x + 2, y + 2, nx + 2, ny + 2);  // Draw a line from one edge to the next
                     }
                 }
             }
@@ -163,6 +161,10 @@ namespace MapEditor
             {
                 lstChunks.Items.Add($"Floor: {chunk.floor}, Roof: {chunk.roof}");
             }
+
+            if (lstChunks.Items.Count > 0)
+                chunkData.chunkOffsets[lstChunks.SelectedIndex == -1 ? 0 : lstChunks.SelectedIndex] =
+                    chunkData.chunks[lstChunks.SelectedIndex == -1 ? 0 : lstChunks.SelectedIndex].edges.Count;
         }
 
         // Update the ListBox for edges of the selected chunk
@@ -174,7 +176,15 @@ namespace MapEditor
                 var selectedChunk = chunkData.chunks[lstChunks.SelectedIndex];
                 foreach (var edge in selectedChunk.edges)
                 {
-                    lstEdges.Items.Add($"Link: {edge.link}, Texture: {edge.texture}, Portal: {edge.portal}, X: {edge.x}, Y: {edge.y}");
+
+                    uint link = (edge >> 27) & 0x1F;           // Extract the 5 bits for link
+                    uint texture = (edge >> 23) & 0xF;         // Extract the 4 bits for texture
+                    uint x = (edge >> 16) & 0x7F;              // Extract the 7 bits for x
+                    uint y = (edge >> 9) & 0x7F;               // Extract the 7 bits for y
+                    uint portalLink = (edge >> 6) & 0x1F;      // Extract the 5 bits for portalLink
+                    uint portalChunkIndex = edge & 0xF;         // Extract the 4 bits for portalChunkIndex
+
+                    lstEdges.Items.Add($"Link: {link}, Texture: {texture}, Portal: {portalChunkIndex}, PortalLink: {portalLink}, X: {x}, Y: {y}");
                 }
             }
             panelVisualizer.Invalidate();
@@ -183,6 +193,10 @@ namespace MapEditor
         // Save the chunk data to a JSON file
         private void btnSaveToJson_Click(object sender, EventArgs e)
         {
+
+            UpdateChunkList();
+            UpdateEdgeList();
+
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "JSON files (*.json)|*.json",
@@ -248,3 +262,4 @@ namespace MapEditor
         }
     }
 }
+

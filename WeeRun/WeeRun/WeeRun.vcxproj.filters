@@ -74,9 +74,6 @@
     <ClInclude Include="SSBO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="chunk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="map_test.json">

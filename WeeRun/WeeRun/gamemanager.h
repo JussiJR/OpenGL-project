@@ -5,9 +5,6 @@
 #define __gamemanager_h_
 
 //!	Includes
-//!		Texture
-#include "Texture.h"
-
 //!		VBO
 #include "VBO.h"
 
@@ -37,26 +34,68 @@
 #include <glm/mat2x4.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
 
-
+//!	Definitions
+//!		Exceptions
+//!			Game manager
+//!				Initialization
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_MAPNOTFOUND 0x301F
 #define EXCEPTION_GAMEMANAGER_INITÍALIZATION_SHADER_VERTEXNOTFOUND 0x302F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_TEXTURENOTFOUND 0x304F
 
+//!		Constant values
+//!			Entity
+//!				Player
 #define ENTITY_PLAYER_INDEX 0
 
+//!			Time scale
 #define TIMESCALE_SCALE -0.5f
+
+//!			Game manager
 #define GAMEMANAGER_GRAVITY -9.81
+
+//!				Renderer
 #define GAMEMANAGER_RENDERER_DISTANCE 5
 
+//!				Converter
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class GameManager {
 private:
-
-	//!		Textures
-	TextureBase _mapTextures;
-	TextureBase _Textures;
 
 	//!		Objects
 	

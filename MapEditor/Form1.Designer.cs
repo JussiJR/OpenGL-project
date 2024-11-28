@@ -100,9 +100,9 @@ namespace MapEditor
             // 
             this.lstEdges.FormattingEnabled = true;
             this.lstEdges.ItemHeight = 15;
-            this.lstEdges.Location = new System.Drawing.Point(12, 303);
+            this.lstEdges.Location = new System.Drawing.Point(12, 400);
             this.lstEdges.Name = "lstEdges";
-            this.lstEdges.Size = new System.Drawing.Size(200, 199);
+            this.lstEdges.Size = new System.Drawing.Size(500, 500);
             this.lstEdges.TabIndex = 4;
             // 
             // nudFloor
@@ -287,7 +287,7 @@ namespace MapEditor
 
             // Add new NumericUpDown controls for Portal Link and Portal Index
             this.nudPortalLink = new System.Windows.Forms.NumericUpDown();
-            this.nudPortalIndex = new System.Windows.Forms.NumericUpDown();
+            this.chunkIndex = new System.Windows.Forms.NumericUpDown();
 
             // Portal Link (New NumericUpDown)
             this.nudPortalLink.Location = new System.Drawing.Point(301, 202); // Adjust position as needed
@@ -297,11 +297,11 @@ namespace MapEditor
             this.nudPortalLink.TabIndex = 22;
 
             // Portal Index (New NumericUpDown)
-            this.nudPortalIndex.Location = new System.Drawing.Point(301, 231); // Adjust position as needed
-            this.nudPortalIndex.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            this.nudPortalIndex.Name = "nudPortalIndex";
-            this.nudPortalIndex.Size = new System.Drawing.Size(120, 23);
-            this.nudPortalIndex.TabIndex = 23;
+            this.chunkIndex.Location = new System.Drawing.Point(301, 231); // Adjust position as needed
+            this.chunkIndex.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
+            this.chunkIndex.Name = "nudPortalIndex";
+            this.chunkIndex.Size = new System.Drawing.Size(120, 23);
+            this.chunkIndex.TabIndex = 23;
 
             // Add the controls to the form
 
@@ -345,7 +345,7 @@ namespace MapEditor
             this.Controls.Add(this.labelPortalLink);
             this.Controls.Add(this.labelPortalIndex);
             this.Controls.Add(this.nudPortalLink);
-            this.Controls.Add(this.nudPortalIndex);
+            this.Controls.Add(this.chunkIndex);
             this.Controls.Add(this.labelPortal);
             this.Controls.Add(this.labelTexture);
             this.Controls.Add(this.labelLink);
@@ -396,7 +396,7 @@ namespace MapEditor
         private System.Windows.Forms.Label labelY;
         private Panel panelVisualizer;
         private System.Windows.Forms.NumericUpDown nudPortalLink;
-        private System.Windows.Forms.NumericUpDown nudPortalIndex;
+        private System.Windows.Forms.NumericUpDown chunkIndex;
         private System.Windows.Forms.Label labelPortalLink;
         private System.Windows.Forms.Label labelPortalIndex;
     }
