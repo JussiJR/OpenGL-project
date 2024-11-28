@@ -98,6 +98,9 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# ignore map editor for now for more clear solution of what is done by me.
+MapEditor/
+
 # Chutzpah Test files
 _Chutzpah*
 
