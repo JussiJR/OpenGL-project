@@ -157,7 +157,7 @@ private:
 	/// </summary>
 	float _yaw;
 
-	void changeMapValue(size_t offset, size_t size, void* data);
+	void changeMapValue(size_t offset, size_t size, void* data) const;
 
 public:
 

@@ -29,11 +29,6 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
-			
-			//! Free codes
-			//? NOTE: might do something with life time
-			free(&vertexCode);
-			free(&vertexCode);
 		}
 	}
 
