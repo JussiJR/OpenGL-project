@@ -177,12 +177,12 @@ namespace MapEditor
                 foreach (var edge in selectedChunk.edges)
                 {
 
-                    uint link = (edge >> 27) & 0x1F;           // Extract the 5 bits for link
-                    uint texture = (edge >> 23) & 0xF;         // Extract the 4 bits for texture
-                    uint x = (edge >> 16) & 0x7F;              // Extract the 7 bits for x
-                    uint y = (edge >> 9) & 0x7F;               // Extract the 7 bits for y
-                    uint portalLink = (edge >> 6) & 0x1F;      // Extract the 5 bits for portalLink
-                    uint portalChunkIndex = edge & 0xF;         // Extract the 4 bits for portalChunkIndex
+                    int link = (edge >> 27) & 0x1F;           // Extract the 5 bits for link
+                    int texture = (edge >> 23) & 0xF;         // Extract the 4 bits for texture
+                    int x = (edge >> 16) & 0x7F;              // Extract the 7 bits for x
+                    int y = (edge >> 9) & 0x7F;               // Extract the 7 bits for y
+                    int portalLink = (edge >> 6) & 0x1F;      // Extract the 5 bits for portalLink
+                    int portalChunkIndex = edge & 0xF;         // Extract the 4 bits for portalChunkIndex
 
                     lstEdges.Items.Add($"Link: {link}, Texture: {texture}, Portal: {portalChunkIndex}, PortalLink: {portalLink}, X: {x}, Y: {y}");
                 }
