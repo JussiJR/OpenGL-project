@@ -34,16 +34,13 @@
 *	 | |  | ||  __/| |_ | | | || (_) || (_| |\__ \ _ 
 *	 \_|  |_/ \___| \__||_| |_| \___/  \__,_||___/(_)
 *	 
-*		-  main (int, char**)
-*			Name: main
-*			Summary:
-* 				Main entrypoint for mainthread.
-* 			Parameters:
-*				- int argc : argument count.
-*				- char** argcv: argument vector.
-*			Returns:
-*				0 if all go according to plan otherwise error code as a Hexadecimal.
-*			Known issues:
+*		<summary>
+*		Main entry point for main thread
+*		</summary>
+*		<param name="argc"> Argument count </param>
+*		<param name="argv"> Argument vector </param>
+*		<returns> 0 if all go according to plan otherwise error code as a Hexadecimal.</returns>
+*		int main(int argc, char** argv);
 *
 *	  _   __                                   _
 *	 | | / /                                  (_)                             _

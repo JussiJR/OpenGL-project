@@ -138,7 +138,9 @@
 /// <summary>
 /// SSBO (Shader storage buffer object)
 /// </summary>
-class SSBO {
+
+
+template <typename T> class SSBO {
 public:
 
 	/// <summary>
@@ -157,7 +159,7 @@ public:
 	/// <param name="data"> Data to be init</param>
 	/// <param name="type"> Type of the memory space</param>
 	/// <param name="index"> Index where ssbo will be inserted in buffer</param>
-	SSBO(std::vector<void*> data, GLenum type, int index);
+	SSBO(std::vector<T> data, GLenum type, int index);
 
 	/// <summary>
 	/// Update method for data inside of a SSBO
@@ -165,7 +167,7 @@ public:
 	/// <param name="size">Size of the are</param>
 	/// <param name="offset">Offset for the starting point</param>
 	/// <param name="data">data to be inserted</param>
-	void Update(GLintptr size, GLintptr offset, const void* data);
+	void Update(GLintptr size, GLintptr offset, const T data);
 
 	/// <summary>
 	/// Activation method

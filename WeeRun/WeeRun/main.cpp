@@ -6,6 +6,9 @@ using namespace std;
 //!	Methods
 //!		Main
 int main(int argc, char** argv){
+
+
+
 #ifdef _DEBUG
 	//!	Check versions
 	//!		GLFW
@@ -105,10 +108,8 @@ int main(int argc, char** argv){
 		//!			Game manager
 		GameManager manager = GameManager("");
 		if (manager.Initialized) {
-			manager.~GameManager();
-			 
-			//Possible problem if refrenced
 			int eMessage = manager.Initialized;
+			manager.~GameManager();
 			glfwDestroyWindow(window);
 			glfwTerminate();
 			return eMessage;
@@ -145,3 +146,4 @@ int main(int argc, char** argv){
 	glfwTerminate();
 	return EXIT_SUCCESS;
 }
+

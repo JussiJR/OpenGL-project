@@ -34,6 +34,15 @@
 #include <glm/mat2x4.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
 
+//!		json
+//!			Header files		
+#include <json/value.h>
+#include <json/json.h>
+
+//!		fstream
+//!			header files
+#include <fstream>
+
 //!	Definitions
 //!		Exceptions
 //!			Game manager
@@ -61,39 +70,6 @@
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class GameManager {
 private:
 
@@ -102,12 +78,8 @@ private:
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	SSBO _mapData;
+	SSBO<vector<int>>_mapData;
 
-	/// <summary>
-	/// SSBO for Entitys
-	/// </summary>
-	SSBO _entityData;
 
 	//!		Rendering
 	
@@ -180,6 +152,7 @@ private:
 	/// Player's yaw
 	/// </summary>
 	float _yaw;
+
 
 public:
 

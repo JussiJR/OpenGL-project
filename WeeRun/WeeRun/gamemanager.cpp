@@ -5,10 +5,17 @@ GameManager::GameManager(const char* path)
 {
 	//!		Initialized
 	Initialized = 0;
+	{
+		ifstream map_file(path, ifstream::binary);
+		Json::Value map;
+		map_file >> map;
+		vector<vector<unsigned int>> data();
 
-	//!		Textures
-	_mapTextures;
-	_Textures;
+		_mapData = SSBO<vector<vector<int>>>(data, GL_DYNAMIC_STORAGE_BIT, 0);
+
+
+	}
+
 	//!		Rendering
 	_shader;
 	_vertexArray;
@@ -79,7 +86,7 @@ int GameManager::FixedUpdate(int* errorc)
 	return EXIT_SUCCESS;
 }
 
-int GameManager::Render(int* errorc,int render_distance)
+int GameManager::Render(int* errorc, int render_distance)
 {
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
 
