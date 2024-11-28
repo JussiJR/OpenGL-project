@@ -172,7 +172,6 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="map_test.json" />
     <None Include="vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

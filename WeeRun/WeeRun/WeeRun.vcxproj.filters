@@ -76,9 +76,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="map_test.json">
-      <Filter>Resource Files\Maps</Filter>
-    </None>
     <None Include="vertex.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
