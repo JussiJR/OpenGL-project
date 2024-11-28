@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "..\MapEditor\MapEditor.csproj", "{53BD546C-C9E3-4AEE-AE45-413087F449AE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp_tests", "..\cpp_tests\cpp_tests.vcxproj", "{8D0847A5-C37F-493A-81A9-CE775CCE83F5}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupFile", "SetupFile\SetupFile.vdproj", "{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,24 @@ Global
 		{53BD546C-C9E3-4AEE-AE45-413087F449AE}.Release|x64.Build.0 = Release|Any CPU
 		{53BD546C-C9E3-4AEE-AE45-413087F449AE}.Release|x86.ActiveCfg = Release|Any CPU
 		{53BD546C-C9E3-4AEE-AE45-413087F449AE}.Release|x86.Build.0 = Release|Any CPU
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|Any CPU.Build.0 = Debug|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|x64.ActiveCfg = Debug|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|x64.Build.0 = Debug|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Debug|x86.Build.0 = Debug|Win32
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|Any CPU.ActiveCfg = Release|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|Any CPU.Build.0 = Release|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|x64.ActiveCfg = Release|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|x64.Build.0 = Release|x64
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|x86.ActiveCfg = Release|Win32
+		{8D0847A5-C37F-493A-81A9-CE775CCE83F5}.Release|x86.Build.0 = Release|Win32
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Debug|Any CPU.ActiveCfg = Debug
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Debug|x64.ActiveCfg = Debug
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Debug|x86.ActiveCfg = Debug
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|Any CPU.ActiveCfg = Release
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|x64.ActiveCfg = Release
+		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

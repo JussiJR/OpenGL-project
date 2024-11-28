@@ -79,5 +79,8 @@
     <None Include="vertex.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="chunk_data.json">
+      <Filter>Resource Files\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>

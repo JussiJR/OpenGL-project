@@ -1,4 +1,6 @@
 //- https://developer.valvesoftware.com/wiki/BSP_(Source) - about bsp map files  
+// - https://stackoverflow.com/questions/32205981/reading-json-files-in-c - reading 
+//	- https://stackoverflow.com/questions/56659583/how-to-read-an-array-of-values-from-json-file-to-c-array - some more info about json file reading
 
 #pragma once
 #ifndef __gamemanager_h_
@@ -48,6 +50,8 @@
 //!			Game manager
 //!				Initialization
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_MAPNOTFOUND 0x301F
+#define EXCEPTION_GAMEMANAGER_INITIALIZATION_PARSEMAP 0x305F
+#define EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE 0x306F
 #define EXCEPTION_GAMEMANAGER_INITÍALIZATION_SHADER_VERTEXNOTFOUND 0x302F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_TEXTURENOTFOUND 0x304F
@@ -78,7 +82,7 @@ private:
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	SSBO<vector<int>>_mapData;
+	GLuint _mapData;
 
 
 	//!		Rendering
@@ -153,6 +157,7 @@ private:
 	/// </summary>
 	float _yaw;
 
+	void changeMapValue(size_t offset, size_t size, void* data);
 
 public:
 

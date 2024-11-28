@@ -16,7 +16,7 @@ template <typename T> SSBO<T>::SSBO(std::vector<T> data, GLenum type,int index)
 
 template <typename T> void SSBO<T>::Update(GLintptr size,GLintptr offset,const T data)
 {
-	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, data);
+	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, (void*)data);
 }
 
 template <typename T> void SSBO<T>::Activate()

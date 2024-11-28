@@ -130,7 +130,7 @@ int main(int argc, char** argv){
 			//!	WeeRun
 			//TODO: Add Update methods 
 			//!		Rendering
-			manager.Render(&errorc, GAMEMANAGER_RENDERER_DISTANCE);
+			//TODO: Add Rendering methods 
 
 			//! GLFW
 			//!		Swap buffers

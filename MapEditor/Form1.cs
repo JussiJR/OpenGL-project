@@ -5,14 +5,10 @@ namespace MapEditor
     [Serializable]
     public class Chunk
     {
-        public int floor;  // Floor height (0-255)
-        public int roof;   // Roof height (0-255)
         public List<int> edges;  // List of edges in the chunk
 
-        public Chunk(int floor, int roof)
+        public Chunk()
         {
-            this.floor = floor;
-            this.roof = roof;
             edges = new List<int>(31);
         }
     }
@@ -59,7 +55,7 @@ namespace MapEditor
             int roof = (int)nudRoof.Value;    // Value from nudRoof (0-255)
 
             // Create a new chunk using the values from the controls
-            var newChunk = new Chunk(floor, roof);
+            var newChunk = new Chunk();
 
             // Add the new chunk to the chunk data
             chunkData.chunks.Add(newChunk);
@@ -157,14 +153,16 @@ namespace MapEditor
         private void UpdateChunkList()
         {
             lstChunks.Items.Clear();
+            int i = 0;
             foreach (var chunk in chunkData.chunks)
             {
-                lstChunks.Items.Add($"Floor: {chunk.floor}, Roof: {chunk.roof}");
+                lstChunks.Items.Add($"index: {i++}");
             }
-
-            if (lstChunks.Items.Count > 0)
-                chunkData.chunkOffsets[lstChunks.SelectedIndex == -1 ? 0 : lstChunks.SelectedIndex] =
-                    chunkData.chunks[lstChunks.SelectedIndex == -1 ? 0 : lstChunks.SelectedIndex].edges.Count;
+            i = 0;
+            foreach (var chunk in chunkData.chunks)
+            {
+                chunkData.chunkOffsets[i++] = chunk.edges.Count;
+            }
         }
 
         // Update the ListBox for edges of the selected chunk
@@ -241,7 +239,7 @@ namespace MapEditor
             for (int i = 0; i < chunkData.chunks.Count; i++)
             {
                 var chunk = chunkData.chunks[i];
-                cmbChunks.Items.Add($"Chunk {i + 1}: Floor {chunk.floor}, Roof {chunk.roof}");
+                cmbChunks.Items.Add($"Chunk: {i + 1}");
             }
 
             // Optionally select the first chunk if the list is not empty
