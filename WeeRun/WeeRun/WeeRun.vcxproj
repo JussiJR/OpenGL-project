@@ -78,7 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -86,7 +86,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -107,7 +107,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -125,7 +125,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\includes</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -146,7 +146,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRun\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

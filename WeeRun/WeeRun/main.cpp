@@ -147,3 +147,17 @@ int main(int argc, char** argv){
 	return EXIT_SUCCESS;
 }
 
+void Keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+	//FIXME: FIX THIS SHIT 
+	if (GLFW_PRESS == action) {
+		if (GLFW_KEY_ESCAPE == key) {
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+		}
+	}
+}
+
+void CursorPosition_callback(GLFWwindow* window, double position_X, double position_Y)
+{
+
+}
+

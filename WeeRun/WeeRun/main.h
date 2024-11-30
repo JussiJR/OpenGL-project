@@ -151,4 +151,30 @@
 /// <param name="argv"> Argument vector </param>
 /// <returns> 0 if all go according to plan otherwise error code as a Hexadecimal.</returns>
 int main(int argc, char** argv);
+
+
+//!		Call backs
+//!			All
+//!				Keyboard
+
+/// <summary>
+/// Key callback for GLFW window's keyboard input
+/// </summary>
+/// <param name="window">Target window</param>
+/// <param name="key">integer representing pressed input</param>
+/// <param name="scancode">scancode for button</param>
+/// <param name="action">int representing action</param>
+/// <param name="mods">integer representing mods</param>
+void Keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
+//!				Mouse
+//!					Cursor position
+
+/// <summary>
+/// Cursor position callback for GLFW window
+/// </summary>
+/// <param name="window">target window</param>
+/// <param name="position_X">position of the cursor in x axel</param>
+/// <param name="position_Y">position of the cursor in y axel</param>
+void CursorPosition_callback(GLFWwindow* window, double position_X, double position_Y);
 #endif

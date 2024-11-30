@@ -1,37 +1,7 @@
 #include "gamemanager.h"
 
 
-/// <summary>
-/// Reads data from file and returns it in string
-/// </summary>
-/// <param name="path">path to file</param>
-/// <param name="error">pointer to error integer</param>
-/// <returns>string here data is</returns>
-inline string readFile(const char* path,unsigned int* error);
 
-/// <summary>
-/// gets buffer's desired length
-/// </summary>
-/// <param name="root">pointer to root value of json</param>
-/// <param name="error">pointer to error integer</param>
-/// <returns>integer representing buffer's length</returns>
-inline int getBufferLength(Json::Value* root,unsigned int* error);
-
-/// <summary>
-/// gets root of file
-/// </summary>
-/// <param name="path">path to root file</param>
-/// <param name="error">error integer</param>
-/// <returns>returns Json::Value representing root</returns>
-inline Json::Value getRoot(const char* path,unsigned int* error);
-
-/// <summary>
-/// Fills buffer with map data
-/// </summary>
-/// <param name="buffer">pointer to target buffer</param>
-/// <param name="root">pointer to root </param>
-/// <param name="error">pointer to error integer</param>
-inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 
 
 void GameManager::changeMapValue(size_t offset, size_t size, void* data) const
@@ -152,8 +122,11 @@ inline int getBufferLength(Json::Value* root,unsigned int* error)
 
 	if (!edgecount) {
 		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-		return;
+		return 0;
 	}
+
+	return edgecount;
+
 }
 
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {
