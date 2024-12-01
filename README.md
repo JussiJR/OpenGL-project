@@ -1,4 +1,4 @@
-# Project is in Development and is estimated to be fnnished before christmas!
+# Project is in Development and is estimated to be finished before christmas!
 
 # Information about project:
 
