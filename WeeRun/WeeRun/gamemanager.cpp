@@ -15,23 +15,42 @@ GameManager::GameManager(const char* path)
 	
 	Initialized = 0;
 	
-	//!		Load map	
+	//!		Initialize OpenGL objects	
 	{
 		//!		Get root
 		Json::Value root = getRoot(path, &Initialized);
 		if (Initialized) return;
+		
 
-		//!		Get buffer length
-		int edgecount = getBufferLength(&root,&Initialized);
-		if (Initialized) return;
+		
+		//!		Map initialization
+		{
+			//!		Get buffer length
+			int edgecount = getBufferLength(&root, &Initialized);
+			if (Initialized) return;
 
-		//!		Create buffer
-		int* buffer = (int*)malloc(sizeof(int) * edgecount); // inconvienent but what can you do?
-		fillBuffer(buffer, &root, &Initialized);
+			//!		Create buffer
+			int* buffer = (int*)malloc(sizeof(int) * edgecount); // inconvienent but what can you do?
+			fillBuffer(buffer, &root, &Initialized);
 
-		//!		Setup SSBOs
-		_mapData = SSBO<int>(edgecount,buffer,GL_DYNAMIC_STORAGE_BIT,0);
-		free(buffer);
+			//!		Setup SSBOs
+			_mapData = SSBO<int>(edgecount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			free(buffer);
+		}
+
+		//!		Texture loading
+		{
+			//!	Get texture path
+			Json::Value chunkOffsets;
+			if (!isValid(&root, &chunkOffsets, "Textures")) {
+				Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
+				return;
+			}
+
+
+
+		}
+
 	}
 
 
@@ -103,12 +122,12 @@ inline string readFile(const char* path,unsigned int* error) {
 
 inline int getBufferLength(Json::Value* root,unsigned int* error) 
 {
-
+	
 	int edgecount;
 	Json::Value::ArrayIndex i = 0;
 
-	const Json::Value chunkOffsets = &root->get("chunkOffsets", NULL);
-	if (!chunkOffsets) {
+	Json::Value chunkOffsets;
+	if (!isValid(root,&chunkOffsets,"chunkOffsets")) {
 		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
 		return;
 	}
@@ -146,4 +165,10 @@ inline Json::Value getRoot(const char* path, unsigned int* error) {
 		return NULL;
 	}
 	return root;
+}
+
+inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
+	*target = root->get(name, NULL);
+	if (!*target) return false;
+	return true;
 }

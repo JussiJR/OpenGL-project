@@ -230,4 +230,7 @@ inline Json::Value getRoot(const char* path, unsigned int* error);
 /// <param name="root">pointer to root </param>
 /// <param name="error">pointer to error integer</param>
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
+
+
+inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
 #endif
