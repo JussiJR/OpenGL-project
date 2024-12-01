@@ -1,4 +1,4 @@
-# Project is in Development and is estimated to be finished before christmas! - 1.12.2024
+# Project is in Development and is estimated to be finished before christmas! - 1.12.2024 (Finniah calendar system)
 
 # Information about project:
 
