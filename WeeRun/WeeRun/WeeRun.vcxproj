@@ -85,7 +85,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -106,7 +106,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -124,7 +124,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;msvcprtd.lib;glfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;msvcprt.libglfw3.lib; opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\gr275825\Desktop\Projects\tehtavat-JussiJR\T3\WeeRunSource\WeeRun\libraries\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

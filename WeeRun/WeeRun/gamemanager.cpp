@@ -34,7 +34,7 @@ GameManager::GameManager(const char* path)
 			fillBuffer(buffer, &root, &Initialized);
 
 			//!		Setup SSBOs
-			_mapData = SSBO<int>(edgecount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			_mapData = SSBO(edgecount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			free(buffer);
 		}
 
@@ -123,13 +123,13 @@ inline string readFile(const char* path,unsigned int* error) {
 inline int getBufferLength(Json::Value* root,unsigned int* error) 
 {
 	
-	int edgecount;
+	int edgecount = 0;
 	Json::Value::ArrayIndex i = 0;
 
 	Json::Value chunkOffsets;
 	if (!isValid(root,&chunkOffsets,"chunkOffsets")) {
 		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-		return;
+		return -1;
 	}
 
 	
@@ -141,11 +141,9 @@ inline int getBufferLength(Json::Value* root,unsigned int* error)
 
 	if (!edgecount) {
 		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-		return 0;
+		return -1;
 	}
-
 	return edgecount;
-
 }
 
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {

@@ -106,7 +106,7 @@ int main(int argc, char** argv){
 		int errorc = 0;
 
 		//!			Game manager
-		GameManager manager = GameManager("");
+		GameManager manager = GameManager("chunk_data.json");
 		if (manager.Initialized) {
 			int eMessage = manager.Initialized;
 			manager.~GameManager();

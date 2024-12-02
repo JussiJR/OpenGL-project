@@ -130,7 +130,8 @@
 #include <vector>
 
 //! Definitions
-
+//!		Misc
+#define CALLING_CONVENTION __stdcall 
 
 //!	Classes
 //!		SSBO
@@ -139,8 +140,7 @@
 /// SSBO (Shader storage buffer object)
 /// </summary>
 
-
-template <typename T> class SSBO {
+class SSBO{
 public:
 
 	/// <summary>
@@ -159,7 +159,7 @@ public:
 	/// <param name="data"> Data to be init</param>
 	/// <param name="type"> Type of the memory space</param>
 	/// <param name="index"> Index where ssbo will be inserted in buffer</param>
-	SSBO<T>::SSBO(int size, void* data, GLenum type, int index);
+	SSBO(int size, void* data, GLenum type, int index);
 
 	/// <summary>
 	/// Update method for data inside of a SSBO
@@ -167,7 +167,7 @@ public:
 	/// <param name="size">Size of the are</param>
 	/// <param name="offset">Offset for the starting point</param>
 	/// <param name="data">data to be inserted</param>
-	void Update(GLintptr size, GLintptr offset, const T data);
+	void Update(GLintptr size, GLintptr offset, const int data);
 
 	/// <summary>
 	/// Activation method

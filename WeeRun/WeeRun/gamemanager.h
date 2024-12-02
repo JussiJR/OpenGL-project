@@ -81,7 +81,7 @@ private:
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	SSBO<int> _mapData;
+	SSBO _mapData;
 
 
 	//!		Rendering
@@ -231,6 +231,12 @@ inline Json::Value getRoot(const char* path, unsigned int* error);
 /// <param name="error">pointer to error integer</param>
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 
-
+/// <summary>
+/// Checks if target name is in root
+/// </summary>
+/// <param name="root">value to check from</param>
+/// <param name="target">objet to be assigned</param>
+/// <param name="name">name of the object</param>
+/// <returns>true if it is found otherwise false</returns>
 inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
 #endif
