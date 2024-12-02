@@ -221,7 +221,7 @@ inline int getBufferLength(Json::Value* root, unsigned int* error);
 /// <param name="path">path to root file</param>
 /// <param name="error">error integer</param>
 /// <returns>returns Json::Value representing root</returns>
-inline Json::Value getRoot(const char* path, unsigned int* error);
+inline void getRoot(Json::Value *root,const char* path, unsigned int* error);
 
 /// <summary>
 /// Fills buffer with map data
