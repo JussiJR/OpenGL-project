@@ -12,13 +12,12 @@ void GameManager::changeMapValue(size_t offset, size_t size, void* data) const
 GameManager::GameManager(const char* path)
 {
 	//!		Ínitialized
-	
 	Initialized = 0;
 	
 	//!		Initialize OpenGL objects	
 	{
 		//!		Get root
-		Json::Value root;
+		Json::Value root(0);
 		getRoot(&root, path, &Initialized);
 		if (Initialized) return;
 		
@@ -162,17 +161,12 @@ inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {
 
 }
 
-inline void getRoot(Json::Value* root,const char* path, unsigned int* error) {
+void getRoot(Json::Value* root,const char* path, unsigned int* error) {
 	Json::CharReaderBuilder builder;
 	std::string errs;
-
 	//? create stream
-	std::istringstream s(readFile(path, error));
-	if (!Json::parseFromStream(builder, s, root, &errs)) {
-		cout << errs << endl;
-		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_PARSEMAP;
-		return;
-	}
+	std::ifstream s(path);
+	s >> *root;
 }
 
 inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {

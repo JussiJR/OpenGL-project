@@ -1,7 +1,7 @@
 //- https://developer.valvesoftware.com/wiki/BSP_(Source) - about bsp map files  
 // - https://stackoverflow.com/questions/32205981/reading-json-files-in-c - reading 
 //	- https://stackoverflow.com/questions/56659583/how-to-read-an-array-of-values-from-json-file-to-c-array - some more info about json file reading
-
+//	
 #pragma once
 #ifndef __gamemanager_h_
 #define __gamemanager_h_
@@ -221,7 +221,7 @@ inline int getBufferLength(Json::Value* root, unsigned int* error);
 /// <param name="path">path to root file</param>
 /// <param name="error">error integer</param>
 /// <returns>returns Json::Value representing root</returns>
-inline void getRoot(Json::Value *root,const char* path, unsigned int* error);
+void getRoot(Json::Value *root,const char* path, unsigned int* error);
 
 /// <summary>
 /// Fills buffer with map data
