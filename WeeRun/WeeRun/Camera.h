@@ -16,7 +16,9 @@ private:
 	float _yawn;
 
 public:
-	Camera(Entity* assignation,vec3 offset = vec3(0),float p = 0.0f, float y = 0.0f);
+	Camera(Entity* assignation, vec3 offset = vec3(0), float p = 0.0f, float y = 0.0f);
+	Camera(Entity* assignation, vec2 rotation = vec2(0), vec3 offset = vec3(0));
+	Camera();
 };
 
 #endif

@@ -12,7 +12,7 @@ GameManager::GameManager(const char* path)
 		Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE;
 		return;
 	}
-	_camera = Camera(plr);
+	_camera = Camera(plr,vec2(1.3f,12.3f));
 
 	//!		Initialize OpenGL objects	
 	{

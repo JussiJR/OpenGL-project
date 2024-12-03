@@ -28,6 +28,7 @@ T* Pool<T>::StaticPoint(int index)
 template<class T>
 void Pool<T>::StaticClean()
 {
+
 	realloc(_staticData, sizeof(T) * _index + 1);
 
 	//FIXME: May need some additional help with memory management
@@ -52,14 +53,14 @@ T* Pool<T>::StaticAdd(T* object)
 template<class T>
 T Pool<T>::StaticStaticWRemove()
 {
-	
+	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
+	return (T)Data[--_index];
 }
 
 template<class T>
 inline void Pool<T>::Trim()
 {
 	realloc(_data, sizeof(T) * _index + 1);
-
 	//FIXME: May need some additional help with memory management
 	//TODO: if needed maybe need to free with loop
 	_maxSize = _index + 1;

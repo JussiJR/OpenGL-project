@@ -7,3 +7,19 @@ Camera::Camera(Entity* assignation, vec3 offset, float p, float y)
 	_pitch = p;
 	_yawn = y;
 }
+
+Camera::Camera(Entity* assignation, vec2 rotation, vec3 offset)
+{
+	_assigned = assignation;
+	_offset = offset;
+	_pitch = rotation.x;
+	_yawn = rotation.y;
+}
+
+Camera::Camera()
+{
+	_assigned = nullptr;
+	_offset = vec3(0);
+	_pitch = 0.f;
+	_yawn = 0.f;
+}
