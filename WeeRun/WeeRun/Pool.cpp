@@ -2,11 +2,13 @@
 
 
 template<class T>
-inline Pool<T>::Pool(int size)
+Pool<T>::Pool(int size)
 {
-	Data = (T*)malloc(sizeof(T) * size);
+	_data = (T*)malloc(sizeof(T) * size);
 	_index = -1;
-
+	_staticData = (T*)malloc(sizeof(T) * size);
+	_staticIndex = -1;
+	_staticMaxSize = _maxSize = size + 1;
 }
 
 
@@ -14,7 +16,7 @@ template<class T>
 inline T Pool<T>::Lend()
 {
 	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return (T)Data[--_index];
+	return (T)_data[--_index];
 }
 
 template<class T>
@@ -22,7 +24,7 @@ T* Pool<T>::StaticPoint(int index)
 {
 
 	if (_staticIndex == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return &_staticData[index == -1 ? _staticIndex];
+	return &_staticData[index == -1 ? _staticIndex: index];
 }
 
 template<class T>
@@ -54,7 +56,7 @@ template<class T>
 T Pool<T>::StaticStaticWRemove()
 {
 	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return (T)Data[--_index];
+	return (T)_data[--_index];
 }
 
 template<class T>

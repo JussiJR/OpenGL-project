@@ -4,15 +4,17 @@ GameManager::GameManager(const char* path)
 {
 	//!		Ínitialized
 	Initialized = 0;
-	//!		Initialize Pool
-	_entitys = Pool<Entity>(10);
+
 	//!		Initialize Camera
-	Entity* plr = (Entity*)malloc(sizeof(plr));
-	if (!plr) {
-		Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE;
-		return;
+	{
+		Entity* plr = (Entity*)malloc(sizeof(plr));
+		if (!plr) {
+			Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE;
+			return;
+		}
+		_camera = Camera(plr, vec2(1.3f, 12.3f));
 	}
-	_camera = Camera(plr,vec2(1.3f,12.3f));
+
 
 	//!		Initialize OpenGL objects	
 	{
