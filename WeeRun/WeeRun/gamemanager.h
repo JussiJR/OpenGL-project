@@ -41,8 +41,12 @@
 #include <json/json.h>
 
 //!		fstream
-//!			header files
+//!			Header files
 #include <fstream>
+
+//!		Pool
+//!			Header files
+#include "Pool.h"
 
 //!	Definitions
 //!		Exceptions
@@ -70,14 +74,23 @@
 #define GAMEMANAGER_RENDERER_DISTANCE 5
 
 //!				Converter
+//!					Degree 2 radians
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 
+/// <summary>
+/// Game manager handles all updates and almost everything about things
+/// </summary>
 class GameManager {
 private:
 
 	//!		Objects
 	
+	/// <summary>
+	/// Pooled entitys
+	/// </summary>
+	Pool<Entity> entitys;
+
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
@@ -138,25 +151,6 @@ private:
 	/// how many entities are in map ( includes entity that represents player ) 
 	/// </summary>
 	unsigned int _entityCount : 7;
-
-	//!		Render settings
-	
-	/// <summary>
-	/// Field of View for calculations and for those who wish to use cheat engine to break rendering system.
-	/// </summary>
-	unsigned int _fieldOfView: 7;
-
-	/// <summary>
-	/// Current chunk where player is
-	/// </summary>
-	unsigned char _currentChunk;
-
-	/// <summary>
-	/// Player's yaw
-	/// </summary>
-	float _yaw;
-
-	void changeMapValue(size_t offset, size_t size, void* data) const;
 
 public:
 
