@@ -4,6 +4,9 @@
 #include <iostream>
 #include "Entity.h"
 
+
+#define EXCEPTIONS_POOL_EMPTY_DATA 0x401F
+
 /// <summary>
 /// Uses heap for dynamic sized memory
 /// </summary>
@@ -38,7 +41,7 @@ public:
 	/// <summary>
 	/// Method for lending from pool
 	/// </summary>
-	/// <returns>if pool has objects it lends objcect from top like if taken from stack, if empty returns new object. </returns>
+	/// <returns>if pool has objects it lends objcect from top like if taken from stack, if empty throws error </returns>
 	T Lend();
 
 	/// <summary>

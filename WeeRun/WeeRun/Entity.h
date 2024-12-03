@@ -7,9 +7,13 @@
 using namespace glm;
 
 class Entity{
+private:
+
+
 public:
-	float Velocity;
-	lowp_mat4x4 ModelMatrix;
+	vec3 Velocity;
+	vec3 Position;
+	unsigned char TextureIndex;
 	Entity();
 };
 #pragma pack(pop)

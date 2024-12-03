@@ -13,7 +13,8 @@ inline Pool<T>::Pool(int size)
 template<class T>
 inline T Pool<T>::Lend()
 {
-	if (index == -1) return T();
+
+	if (index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
 	return Data[--index];
 }
 template<class T>
