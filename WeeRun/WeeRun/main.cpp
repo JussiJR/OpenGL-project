@@ -128,6 +128,9 @@ int main(int argc, char** argv){
 
 
 			//!	WeeRun
+			//!		Updating
+			//TODO: Add Update methods 
+			//!		Fixed updating
 			//TODO: Add Update methods 
 			//!		Rendering
 			//TODO: Add Rendering methods 
