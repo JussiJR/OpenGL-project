@@ -150,10 +150,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pool.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="SSBO.cpp" />
     <ClCompile Include="stb_image_loader.cpp" />
@@ -164,9 +167,12 @@
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Pool.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="SSBO.h" />
     <ClInclude Include="VAO.h" />

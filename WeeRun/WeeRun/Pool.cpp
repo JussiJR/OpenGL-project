@@ -5,7 +5,7 @@ template<class T>
 inline Pool<T>::Pool(int size)
 {
 	Data = (T*)malloc(sizeof(T) * size);
-	index = -1;
+	_index = -1;
 
 }
 
@@ -13,28 +13,65 @@ inline Pool<T>::Pool(int size)
 template<class T>
 inline T Pool<T>::Lend()
 {
-
-	if (index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return Data[--index];
+	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
+	return (T)Data[--_index];
 }
+
 template<class T>
-inline void Pool<T>::Trim()
+T* Pool<T>::StaticPoint(int index)
 {
-	realloc(data, sizeof(T) * index + 1);
+
+	if (_staticIndex == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
+	return &_staticData[index == -1 ? _staticIndex];
+}
+
+template<class T>
+void Pool<T>::StaticClean()
+{
+	realloc(_staticData, sizeof(T) * _index + 1);
 
 	//FIXME: May need some additional help with memory management
 	//TODO: if needed maybe need to free with loop
-	maxSize = index + 1;
+	_maxSize = _index + 1;
+}
+
+
+
+template<class T>
+T* Pool<T>::StaticAdd(T* object)
+{
+	if (_staticIndex == _staticMaxSize) {
+		realloc(_staticData, sizeof(T) * 2 * _index + 1);
+		_staticMaxSize = 2 * _staticIndex + 1;
+	}
+	_staticData[_staticIndex++] = *object;
+	free(object);
+	return &_staticData[_staticIndex];	 
+}
+
+template<class T>
+T Pool<T>::StaticStaticWRemove()
+{
+	
+}
+
+template<class T>
+inline void Pool<T>::Trim()
+{
+	realloc(_data, sizeof(T) * _index + 1);
+
+	//FIXME: May need some additional help with memory management
+	//TODO: if needed maybe need to free with loop
+	_maxSize = _index + 1;
 }
 
 template<class T>
 void Pool<T>::ReturnObject(T* object)
 {
-
-	if (index == maxSize) {
-		realloc(data, sizeof(T) * 2 * index + 1);
-		maxSize = 2 * index + 1;
+	if (_index == _maxSize) {
+		realloc(_data, sizeof(T) * 2 * _index + 1);
+		_maxSize = 2 * _index + 1;
 	}
-	data[index++] = *object;
+	_data[_index++] = *object;
 	free(object);
 }

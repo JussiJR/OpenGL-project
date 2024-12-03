@@ -47,6 +47,7 @@
 //!		Pool
 //!			Header files
 #include "Pool.h"
+#include "Camera.h"
 
 //!	Definitions
 //!		Exceptions
@@ -58,6 +59,7 @@
 #define EXCEPTION_GAMEMANAGER_INITÍALIZATION_SHADER_VERTEXNOTFOUND 0x302F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_TEXTURENOTFOUND 0x304F
+#define EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE 0x501F
 
 //!		Constant values
 //!			Entity
@@ -89,7 +91,9 @@ private:
 	/// <summary>
 	/// Pooled entitys
 	/// </summary>
-	Pool<Entity> entitys;
+	Pool<Entity> _entitys;
+
+	Camera _camera;
 
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map

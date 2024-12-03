@@ -2,15 +2,14 @@ using Newtonsoft.Json;
 
 namespace MapEditor
 {
+
+
     [Serializable]
     public class Chunk
     {
         public List<int> edges;  // List of edges in the chunk
 
-        public Chunk()
-        {
-            edges = new List<int>(31);
-        }
+
     }
 
 
@@ -39,7 +38,6 @@ namespace MapEditor
             chunkData = new ChunkData();
             nudLink.Value = 1;
             this.Size = new Size(1000, 900);
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)

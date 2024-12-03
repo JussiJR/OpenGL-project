@@ -1,19 +1,19 @@
 #include "gamemanager.h"
 
-
-
-
-
-void GameManager::changeMapValue(size_t offset, size_t size, void* data) const
-{
-	glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, size, (void*)data);
-}
-
 GameManager::GameManager(const char* path)
 {
 	//!		Ínitialized
 	Initialized = 0;
-	
+	//!		Initialize Pool
+	_entitys = Pool<Entity>(10);
+	//!		Initialize Camera
+	Entity* plr = (Entity*)malloc(sizeof(plr));
+	if (!plr) {
+		Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE;
+		return;
+	}
+	_camera = Camera(plr);
+
 	//!		Initialize OpenGL objects	
 	{
 		//!		Get root
@@ -37,19 +37,8 @@ GameManager::GameManager(const char* path)
 			_mapData = SSBO(edgecount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			free(buffer);
 		}
+		
 
-		//!		Texture loading
-		{
-			//!	Get texture path
-			Json::Value chunkOffsets;
-			if (!isValid(&root, &chunkOffsets, "Textures")) {
-				Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-				return;
-			}
-
-
-
-		}
 
 	}
 
@@ -67,8 +56,6 @@ GameManager::GameManager(const char* path)
 	_unixTimer = 0;
 	_entityCount = 1;
 
-	//!		Render settings
-	_fieldOfView = 90;
 }
 
 GameManager::~GameManager()
