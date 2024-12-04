@@ -23,3 +23,8 @@ Camera::Camera()
 	_pitch = 0.f;
 	_yawn = 0.f;
 }
+
+Entity* Camera::getPointed() const
+{
+	return _assigned;
+}

@@ -28,15 +28,15 @@ GameManager::GameManager(const char* path)
 		//!		Map initialization
 		{
 			//!		Get buffer length
-			int edgecount = getBufferLength(&root, &Initialized);
+			edgeCount = getBufferLength(&root, &Initialized);
 			if (Initialized) return;
 
 			//!		Create buffer
-			int* buffer = (int*)malloc(sizeof(int) * edgecount); // inconvienent but what can you do?
+			int* buffer = (int*)malloc(sizeof(int) * edgeCount); // inconvienent but what can you do?
 			fillBuffer(buffer, &root, &Initialized);
 
 			//!		Setup SSBOs
-			_mapData = SSBO(edgecount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			_mapData = SSBO(edgeCount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			free(buffer);
 		}
 		
@@ -83,10 +83,31 @@ int GameManager::FixedUpdate(int* errorc)
 
 int GameManager::Render(int* errorc, int render_distance)
 {
+
+	//FIXME:  MANY MEMORY LOSS SPOT
+	vec2 direction,currentPillarPos;
+	int* data = new int[edgeCount];
+	int texture, x, y, portalLink, portalChunkIndex, value, link;
+
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
+	_mapData.Retrieve(0, sizeof(int) * edgeCount, data);
+	for (int i = 0;i < edgeCount;i++) {
+		//!		Get data
+		value = data[i];
+		x = (value >> 17) & 0x7F;
+		y = (value >> 10) & 0x7F;
+
+		//! Get direction
+		direction = vec2(x, y) - _camera.getPointed()->Position;
 
 
 
+
+	}
+
+	
+
+	delete[] data;
 	return *errorc;
 	return EXIT_SUCCESS;
 
@@ -147,7 +168,7 @@ inline int getBufferLength(Json::Value* root,unsigned int* error)
 }
 
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {
-
+	//TODO: Fill buffer with data
 }
 
 void getRoot(Json::Value* root,const char* path, unsigned int* error) {
@@ -162,4 +183,10 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 	*target = root->get(name, NULL);
 	if (!*target) return false;
 	return true;
+}
+
+inline float getDistance(vec2 direction,float* angle) {
+	float y = sqrt(direction.x * direction.x + direction.y * direction.y);
+	*angle = asin(direction.y / y);
+	return y/1;
 }

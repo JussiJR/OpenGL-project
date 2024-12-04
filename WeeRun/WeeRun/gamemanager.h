@@ -47,7 +47,14 @@
 //!		Pool
 //!			Header files
 #include "Pool.h"
+
+//!		Camera
+//!			Header files
 #include "Camera.h"
+
+//!		Math
+//!			Header files
+#include <cmath>
 
 //!	Definitions
 //!		Exceptions
@@ -155,6 +162,8 @@ private:
 	/// how many entities are in map ( includes entity that represents player ) 
 	/// </summary>
 	unsigned int _entityCount : 7;
+	
+	unsigned int edgeCount;
 
 public:
 
@@ -237,4 +246,12 @@ inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 /// <param name="name">name of the object</param>
 /// <returns>true if it is found otherwise false</returns>
 inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
+
+/// <summary>
+/// Calculates distance (c) and sets angle in radians 
+/// </summary>
+/// <param name="direction"></param>
+/// <param name="angle"></param>
+/// <returns></returns>
+inline float getDistance(vec2 direction, float* angle);
 #endif

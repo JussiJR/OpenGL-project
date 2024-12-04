@@ -22,6 +22,11 @@ void SSBO::Activate()
 
 }
 
+void SSBO::Retrieve(GLintptr offset, GLsizeiptr size,void* target)
+{
+	glGetBufferSubData(ID, offset, size, target);
+}
+
 void SSBO::Delete()
 {
 }

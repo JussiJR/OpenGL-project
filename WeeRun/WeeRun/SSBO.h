@@ -175,6 +175,14 @@ public:
 	void Activate();
 
 	/// <summary>
+	/// Used to retrieve data from ssbo
+	/// </summary>
+	/// <param name="offset">offset of portion</param>
+	/// <param name="size">size of portion</param>
+	/// <param name="target">target array to implement</param>
+	void Retrieve(GLintptr offset, GLsizeiptr size, void* target);
+
+	/// <summary>
 	/// Disposing method or more precisely wrapper around opengl
 	/// </summary>
 	void Delete();
