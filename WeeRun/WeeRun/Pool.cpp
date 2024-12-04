@@ -1,15 +1,6 @@
 #include "Pool.h"
 
 
-template<class T>
-Pool<T>::Pool(int size)
-{
-	_data = (T*)malloc(sizeof(T) * size);
-	_index = -1;
-	_staticData = (T*)malloc(sizeof(T) * size);
-	_staticIndex = -1;
-	_staticMaxSize = _maxSize = size + 1;
-}
 
 
 template<class T>

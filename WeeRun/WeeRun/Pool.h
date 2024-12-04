@@ -52,7 +52,14 @@ public:
 	/// Constructor for pool
 	/// </summary>
 	/// <param name="size"></param>
-	Pool<T>(int size);
+	Pool<T>(int size)
+	{
+		_data = (T*)malloc(sizeof(T) * size);
+		_index = -1;
+		_staticData = (T*)malloc(sizeof(T) * size);
+		_staticIndex = -1;
+		_staticMaxSize = _maxSize = size + 1;
+	}
 
 	/// <summary>
 	/// Method for lending from pool
