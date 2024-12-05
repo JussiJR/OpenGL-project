@@ -5,15 +5,16 @@ GameManager::GameManager(const char* path)
 	//!		Ínitialized
 	Initialized = 0;
 
-	//!		Initialize Camera
+	//!		Initialize Pool
+	_entitys = Pool<Entity>(10, true);
+	
+	//!		Initialize Player
 	{
-		Entity* plr = (Entity*)malloc(sizeof(plr));
-		if (!plr) {
-			Initialized = EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE;
-			return;
-		}
-		_camera = Camera(plr, vec2(1.3f, 12.3f));
+		Entity plr = Entity(1, 0, 0); // may cause some undefined actions since it gets yeeted from stack soon
+		_entitys.Add(&plr);
 	}
+	//!		Initialize Camera	
+	_camera = Camera(_entitys[0], vec2(1.3f, 12.3f));
 
 
 	//!		Initialize OpenGL objects	
@@ -32,12 +33,12 @@ GameManager::GameManager(const char* path)
 			if (Initialized) return;
 
 			//!		Create buffer
-			int* buffer = (int*)malloc(sizeof(int) * edgeCount); // inconvienent but what can you do?
+			int* buffer = new int[edgeCount]; 
 			fillBuffer(buffer, &root, &Initialized);
 
 			//!		Setup SSBOs
 			_mapData = SSBO(edgeCount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
-			free(buffer);
+			delete[] buffer;
 		}
 		
 
@@ -66,12 +67,16 @@ GameManager::~GameManager()
 	_vertexArray.Delete();
 	_indices.Delete();
 	_shader.Delete();
+	
 }
 
 int GameManager::Update(int* errorc)
 {
 
-	_camera
+	///!	Update camera 
+	_camera.Update(0.f,0.f);
+
+
 
 	return *errorc;
 	return EXIT_SUCCESS;
@@ -90,22 +95,32 @@ int GameManager::Render(int* errorc, int render_distance)
 	//FIXME:  MANY MEMORY LOSS SPOT
 	vec2 direction,currentPillarPos;
 	int* data = new int[edgeCount];
-	int texture, x, y, portalLink, portalChunkIndex, value, link;
+	int texture, x, y, portalLink, portalChunkIndex, edge, link,last  = -1;
+
 	
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
 	_mapData.Retrieve(0, sizeof(int) * edgeCount, data);
 	for (int i = 0;i < edgeCount;i++) {
 		//!		Get data
-		value = data[i];
-		x = (value >> 17) & 0x7F;
-		y = (value >> 10) & 0x7F;
+		edge = data[i];
+		x = (edge >> 17) & 0x7F;
+		y = (edge >> 10) & 0x7F;
+		link = (edge >> 28) & 0xF;
+		texture = (edge >> 24) & 0xF;
 
 		//! Get direction
 		direction = vec2(x, y) - _camera.getPointed()->Position;
 		float angle, distance;
 		distance = getDistance(direction, &angle);
 
-		if(!inView())
+		if (inView(angle, _camera.GetRotation().x)) {
+			
+		}
+		if(last != -1) {
+
+		}
+		last = edge;
+
 	}
 
 	
@@ -194,5 +209,5 @@ inline float getDistance(vec2 direction,float* angle) {
 	return y/1;
 }
 inline bool inView(float angle,float yawn) {
-	return angle < 2.0943951 && angle > 1.04719755;
+	return angle < 2.0943951 + yawn && angle > yawn;
 }

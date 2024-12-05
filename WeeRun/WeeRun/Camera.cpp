@@ -41,3 +41,8 @@ vec3 Camera::GetPosition() const
 	//LMAO RIP MEMORY
 	return  vec3(_offset.x+_assigned->Position.x,_offset.y, _offset.z + _assigned->Position.y);
 }
+
+vec2 Camera::GetRotation() const
+{
+	return vec2(_pitch,_yawn);
+}

@@ -11,6 +11,7 @@ using namespace std;
 
 /// <summary>
 /// Uses heap for dynamic sized arrays and controls them.
+/// NOTE: Many of the methods mess up with pointers to memory and may be invalid since no checks are implemented
 /// </summary>
 template <class T> class Pool {
 private:
@@ -46,54 +47,54 @@ private:
 	int _staticMaxSize = 0;
 public:
 
+	/// <summary>
+	/// Cosntructor for pool
+	/// </summary>
+	/// <param name="size">size of collections</param>
+	/// <param name="InitializeStatic">does static collection get initialized also</param>
+	Pool(int size, bool InitializeStatic);
 	
-
+	
 	/// <summary>
-	/// Constructor for pool
+	/// Empty constructor
 	/// </summary>
-	/// <param name="size"></param>
-	Pool<T>(int size)
-	{
-		_data = (T*)malloc(sizeof(T) * size);
-		_index = -1;
-		_staticData = (T*)malloc(sizeof(T) * size);
-		_staticIndex = -1;
-		_staticMaxSize = _maxSize = size + 1;
-	}
+	Pool() {}
 
+	
 	/// <summary>
-	/// Method for lending from pool
+	/// Returns pointer to object in static collection
 	/// </summary>
-	/// <returns>if pool has objects it lends objcect from top like if taken from stack, if empty throws error </returns>
-	T Lend();
-
-	/// <summary>
-	/// indexed get from static array
-	/// </summary>
-	/// <param name="index"></param>
+	/// <param name="i"></param>
 	/// <returns></returns>
-	T* StaticPoint(int index = -1);
-
-	void StaticClean();
-
+	T* operator[](int i);
+	
+	
 	/// <summary>
-	/// Adds object to static array
+	/// Pops top one out and returns it
 	/// </summary>
-	/// <param name="object">Object to be added</param>
-	/// <returns>new pointer to array</returns>
-	T* StaticAdd(T* object);
-
-	T StaticStaticWRemove();
-
+	/// <returns></returns>
+	T Pop();
+	
 	/// <summary>
-	/// Trims the storage so that it fits only amount what in current moment pool holds
+	/// Removes Object from static collection
 	/// </summary>
-	void Trim();
-
+	/// <param name="i">index of object (-1 = top one) </param>
+	/// <returns>object what was deleted from collection</returns>
+	T Remove(int i);
+	
 	/// <summary>
-	/// Returns the object
+	/// Adds object to static collection
+	/// NOTE: does not clean up duplicate if the value is not from stack
 	/// </summary>
-	void ReturnObject(T* object);
+	/// <param name="entity"> pointer to be added</param>
+	void Add(T* entity);
+	
+	/// <summary>
+	/// way to push to fifo collection
+	/// NOTE: DOES NOT CLEAN UP
+	/// </summary>
+	/// <param name="entity">entity to be added</param>
+	void Push(T entity);
 };
 
 

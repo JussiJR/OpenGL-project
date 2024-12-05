@@ -29,4 +29,5 @@ void SSBO::Retrieve(GLintptr offset, GLsizeiptr size,void* target)
 
 void SSBO::Delete()
 {
+
 }

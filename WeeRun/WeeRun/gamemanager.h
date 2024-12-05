@@ -98,7 +98,7 @@ private:
 	/// <summary>
 	/// Pooled entitys
 	/// </summary>
-	Pool<Entity> _entitys = Pool<Entity>(10);
+	Pool<Entity> _entitys = Pool<Entity>(10,true);
 
 	Camera _camera;
 

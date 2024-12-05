@@ -1,71 +1,59 @@
 #include "Pool.h"
 
-
-
-
 template<class T>
-inline T Pool<T>::Lend()
+Pool<T>::Pool(int size, bool InitializeStatic)
 {
-	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return (T)_data[--_index];
+	if (InitializeStatic) {
+		_staticData = new T[size];
+		_staticMaxSize = size;
+	}
+	_data = new T[size];
+	_maxSize = size;
 }
 
 template<class T>
-T* Pool<T>::StaticPoint(int index)
+inline T* Pool<T>::operator[](int i)
 {
-
-	if (_staticIndex == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return &_staticData[index == -1 ? _staticIndex: index];
+	return &(_staticData[i]);
 }
 
 template<class T>
-void Pool<T>::StaticClean()
+T Pool<T>::Pop()
 {
-
-	realloc(_staticData, sizeof(T) * _index + 1);
-
-	//FIXME: May need some additional help with memory management
-	//TODO: if needed maybe need to free with loop
-	_maxSize = _index + 1;
+	T ret = *_data[_index--];
+	return ret;
 }
 
-
+template<class T>
+T Pool<T>::Remove(int i)
+{
+	_staticData[i == -1 ? _staticIndex : i] = NULL;
+}
 
 template<class T>
-T* Pool<T>::StaticAdd(T* object)
+void Pool<T>::Add(T* entity)
 {
+	//Resize of fifo collection
 	if (_staticIndex == _staticMaxSize) {
-		realloc(_staticData, sizeof(T) * 2 * _index + 1);
-		_staticMaxSize = 2 * _staticIndex + 1;
+		T* nArray = new T[_staticMaxSize * 2];
+		copy(_staticData, _staticData + _staticMaxSize, nArray);
+		delete[] _staticData;
+		_staticData = nArray;
 	}
-	_staticData[_staticIndex++] = *object;
-	free(object);
-	return &_staticData[_staticIndex];	 
+
+	_staticData[++_staticIndex] = *entity;
 }
 
 template<class T>
-T Pool<T>::StaticStaticWRemove()
+void Pool<T>::Push(T entity)
 {
-	if (_index == -1) throw(EXCEPTIONS_POOL_EMPTY_DATA);
-	return (T)_data[--_index];
-}
-
-template<class T>
-inline void Pool<T>::Trim()
-{
-	realloc(_data, sizeof(T) * _index + 1);
-	//FIXME: May need some additional help with memory management
-	//TODO: if needed maybe need to free with loop
-	_maxSize = _index + 1;
-}
-
-template<class T>
-void Pool<T>::ReturnObject(T* object)
-{
+	// resize of static collection
 	if (_index == _maxSize) {
-		realloc(_data, sizeof(T) * 2 * _index + 1);
-		_maxSize = 2 * _index + 1;
+		T* nArray = new T[_maxSize * 2];
+		copy(_data, _data + _maxSize, nArray);
+		delete[] _data;
+		_data = nArray;
 	}
-	_data[_index++] = *object;
-	free(object);
+	_data[++_index] = entity;
 }
+
