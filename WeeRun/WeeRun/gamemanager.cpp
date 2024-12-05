@@ -70,6 +70,9 @@ GameManager::~GameManager()
 
 int GameManager::Update(int* errorc)
 {
+
+	_camera
+
 	return *errorc;
 	return EXIT_SUCCESS;
 }
@@ -88,7 +91,7 @@ int GameManager::Render(int* errorc, int render_distance)
 	vec2 direction,currentPillarPos;
 	int* data = new int[edgeCount];
 	int texture, x, y, portalLink, portalChunkIndex, value, link;
-
+	
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
 	_mapData.Retrieve(0, sizeof(int) * edgeCount, data);
 	for (int i = 0;i < edgeCount;i++) {
@@ -99,10 +102,10 @@ int GameManager::Render(int* errorc, int render_distance)
 
 		//! Get direction
 		direction = vec2(x, y) - _camera.getPointed()->Position;
+		float angle, distance;
+		distance = getDistance(direction, &angle);
 
-
-
-
+		if(!inView())
 	}
 
 	
@@ -189,4 +192,7 @@ inline float getDistance(vec2 direction,float* angle) {
 	float y = sqrt(direction.x * direction.x + direction.y * direction.y);
 	*angle = asin(direction.y / y);
 	return y/1;
+}
+inline bool inView(float angle,float yawn) {
+	return angle < 2.0943951 && angle > 1.04719755;
 }

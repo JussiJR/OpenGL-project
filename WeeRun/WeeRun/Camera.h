@@ -1,6 +1,9 @@
 #pragma once
 #ifndef __camera_h_
 #define __camera_h_
+
+#define TWOPI 6.28318530718
+
 #include "Entity.h"
 
 class Camera {
@@ -21,6 +24,9 @@ public:
 	Camera();
 
 	Entity* getPointed() const;
+	void Update(float p,float y);
+
+	vec3 GetPosition() const;
 };
 
 #endif

@@ -252,6 +252,17 @@ inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
 /// </summary>
 /// <param name="direction"></param>
 /// <param name="angle"></param>
-/// <returns></returns>
+/// <returns>distance between Vector point and player</returns>
 inline float getDistance(vec2 direction, float* angle);
+
+/// <summary>
+/// Checks if object is in view.
+/// </summary>
+/// <param name="angle">angle where object is from player in fixed map</param>
+/// <param name="yawn">rotation of player or rather offset for angle</param>
+/// <returns>true if object is in view otherwise false. </returns>
+inline bool inView(float angle, float yawn);
+
+
+
 #endif

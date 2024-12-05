@@ -28,3 +28,16 @@ Entity* Camera::getPointed() const
 {
 	return _assigned;
 }
+
+void Camera::Update(float p, float y)
+{
+	//!	Update pitch and yaw or whatever
+	_pitch = (_pitch > TWOPI ? 0.0f : _pitch) + p;
+	_yawn = (_yawn > TWOPI ? 0.0f : _yawn) + y;
+}
+
+vec3 Camera::GetPosition() const
+{
+	//LMAO RIP MEMORY
+	return  vec3(_offset.x+_assigned->Position.x,_offset.y, _offset.z + _assigned->Position.y);
+}
