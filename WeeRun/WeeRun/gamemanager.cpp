@@ -94,11 +94,13 @@ int GameManager::Render(int* errorc, int render_distance)
 
 	//FIXME:  MANY MEMORY LOSS SPOT
 	vec2 direction;
-	int x, y,edge;
+	Pool<int> buffer(10, 0);
+	int x, y,edge, last = -1,bufferoffset = chunkOffsets[_camera.getPointed()->CurrentChunk], next = 0;
+	bool contin = true;
 	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD
-	for (int i = 0;i < edgeCount;i++) {
+	while (contin) {
 		//!		Get data
-		edge = mapBuffer[i];
+		edge = mapBuffer[next + bufferoffset];
 		x = (edge >> 17) & 0x7F;
 		y = (edge >> 10) & 0x7F;
 
@@ -108,9 +110,15 @@ int GameManager::Render(int* errorc, int render_distance)
 		distance = getDistance(direction, &angle);
 		float yawOffset = _camera.GetRotation().x;
 		if (inView(angle, yawOffset)) {
-			
+			if (last != -1 && !buffer.Contains(last)) {
+				buffer.Push(last);
+			}
+			buffer.Push(last);
 		}
+
+		last = edge;
 	}
+
 	return *errorc;
 	return EXIT_SUCCESS;
 
@@ -189,12 +197,9 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline float getDistance(vec2 direction,float* angle) {
-
-	//TODO: Fix Calculation of angle
-	float y = sqrt(direction.x * direction.x + direction.y * direction.y);
-	*angle = asin(direction.y / y);
-	float offset;
-	return 
+	*angle = atan2(direction.y, direction.x);
+	*angle += *angle < 0 ? 6.28318530718 : 0;
+	return sqrt(direction.x * direction.x + direction.y * direction.y);
 }
 inline bool inView(float angle,float yawn) {
 	return angle < 2.0943951 + yawn && angle > yawn;
