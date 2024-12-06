@@ -56,6 +56,10 @@
 //!			Header files
 #include <cmath>
 
+//!		Main
+//!			Header files
+#include "main.h"
+
 //!	Definitions
 //!		Exceptions
 //!			Game manager
@@ -100,7 +104,22 @@ private:
 	/// </summary>
 	Pool<Entity> _entitys = Pool<Entity>(10,true);
 
+	/// <summary>
+	/// Camera for scene / game
+	/// </summary>
 	Camera _camera;
+
+	/// <summary>
+	/// fifo like container for rendering edges
+	/// </summary>
+	Pool<float> _screenBuffer = Pool<float>(10, false);
+
+
+
+	/// <summary>
+	/// Till better solution is found
+	/// </summary>
+	int* mapBuffer;
 
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map

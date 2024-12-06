@@ -33,12 +33,12 @@ GameManager::GameManager(const char* path)
 			if (Initialized) return;
 
 			//!		Create buffer
-			int* buffer = new int[edgeCount]; 
-			fillBuffer(buffer, &root, &Initialized);
+			mapBuffer = new int[edgeCount]; 
+			fillBuffer(mapBuffer, &root, &Initialized);
 
 			//!		Setup SSBOs
-			_mapData = SSBO(edgeCount, buffer, GL_DYNAMIC_STORAGE_BIT, 0);
-			delete[] buffer;
+			_mapData = SSBO(edgeCount, mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			
 		}
 		
 
@@ -93,39 +93,24 @@ int GameManager::Render(int* errorc, int render_distance)
 {
 
 	//FIXME:  MANY MEMORY LOSS SPOT
-	vec2 direction,currentPillarPos;
-	int* data = new int[edgeCount];
-	int texture, x, y, portalLink, portalChunkIndex, edge, link,last  = -1;
-
-	
-	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD 
-	_mapData.Retrieve(0, sizeof(int) * edgeCount, data);
+	vec2 direction;
+	int x, y,edge;
+	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD
 	for (int i = 0;i < edgeCount;i++) {
 		//!		Get data
-		edge = data[i];
+		edge = mapBuffer[i];
 		x = (edge >> 17) & 0x7F;
 		y = (edge >> 10) & 0x7F;
-		link = (edge >> 28) & 0xF;
-		texture = (edge >> 24) & 0xF;
 
 		//! Get direction
 		direction = vec2(x, y) - _camera.getPointed()->Position;
 		float angle, distance;
 		distance = getDistance(direction, &angle);
-
-		if (inView(angle, _camera.GetRotation().x)) {
+		float yawOffset = _camera.GetRotation().x;
+		if (inView(angle, yawOffset)) {
 			
 		}
-		if(last != -1) {
-
-		}
-		last = edge;
-
 	}
-
-	
-
-	delete[] data;
 	return *errorc;
 	return EXIT_SUCCESS;
 
@@ -174,7 +159,7 @@ inline int getBufferLength(Json::Value* root,unsigned int* error)
 	
 	
 	while (i < chunkOffsets.size() && chunkOffsets[i].asInt() != 0) {
-		//							To avoid some random steps I think
+		//					To avoid some random steps I think
 		edgecount += chunkOffsets[++i - 1].asInt();
 	}
 
@@ -204,9 +189,12 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline float getDistance(vec2 direction,float* angle) {
+
+	//TODO: Fix Calculation of angle
 	float y = sqrt(direction.x * direction.x + direction.y * direction.y);
 	*angle = asin(direction.y / y);
-	return y/1;
+	float offset;
+	return 
 }
 inline bool inView(float angle,float yawn) {
 	return angle < 2.0943951 + yawn && angle > yawn;

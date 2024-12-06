@@ -11,7 +11,7 @@ private:
 
 
 public:
-
+	unsigned char CurrentChunk;
 
 	/// <summary>
 	/// Velocity of entity

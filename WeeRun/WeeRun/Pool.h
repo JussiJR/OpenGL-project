@@ -21,10 +21,6 @@ private:
 	/// </summary>
 	T* _data;
 
-	/// <summary>
-	/// Static version of data ( does not delete on trim) and can be just referenced works like list 
-	/// </summary>
-	T* _staticData;
 
 	/// <summary>
 	/// current index going on
@@ -52,7 +48,7 @@ public:
 	/// </summary>
 	/// <param name="size">size of collections</param>
 	/// <param name="InitializeStatic">does static collection get initialized also</param>
-	Pool(int size, bool InitializeStatic);
+	Pool(int fifosize, int staticSize);
 	
 	
 	/// <summary>
@@ -79,8 +75,7 @@ public:
 	/// Removes Object from static collection
 	/// </summary>
 	/// <param name="i">index of object (-1 = top one) </param>
-	/// <returns>object what was deleted from collection</returns>
-	T Remove(int i);
+	void Remove(int i);
 	
 	/// <summary>
 	/// Adds object to static collection
@@ -95,6 +90,16 @@ public:
 	/// </summary>
 	/// <param name="entity">entity to be added</param>
 	void Push(T entity);
+
+	/// <summary>
+	/// Checks if referenced value like is in fifo like collection
+	/// </summary>
+	/// <param name="reference">value to be checked</param>
+	/// <returns>true if variable like it is in fifo like collection otherwise false</returns>
+	bool Contains(T reference);
+
+	T* getBuffer() const;
+
 };
 
 
