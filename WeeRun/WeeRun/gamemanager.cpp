@@ -91,35 +91,65 @@ int GameManager::FixedUpdate(int* errorc)
 
 int GameManager::Render(int* errorc, int render_distance)
 {
-
-	//FIXME:  MANY MEMORY LOSS SPOT
-	vec2 direction;
-	Pool<int> buffer(10, 0);
-	int x, y,edge, last = -1,bufferoffset = chunkOffsets[_camera.getPointed()->CurrentChunk], next = 0;
-	bool contin = true;
-	_shader.Activate(); // not very optimized tho lol :D all tho it is only one and this is securest one XDDD
-	while (contin) {
-		//!		Get data
-		edge = mapBuffer[next + bufferoffset];
-		x = (edge >> 17) & 0x7F;
-		y = (edge >> 10) & 0x7F;
-
-		//! Get direction
-		direction = vec2(x, y) - _camera.getPointed()->Position;
+	int i = 0, j = 0;
+	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 0 };
+	{
+		//!	RENDER Wall
+		//FIXME:  MANY MEMORY LOSS SPOT
+		queue<int> _queue = queue<int>();
+		unsigned long last[2]{ 0 };
+		// Current Edge data
+		int link = 0, texture, x, y, portalLink, portalChunkIndex, bufferoffset;
 		float angle, distance;
-		distance = getDistance(direction, &angle);
 		float yawOffset = _camera.GetRotation().x;
-		if (inView(angle, yawOffset)) {
-			if (last != -1 && !buffer.Contains(last)) {
-				buffer.Push(last);
+		vec2 view = _camera.getPointed()->Position;
+
+		//!	Loop threw camera view
+		_queue.push(_camera.getPointed()->CurrentChunk);
+		while (!_queue.empty()) {
+			//!		Get chunk data
+			int chunk = _queue.front();
+			_queue.pop();
+			if (!chunk) break;//Kinda bruh
+			bufferoffset = chunkOffsets[chunk];
+
+			//!		Loop chunk
+			while (i < chunkSizes[chunk]) {
+
+				//!		Get edge data
+				int edge = mapBuffer[bufferoffset + link];
+				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
+				vec2 direction = vec2(x, y) - view;
+
+				if (portalChunkIndex != chunk) {
+					_queue.push(portalChunkIndex);
+				}
+				//!		Get direction
+				distance = getDistance(direction, &angle);
+
+				{
+					int view = inView(angle, yawOffset);
+					//!		Check is it in view
+					if (view || last[1]) {
+						//!		Add items into buffer	
+						buffer[j++] = last[0];
+						buffer[j++] = edge;
+					}
+
+					//! Setup last
+					last[0] = edge;
+					last[1] = view;
+				}
+
+
+				++i;// to be sure
 			}
-			buffer.Push(last);
 		}
-
-		last = edge;
 	}
+	unsigned int count = j >> 1;
 
-	return *errorc;
+	
+
 	return EXIT_SUCCESS;
 
 }
@@ -197,10 +227,27 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline float getDistance(vec2 direction,float* angle) {
+	float b;
+	long a;
+	
+	//! normalize vectors or something
+	b = direction.x * direction.x + direction.y * direction.y;
+
+	//!	Calculate angle
 	*angle = atan2(direction.y, direction.x);
-	*angle += *angle < 0 ? 6.28318530718 : 0;
-	return sqrt(direction.x * direction.x + direction.y * direction.y);
+	*angle += *angle < 0 ? 6.28318530718f : 0.0f;
+
+	return sqrtf(b);
 }
 inline bool inView(float angle,float yawn) {
 	return angle < 2.0943951 + yawn && angle > yawn;
+}
+
+inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex) {
+	*link = (edge >> 28) & 0xF;             
+	*texture = (edge >> 24) & 0xF;          
+	*x = (edge >> 17) & 0x7F;               
+	*y = (edge >> 10) & 0x7F;               
+	*portalLink = (edge >> 6) & 0x1F;       
+	*portalChunkIndex = edge & 0x3F;
 }

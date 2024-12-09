@@ -1,7 +1,6 @@
 #pragma once
 #ifndef __entity_h_
 #define __entity_h_
-#pragma pack(1)
 #include <glm/matrix.hpp>
 
 using namespace glm;
@@ -27,6 +26,8 @@ public:
 	/// Texture index
 	/// </summary>
 	unsigned char TextureIndex;
+
+	Entity() {};
 
 	/// <summary>
 	/// Constructor with only texture ( sets ithers to 0)
@@ -64,6 +65,5 @@ public:
 	/// <returns>Entity with applied positiion addition</returns>
 	Entity& operator>>(vec2& force);
 };
-#pragma pack(pop)
 #endif
 

@@ -7,7 +7,7 @@ namespace MapEditor
     [Serializable]
     public class Chunk
     {
-        public List<int> edges;  // List of edges in the chunk
+        public List<int> edges = [];  // List of edges in the chunk
 
 
     }
@@ -49,8 +49,6 @@ namespace MapEditor
         private void btnAddChunk_Click(object sender, EventArgs e)
         {
             // Get the values from the NumericUpDown controls for floor and roof
-            int floor = (int)nudFloor.Value;  // Value from nudFloor (0-255)
-            int roof = (int)nudRoof.Value;    // Value from nudRoof (0-255)
 
             // Create a new chunk using the values from the controls
             var newChunk = new Chunk();
@@ -73,7 +71,6 @@ namespace MapEditor
                 // Get the values from the numeric controls for link, texture, portal, x, y, portalLink, and portalIndex
                 int link = (int)nudLink.Value;        // Value from nudLink (0-15)
                 int texture = (int)nudTexture.Value;  // Value from nudTexture (0-15)
-                int portal = (int)nudPortal.Value;    // Value from nudPortal (0-255)
                 int x = (int)nudX.Value;              // Value from nudX (0-127 or your chosen range)
                 int y = (int)nudY.Value;              // Value from nudY (0-127 or your chosen range)
                 int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-127 or your chosen range)
@@ -111,7 +108,7 @@ namespace MapEditor
 
                 // Optional: Set the drawing settings (background, line color, etc.)
                 g.Clear(Color.White);  // Clear the panel with white color
-                Pen pen = new Pen(Color.Black, 2);  // Black lines, with thickness of 2
+                Pen pen = new(Color.Black, 2);  // Black lines, with thickness of 2
 
                 // Loop through each edge in the selected chunk
                 for (int i = 0; i < selectedChunk.edges.Count; i++)
@@ -193,7 +190,7 @@ namespace MapEditor
             UpdateChunkList();
             UpdateEdgeList();
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            SaveFileDialog saveFileDialog = new()
             {
                 Filter = "JSON files (*.json)|*.json",
                 DefaultExt = "json",
@@ -236,7 +233,6 @@ namespace MapEditor
             cmbChunks.Items.Clear();
             for (int i = 0; i < chunkData.chunks.Count; i++)
             {
-                var chunk = chunkData.chunks[i];
                 cmbChunks.Items.Add($"Chunk: {i + 1}");
             }
 

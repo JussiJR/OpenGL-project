@@ -62,6 +62,10 @@
 //!			Header files
 #include "main.h"
 
+//!		Queue
+//!			Header files
+#include <queue>
+
 //!	Definitions
 //!		Exceptions
 //!			Game manager
@@ -92,6 +96,8 @@
 //!					Degree 2 radians
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
+//!	Namespace usages
+using namespace std;
 
 /// <summary>
 /// Game manager handles all updates and almost everything about things
@@ -107,7 +113,7 @@ private:
 	Pool<Entity> _entitys = Pool<Entity>(10,1);
 
 	int* chunkOffsets;
-
+	int* chunkSizes;
 	/// <summary>
 	/// Camera for scene / game
 	/// </summary>
@@ -281,4 +287,7 @@ inline bool inView(float angle, float yawn);
 
 
 
+inline void extractEdge(int edge, int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex);
+
+inline long long packEdgeBuffer(int texture, float distance, float position);
 #endif

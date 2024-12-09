@@ -75,9 +75,6 @@
     <ClCompile Include="stb_image_loader.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Pool.cpp">
-      <Filter>Source Files\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Program</Filter>
     </ClCompile>

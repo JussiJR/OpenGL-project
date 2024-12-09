@@ -1,8 +1,13 @@
+// Vertex shader's Version
 #version 460 core
 
+//Defines
+#define EXTRACT_POSITION_Z  uint((edge >> 10) & 7); 
+#define EXTRACT_POSITION_X  uint((edge >> 17) & 7); 
+#define EXTRACT_TEXTURE (edge >> 24) & 15;
 
-//	View matrix
-uniform mat4 view;
+//	mvp
+uniform mat4 u_mvp;
 
 //	Output coord
 out vec2 TextCoord;
@@ -12,17 +17,49 @@ layout(std430 ,binding = 0) readonly buffer ssbo1{
 	uint map[];
 };
 
-//	Data about offsets
-layout(std430) buffer ubo1{
-uint[] offsets;
-};
 
 
-void main(){
+void main(){	
 
+	// Textures 
+	const vec2 texturePosition[16] = {
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0),
+		vec2(0)
+	};
+	//varialbes needed
+	vec3 position;
+	vec2 offset;
+
+	// Set offsets
+	offset.x = mod(gl_VertexID,2);
+	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID;
 	
+	// extract data from map
+	uint edge = map[uint(gl_InstanceID+offset.x)];
+	uint edge_texture = EXTRACT_TEXTURE;
 
-	vec4 world;
-	gl_Position  = view * world;
+	// set position
+	position.x = EXTRACT_POSITION_X;
+	position.y = offset.y * 9; 
+	position.z = EXTRACT_POSITION_Z;
 
+	// set texture coordinate
+	TextCoord = offset * texturePosition[edge_texture];
+	
+	// set position of vertex
+	gl_Position  = u_mvp * vec4(position,1);
 }

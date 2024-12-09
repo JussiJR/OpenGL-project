@@ -180,7 +180,7 @@ public:
 	/// <param name="offset">offset of portion</param>
 	/// <param name="size">size of portion</param>
 	/// <param name="target">target array to implement</param>
-	void Retrieve(GLintptr offset, GLsizeiptr size, void* target);
+	void Retrieve(GLintptr offset, GLsizeiptr size, void* target) const;
 
 	/// <summary>
 	/// Disposing method or more precisely wrapper around opengl

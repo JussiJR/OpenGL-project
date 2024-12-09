@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp_tests", "..\cpp_tests\c
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupFile", "SetupFile\SetupFile.vdproj", "{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tetsings", "tetsings\tetsings.vcxproj", "{7D12657C-4991-4E83-926C-B79C1B4DB0FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,18 @@ Global
 		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|Any CPU.ActiveCfg = Release
 		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|x64.ActiveCfg = Release
 		{C10FD7B6-1EE7-451C-B50C-7B9C816D1662}.Release|x86.ActiveCfg = Release
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|Any CPU.Build.0 = Debug|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|x64.ActiveCfg = Debug|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|x64.Build.0 = Debug|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|x86.ActiveCfg = Debug|Win32
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Debug|x86.Build.0 = Debug|Win32
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|Any CPU.ActiveCfg = Release|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|Any CPU.Build.0 = Release|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|x64.ActiveCfg = Release|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|x64.Build.0 = Release|x64
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|x86.ActiveCfg = Release|Win32
+		{7D12657C-4991-4E83-926C-B79C1B4DB0FD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
