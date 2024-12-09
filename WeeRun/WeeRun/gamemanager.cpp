@@ -29,15 +29,20 @@ GameManager::GameManager(const char* path)
 	_camera = Camera(_entitys[0], vec2(1.3f, 12.3f));
 
 
+
+
 	//!		Initialize OpenGL objects	
 	{
+
+
 		//!		Get root
 		Json::Value root(0);
 		getRoot(&root, path, &Initialized);
 		if (Initialized) return;
 		
+		_shader = ShaderProgram("vertex.vert", "fragment.frag");
+		_shader.Activate();
 
-		
 		//!		Map initialization
 		{
 			//!		Get buffer length
@@ -50,12 +55,13 @@ GameManager::GameManager(const char* path)
 			fillBuffer(_mapBuffer, &root, &Initialized);
 
 			//!		Setup SSBOs
-			_mapData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			_edgeData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			
 		}
-		
+
 		//! Get uniforms
 		_mvpUniform = glGetUniformLocation(_shader.ID, "u_mvp");
+
 	}
 }
 
@@ -67,8 +73,6 @@ GameManager::~GameManager()
 	_shader.Delete();
 
 	delete[] _mapBuffer;
-	delete[] _chunkOffsets;
-	delete[] _chunkSizes;
 }
 
 int GameManager::Update(int* errorc)
@@ -96,7 +100,7 @@ int GameManager::Render(int* errorc, int render_distance)
 	int j = -1, k = 0;
 
 	// Buffer for data
-	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 1 };
+	int buffer[500] { 0 };
 	{
 		//!	RENDER Wall
 		
@@ -128,32 +132,39 @@ int GameManager::Render(int* errorc, int render_distance)
 				edge = _mapBuffer[bufferoffset + link];
 				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
 
-				//!	Add possible portal link to render pile
-				/*
-				if (portalChunkIndex != chunk) {
-					_queue.push(portalChunkIndex);
-				}
-				*/
 
 				//!		Calculate Direction in 2D space
 				vec2 direction = vec2(x, y) - camera_position;
 
 				//!	Calculate angle
-				angle = atan2(direction.y, direction.x);
+				angle = atan2f(direction.y, direction.x);
 				angle += angle < 0 ? 6.28318530718f : 0.0f;
 				int view = inView(angle, yawOffset);
+			
+			
+
+				//!	Check is it in view
+				if (view || last[1]) 
 				{
-					//!		Check is it in view
-					if (view || last[1]) {
-						//!		Add items into buffer	
+
+					//!	Add possible portal link to render pile and skip the edge adding (to reduce vertex amount)
+					if (portalChunkIndex != chunk) 
+					{
+						//!	Push to queue portal
+						_queue.push(portalChunkIndex);
+					}
+					else // Or add pair to renderable pile
+					{
+						//!	Add items into buffer	
 						buffer[++j] = last[0];
 						buffer[++j] = edge;
 					}
-
-					//! Setup last
-					last[0] = edge;
-					last[1] = view;
+				
 				}
+
+				//! Setup last
+				last[0] = edge;
+				last[1] = view;
 			}
 
 			//Close the chunk
@@ -162,6 +173,9 @@ int GameManager::Render(int* errorc, int render_distance)
 	}
 	// Kinda cheap way to divide by 2.
 	unsigned int count = (j+1) >> 1;
+
+	// Set Render Data
+	_edgeData.Update(sizeof(int) * j, 0, *buffer);
 
 	/*TODO: Calculate mvp*/
 	
@@ -239,7 +253,7 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline bool inView(float angle,float yawn) {
-	return angle < 2.0943951 + yawn && angle > yawn;
+	return angle < GAMEMANAGER_CONVERTER_DEGREE2RADIANS(90) + yawn && angle > yawn;
 }
 
 inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex) {

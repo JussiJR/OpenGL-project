@@ -12,15 +12,10 @@ uniform mat4 u_mvp;
 //	Output coord
 out vec2 TextCoord;
 
-//	Map data
+//	edge data
 layout(std430 ,binding = 0) readonly buffer ssbo1{
-	uint map[];
-};
-//	Map data
-layout(std430 ,binding = 1) readonly buffer ssbo2{
 	uint edges[];
 };
-
 
 void main(){	
 
@@ -52,7 +47,7 @@ void main(){
 	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID;
 	
 	// extract data from map
-	uint edge = map[uint(gl_InstanceID+offset.x)];
+	uint edge = edges[uint(gl_InstanceID+offset.x)];
 	uint edge_texture = EXTRACT_TEXTURE;
 
 	// set position

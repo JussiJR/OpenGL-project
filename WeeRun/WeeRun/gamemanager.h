@@ -127,7 +127,7 @@ private:
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	SSBO _mapData;
+	SSBO _edgeData;
 
 
 	//!		Rendering
