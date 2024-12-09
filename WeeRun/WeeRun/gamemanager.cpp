@@ -101,8 +101,7 @@ int GameManager::Render(int* errorc, int render_distance)
 		unsigned long last[2]{ 0 };
 		// Current Edge data
 		int link = 0, texture, x, y, portalLink, portalChunkIndex, bufferoffset;
-		float angle, distance;
-		float yawOffset = _camera.GetRotation().x;
+		float angle, yawOffset = _camera.GetRotation().x;
 		vec2 view = _camera.getPointed()->Position;
 
 		//!	Loop threw camera view
@@ -111,7 +110,6 @@ int GameManager::Render(int* errorc, int render_distance)
 			//!		Get chunk data
 			int chunk = _queue.front();
 			_queue.pop();
-			if (!chunk) break;//Kinda bruh
 			bufferoffset = _chunkOffsets[chunk];
 
 			//!		Loop chunk
@@ -129,8 +127,9 @@ int GameManager::Render(int* errorc, int render_distance)
 				*/
 
 
-				//!		Get direction
-				distance = getDistance(direction, &angle);
+				//!	Calculate angle
+				angle = atan2(direction.y, direction.x);
+				angle += angle < 0 ? 6.28318530718f : 0.0f;
 
 				{
 					int view = inView(angle, yawOffset);
@@ -225,18 +224,6 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 	return true;
 }
 
-inline float getDistance(vec2 direction,float* angle) {
-	
-	
-	//! normalize vectors or something
-	float b = direction.x * direction.x + direction.y * direction.y;
-
-	//!	Calculate angle
-	*angle = atan2(direction.y, direction.x);
-	*angle += *angle < 0 ? 6.28318530718f : 0.0f;
-
-	return sqrtf(b);
-}
 inline bool inView(float angle,float yawn) {
 	return angle < 2.0943951 + yawn && angle > yawn;
 }

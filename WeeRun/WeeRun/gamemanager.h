@@ -270,14 +270,6 @@ inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
 
 /// <summary>
-/// Calculates distance (c) and sets angle in radians 
-/// </summary>
-/// <param name="direction"></param>
-/// <param name="angle"></param>
-/// <returns>distance between Vector point and player</returns>
-inline float getDistance(vec2 direction, float* angle);
-
-/// <summary>
 /// Checks if object is in view.
 /// </summary>
 /// <param name="angle">angle where object is from player in fixed map</param>
