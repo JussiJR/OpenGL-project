@@ -125,14 +125,6 @@
 
 //!		stdint
 #include <stdint.h>
-
-//!		Vector
-#include <vector>
-
-//! Definitions
-//!		Misc
-#define CALLING_CONVENTION __stdcall 
-
 //!	Classes
 //!		SSBO
 
@@ -167,7 +159,7 @@ public:
 	/// <param name="size">Size of the are</param>
 	/// <param name="offset">Offset for the starting point</param>
 	/// <param name="data">data to be inserted</param>
-	void Update(GLintptr size, GLintptr offset, const int data);
+	void Update(GLintptr size, GLintptr offset, const void* data);
 
 	/// <summary>
 	/// Activation method

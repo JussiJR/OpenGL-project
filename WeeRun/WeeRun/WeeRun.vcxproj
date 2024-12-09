@@ -169,6 +169,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Pool.h" />
@@ -179,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="chunk_data.json" />
+    <None Include="fragment.frag" />
     <None Include="vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

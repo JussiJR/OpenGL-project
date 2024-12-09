@@ -1,8 +1,5 @@
 #include "main.h"
 
-//!	Namespace usages
-using namespace std;
-
 //!	Methods
 //!		Main
 int main(int argc, char** argv){
@@ -116,8 +113,7 @@ int main(int argc, char** argv){
 		}
 
 		//!			Color buffer
-		glClearColor(INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_RED, INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_GREEN,
-			INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_BLUE, INITIALIZATION_OPENGL_BUFFERS_COLOR_CLEAR_NORMALIZED_ALFA);
+		glClearColor(0.675f, 0.522f, 1.0f, 0.6937f);
 
 		//!	Main loop
 		while (!glfwWindowShouldClose(window)) {

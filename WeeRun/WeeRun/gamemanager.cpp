@@ -4,6 +4,8 @@ GameManager::GameManager(const char* path)
 {
 	//!		Ínitialized
 	Initialized = 0;
+	
+
 
 	//!		Player state
 	_haunted = 0;
@@ -26,7 +28,7 @@ GameManager::GameManager(const char* path)
 		_entitys.Add(&plr);
 	}
 	//!		Initialize Camera	
-	_camera = Camera(_entitys[0], vec2(1.3f, 12.3f));
+	_camera = Camera(_entitys[0],glm::vec3(0.0f,3.0f,0.0f));
 
 
 
@@ -58,6 +60,20 @@ GameManager::GameManager(const char* path)
 			_edgeData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			
 		}
+
+		{
+			//!		Calculate projection matrix
+			GLint projectionUniform = _shader.getUniform("u_projection");
+			if (projectionUniform == -1) {
+				Initialized = 1323424;
+				return;
+			}
+
+			//!		Set projection matrix and never touch again
+			glm::mat4 projection = glm::perspective(90.0f, (float)(500 / 800), 1.0f, 100.0f);
+			glUniformMatrix4fv(projectionUniform, 1, GL_FALSE, glm::value_ptr(projection));
+		}
+
 	}
 }
 
@@ -96,8 +112,8 @@ int GameManager::Render(int* errorc, int render_distance)
 	int j = -1, k = 0;
 
 	//! Retrieve camera position
-	vec2 camera_position = _camera.getPointed()->Position;
-	vec3 camera_rotation = _camera.GetRotation();
+	glm::vec2 camera_position = _camera.getPointed()->Position;
+	glm::vec3 camera_rotation = _camera.Rotation;
 
 	// Buffer for data
 	int buffer[500] { 0 }; // just run over it
@@ -133,16 +149,14 @@ int GameManager::Render(int* errorc, int render_distance)
 
 
 				//!		Calculate Direction in 2D space
-				vec2 direction = vec2(x, y) - camera_position;
+				glm::vec2 direction = glm::vec2(x, y) - camera_position;
 
 				//!	Calculate angle
 				angle = atan2f(direction.y, direction.x);
 				angle += angle < 0 ? 6.28318530718f : 0.0f;
-				int view = inView(angle, yawOffset);
-			
-			
 
 				//!	Check is it in view
+				int view = angle < fov + yawOffset && angle > yawOffset;
 				if (view || last[1]) 
 				{
 
@@ -167,7 +181,8 @@ int GameManager::Render(int* errorc, int render_distance)
 			}
 
 			//Close the chunk
-			buffer[k] = buffer[j];
+			unsigned int last = buffer[j];
+			buffer[k] = last;
 		}
 	}
 	
@@ -175,23 +190,26 @@ int GameManager::Render(int* errorc, int render_distance)
 	unsigned int count = (j+1) >> 1;// Kinda cheap way to divide by 2.
 
 	//! Set Render Data
-	_edgeData.Update(sizeof(int) * j, 0, *buffer);
-
-	/*TODO: Calculate mvp*/
-	mat4 view = glm::lookAt(
-							vec3(camera_position.x,1.81f,camera_position.y),		// Position
-							camera_rotation,										// Rotation
-							vec3(0,0,1));											// Up
-	mat4 mvp = view * _camera.GetProjection();
-
-	GLint u_mvp = _shader.getUniform("u_mvp");
-	if (u_mvp == -1) {
-		*errorc = EXCEPTION_GAMEMANAGER_RENDERING_UNIFORM_NOTFOUND;
+	_edgeData.Update(sizeof(int) * j, 0, buffer);
+	//!	Calculate mvp matrix
+	glm::mat4 view = glm::lookAt(
+		glm::vec3(camera_position.x, 1.81f, camera_position.y)+
+		_camera.Offset,													// Position
+		camera_rotation,												// Rotation
+		glm::vec3(0, 0, 1));											// Up
+	
+	
+	//!	Get uniform
+	GLint viewUniform = _shader.getUniform("u_view");
+	if (viewUniform == -1) {
+		*errorc = 200;
 		return EXIT_FAILURE;
 	}
 
+	return viewUniform;
+
 	//!	Set mvp matrix uniform
-	glUniformMatrix4fv(u_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+	glUniformMatrix4fv(viewUniform, 1, GL_FALSE, glm::value_ptr(view));
 
 	//! Draw everything in one batch
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
@@ -226,7 +244,7 @@ inline string readFile(const char* path,unsigned int* error) {
 	return ret;
 }
 
-inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, int _chunkSizes[63], int _chunkOffsets[63])
+inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, int* _chunkSizes, int* _chunkOffsets)
 {
 	
 	Json::Value::ArrayIndex i = 0;
@@ -263,10 +281,6 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 	*target = root->get(name, NULL);
 	if (!*target) return false;
 	return true;
-}
-
-inline bool inView(float angle,float yawn) {
-	return angle < GAMEMANAGER_GAMESETTINGS_FIELDOFVIEW + yawn && angle > yawn;
 }
 
 inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex) {

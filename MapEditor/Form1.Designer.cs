@@ -64,7 +64,7 @@ namespace MapEditor
             this.lstChunks.Name = "lstChunks";
             this.lstChunks.Size = new System.Drawing.Size(200, 199);
             this.lstChunks.TabIndex = 0;
-            this.lstChunks.SelectedIndexChanged += new System.EventHandler(this.lstChunks_SelectedIndexChanged);
+            this.lstChunks.SelectedIndexChanged += new System.EventHandler(this.LstChunks_SelectedIndexChanged);
             // 
             // btnAddChunk
             // 
@@ -74,7 +74,7 @@ namespace MapEditor
             this.btnAddChunk.TabIndex = 1;
             this.btnAddChunk.Text = "Add Chunk";
             this.btnAddChunk.UseVisualStyleBackColor = true;
-            this.btnAddChunk.Click += new System.EventHandler(this.btnAddChunk_Click);
+            this.btnAddChunk.Click += new System.EventHandler(this.BtnAddChunk_Click);
             // 
             // btnRemoveChunk
             // 
@@ -84,7 +84,7 @@ namespace MapEditor
             this.btnRemoveChunk.TabIndex = 2;
             this.btnRemoveChunk.Text = "Remove Chunk";
             this.btnRemoveChunk.UseVisualStyleBackColor = true;
-            this.btnRemoveChunk.Click += new System.EventHandler(this.btnRemoveChunk_Click);
+            this.btnRemoveChunk.Click += new System.EventHandler(this.BtnRemoveChunk_Click);
             // 
             // btnAddEdge
             // 
@@ -94,7 +94,7 @@ namespace MapEditor
             this.btnAddEdge.TabIndex = 3;
             this.btnAddEdge.Text = "Add Edge";
             this.btnAddEdge.UseVisualStyleBackColor = true;
-            this.btnAddEdge.Click += new System.EventHandler(this.btnAddEdge_Click);
+            this.btnAddEdge.Click += new System.EventHandler(this.BtnAddEdge_Click);
             // 
             // lstEdges
             // 
@@ -153,7 +153,7 @@ namespace MapEditor
             this.btnSaveToJson.TabIndex = 10;
             this.btnSaveToJson.Text = "Save to JSON";
             this.btnSaveToJson.UseVisualStyleBackColor = true;
-            this.btnSaveToJson.Click += new System.EventHandler(this.btnSaveToJson_Click);
+            this.btnSaveToJson.Click += new System.EventHandler(this.BtnSaveToJson_Click);
             // 
             // btnRemoveEdge
             // 
@@ -163,7 +163,7 @@ namespace MapEditor
             this.btnRemoveEdge.TabIndex = 11;
             this.btnRemoveEdge.Text = "Remove Edge";
             this.btnRemoveEdge.UseVisualStyleBackColor = true;
-            this.btnRemoveEdge.Click += new System.EventHandler(this.btnRemoveEdge_Click);
+            this.btnRemoveEdge.Click += new System.EventHandler(this.BtnRemoveEdge_Click);
             // 
             // cmbChunks
             // 
@@ -172,7 +172,7 @@ namespace MapEditor
             this.cmbChunks.Name = "cmbChunks";
             this.cmbChunks.Size = new System.Drawing.Size(200, 23);
             this.cmbChunks.TabIndex = 12;
-            this.cmbChunks.SelectedIndexChanged += new System.EventHandler(this.cmbChunks_SelectedIndexChanged);
+            this.cmbChunks.SelectedIndexChanged += new System.EventHandler(this.CmbChunks_SelectedIndexChanged);
             // 
             // labelFloor
             // 
@@ -337,7 +337,7 @@ namespace MapEditor
             this.panelVisualizer = new System.Windows.Forms.Panel();
             this.panelVisualizer.Location = new System.Drawing.Point(600, 600);  // Position it on your form
             this.panelVisualizer.Size = new System.Drawing.Size(600, 400);      // Adjust size as needed
-            this.panelVisualizer.Paint += panelVisualizer_Paint;
+            this.panelVisualizer.Paint += PanelVisualizer_Paint;
             this.Controls.Add(this.panelVisualizer);
 
 

@@ -1,28 +1,19 @@
 #include "Camera.h"
+Camera::Camera(Entity* assignation, glm::vec3 offset, float p, float y)
+	: _assigned(assignation), Offset(offset), Rotation(glm::vec3(p, y, 0)) {
+}
 
-Camera::Camera(Entity* assignation, vec3 offset, float p, float y)
-{
-	_assigned = assignation;
-	_offset = offset;
-	_rotation = vec3(p, 0, y);
-
+Camera::Camera(Entity* assignation, glm::vec2 rotation, glm::vec3 offset)
+	: _assigned(assignation), Offset(offset), Rotation(glm::vec3(rotation.x, rotation.y, 0)) {
 
 }
 
-Camera::Camera(Entity* assignation, vec2 rotation, vec3 offset)
-{
-	_assigned = assignation;
-	_offset = offset;
-	_rotation = vec3(rotation.x, 0, rotation.y);
-}
-
-Camera::Camera()
-{
+Camera::Camera(){
 	_assigned = nullptr;
-	_offset = _rotation = vec3(0);
+	Offset = glm::vec3(0); 
+	Rotation = glm::vec3(0);
 }
-
-Entity* Camera::getPointed() const
+Entity* Camera::getPointed()
 {
 	return _assigned;
 }
@@ -30,22 +21,12 @@ Entity* Camera::getPointed() const
 void Camera::Update(float p, float y)
 {
 	//!	Update roll and yaw or whatever
-	_rotation.x = (_rotation.x > TWOPI ? 0.0f : _rotation.x) + p;
-	_rotation.z = (_rotation.z > TWOPI ? 0.0f : _rotation.z) + y;
+	Rotation.x = (Rotation.x > fullCycle ? 0.0f : Rotation.x) + p;
+	Rotation.z = (Rotation.z > fullCycle ? 0.0f : Rotation.z) + y;
 }
 
-vec3 Camera::GetPosition() const
+glm::vec3 Camera::GetPosition()
 {
 	//LMAO RIP MEMORY
-	return  vec3(_offset.x+_assigned->Position.x,_offset.y, _offset.z + _assigned->Position.y);
-}
-
-vec3 Camera::GetRotation() const
-{
-	return _rotation;
-}
-
-mat4 Camera::GetProjection() const
-{
-	return _projection;
+	return  glm::vec3(Offset.x+_assigned->Position.x,Offset.y, Offset.z + _assigned->Position.y);
 }

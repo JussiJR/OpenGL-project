@@ -52,6 +52,7 @@ inline GLint ShaderProgram::getUniform(const char* name) const
 	if (location != -1) uniformCache[name] = location;
 	return location;
 }
+
 inline string readFile(const char* path) {
 	ifstream in(path, ios::binary);
 	if (!in) throw(errno);

@@ -3,10 +3,10 @@ Entity::Entity(unsigned char textureIndex)
 {
 	CurrentChunk = 0;
 	TextureIndex = textureIndex;
-	Position = vec2(0);
+	Position = glm::vec2(0);
 }
 
-Entity::Entity(unsigned char textureIndex, vec2 position)
+Entity::Entity(unsigned char textureIndex, glm::vec2 position)
 {
 	CurrentChunk = 0;
 	TextureIndex = textureIndex;
@@ -17,17 +17,17 @@ Entity::Entity(unsigned char textureIndex, float x, float y)
 {
 	CurrentChunk = 0;
 	TextureIndex = textureIndex;
-	Position = vec2(x,y);
+	Position = glm::vec2(x,y);
 }
 
-Entity& Entity::operator>>(vec3& force)
+Entity& Entity::operator>>(glm::vec3& force)
 {
-	Velocity += vec2(force.x,force.y);
+	Velocity += glm::vec2(force.x,force.y);
 	// TODO: insert return statement here
 	return *this;
 }
 
-Entity& Entity::operator>>(vec2& force)
+Entity& Entity::operator>>(glm::vec2& force)
 {
 	Position += force;
 	// TODO: insert return statement here

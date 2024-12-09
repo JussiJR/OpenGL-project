@@ -16,26 +16,22 @@ namespace MapEditor
     [Serializable]
     public class ChunkData
     {
-        public List<Chunk> chunks;  // List of chunks
-        public int[] chunkOffsets;
+        public List<Chunk> chunks = new(15);  // List of chunks
+        private static readonly int[] ints = new int[16];
+        public int[] chunkOffsets = Ints;
 
         public int gameMode;
 
-        public ChunkData()
-        {
-            chunks = new List<Chunk>(15);
-            chunkOffsets = new int[16];
-        }
+        public static int[] Ints => ints;
     }
 
     public partial class Form1 : Form
     {
-        private ChunkData chunkData;
+        private static readonly ChunkData chunkData = new();
 
         public Form1()
         {
             InitializeComponent();
-            chunkData = new ChunkData();
             nudLink.Value = 1;
             this.Size = new Size(1000, 900);
         }
@@ -46,12 +42,12 @@ namespace MapEditor
         }
 
         // Button to add a new chunk
-        private void btnAddChunk_Click(object sender, EventArgs e)
+        private void BtnAddChunk_Click(object sender, EventArgs e)
         {
             // Get the values from the NumericUpDown controls for floor and roof
 
             // Create a new chunk using the values from the controls
-            var newChunk = new Chunk();
+            Chunk newChunk = new();
 
             // Add the new chunk to the chunk data
             chunkData.chunks.Add(newChunk);
@@ -62,7 +58,7 @@ namespace MapEditor
         }
 
         // Button to add a new edge
-        private void btnAddEdge_Click(object sender, EventArgs e)
+        private void BtnAddEdge_Click(object sender, EventArgs e)
         {
             if (lstChunks.SelectedItem != null)
             {
@@ -97,7 +93,7 @@ namespace MapEditor
             }
         }
 
-        private void panelVisualizer_Paint(object sender, PaintEventArgs e)
+        private void PanelVisualizer_Paint(object sender, PaintEventArgs e)
         {
             if (lstChunks.SelectedItem != null)
             {
@@ -139,7 +135,7 @@ namespace MapEditor
 
 
         // When a chunk is selected in the list, show its edges
-        private void lstChunks_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstChunks_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateEdgeList();
         }
@@ -184,7 +180,7 @@ namespace MapEditor
         }
 
         // Save the chunk data to a JSON file
-        private void btnSaveToJson_Click(object sender, EventArgs e)
+        private void BtnSaveToJson_Click(object sender, EventArgs e)
         {
 
             UpdateChunkList();
@@ -206,7 +202,7 @@ namespace MapEditor
         }
 
         // Button to remove a selected chunk
-        private void btnRemoveChunk_Click(object sender, EventArgs e)
+        private void BtnRemoveChunk_Click(object sender, EventArgs e)
         {
             if (lstChunks.SelectedItem != null)
             {
@@ -217,7 +213,7 @@ namespace MapEditor
         }
 
         // Button to remove a selected edge
-        private void btnRemoveEdge_Click(object sender, EventArgs e)
+        private void BtnRemoveEdge_Click(object sender, EventArgs e)
         {
             if (lstChunks.SelectedItem != null && lstEdges.SelectedItem != null)
             {
@@ -244,7 +240,7 @@ namespace MapEditor
         }
 
         // When the ComboBox selection changes, update the edge list
-        private void cmbChunks_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbChunks_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbChunks.SelectedIndex >= 0)
             {

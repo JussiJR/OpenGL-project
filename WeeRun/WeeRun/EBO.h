@@ -89,13 +89,6 @@
 //!		OpenGL
 #include<glad/glad.h>
 
-//!		Vector
-#include<vector>
-
-
-//!	Defines
-
-
 //!	Classes
 //!		Element buffer object
 
@@ -120,7 +113,7 @@ public:
 	/// Actual constructor
 	/// </summary>
 	/// <param name="indices"> Indices</param>
-	EBO(std::vector<GLubyte>& indices);
+	EBO(GLubyte* indices,size_t ic);
 
 	/// <summary>
 	/// Bind method for EBO

@@ -5,7 +5,9 @@
 //	- https://www.youtube.com/watch?v=EqNcqBdrNyI - Projection matrices
 //	- https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetUniformLocation.xhtml - Get uniform location
 //	- https://stackoverflow.com/questions/21967506/cant-set-uniform-value-in-opengl-shader - Set value to uniform
-
+//	- https://www.youtube.com/watch?v=R-bjXOEQyX8 - Some Vertex shader ideas
+//	- https://www.youtube.com/watch?v=hf27qsQPRLQ - some optimizations
+//	- https://www.youtube.com/watch?v=L_YTFlnCLVE - Some Valve Portal linking ideas
 #pragma once
 #ifndef __gamemanager_h_
 #define __gamemanager_h_
@@ -13,97 +15,32 @@
 //!	Includes
 //!		VBO
 #include "VBO.h"
-
-//!		EBO
 #include "EBO.h"
-
-//!		VAO
 #include "VAO.h"
-
-//!		Shader program
 #include "ShaderProgram.h"
-
-//!		Iostream
 #include <iostream>
-
-//!		Shader storage buffer object
 #include "SSBO.h"
-
-//!		GLM
-//!			Header files
 #include <glm/glm.hpp>
 #include <glm/packing.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-//!		json
-//!			Header files		
 #include <json/value.h>
 #include <json/json.h>
-
-//!		fstream
-//!			Header files
 #include <fstream>
-
-//!		Pool
-//!			Header files
 #include "Pool.h"
-
-//!		Camera
-//!			Header files
 #include "Camera.h"
-
-//!		Math
-//!			Header files
 #include <cmath>
-
-//!		Main
-//!			Header files
 #include "main.h"
-
-//!		Queue
-//!			Header files
 #include <queue>
 
-//!	Definitions
-//!		Exceptions
-//!			Game manager
-//!				Initialization
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_MAPNOTFOUND 0x301F
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_PARSEMAP 0x305F
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE 0x306F
-#define EXCEPTION_GAMEMANAGER_INITÍALIZATION_SHADER_VERTEXNOTFOUND 0x302F
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_TEXTURENOTFOUND 0x304F
-#define EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE 0x501F
-//!				Rendering
-//!					Uniforms
-//!						Not found
-#define EXCEPTION_GAMEMANAGER_RENDERING_UNIFORM_NOTFOUND 0x601F
 
-//!		Constant values
-//!			Entity
-//!				Player
-#define ENTITY_PLAYER_INDEX 0
-
-//!			Time scale
-#define TIMESCALE_SCALE -0.5f
-
-//!			Game manager
-#define GAMEMANAGER_GRAVITY -9.81
-
-//!				Renderer
-#define GAMEMANAGER_RENDERER_DISTANCE 5
-
-//!				Converter
-//!					Degree 2 radians
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
-//!				Game settings
-//!					Field of view
-#define GAMEMANAGER_GAMESETTINGS_FIELDOFVIEW 1.570796f;
-//!	Namespace usages
-using namespace std;
+//!	Constexpr
+constexpr float fov = 1.570796f;
+
+//!	Classes
 
 /// <summary>
 /// Game manager handles all updates and almost everything about things
@@ -118,13 +55,14 @@ private:
 	/// </summary>
 	Pool<Entity> _entitys = Pool<Entity>(10,1);
 
-	int _chunkOffsets[63];
-	int _chunkSizes[63];
 	/// <summary>
 	/// Camera for scene / game
 	/// </summary>
 	Camera _camera;
 
+	int _chunkOffsets[63];
+	int _chunkSizes[63];
+	
 	/// <summary>
 	/// Till better solution is found
 	/// </summary>
@@ -240,7 +178,7 @@ inline string readFile(const char* path, unsigned int* error);
 /// <param name="chunkCount"></param>
 /// <param name="_chunkSizes"></param>
 /// <param name="_chunkOffsets"></param>
-inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecount, int* chunkCount, int _chunkSizes[63], int _chunkOffsets[63]);
+inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecount, int* chunkCount, int* _chunkSizes, int* _chunkOffsets);
 
 
 /// <summary>
@@ -267,14 +205,6 @@ inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 /// <param name="name">name of the object</param>
 /// <returns>true if it is found otherwise false</returns>
 inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
-
-/// <summary>
-/// Checks if object is in view.
-/// </summary>
-/// <param name="angle">angle where object is from player in fixed map</param>
-/// <param name="yawn">rotation of player or rather offset for angle</param>
-/// <returns>true if object is in view otherwise false. </returns>
-inline bool inView(float angle, float yawn);
 
 /// <summary>
 /// 

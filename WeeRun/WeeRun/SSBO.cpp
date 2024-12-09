@@ -12,9 +12,9 @@ SSBO::SSBO(int size,void* data, GLenum type,int index)
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
-void SSBO::Update(GLintptr size,GLintptr offset,const int data)
+void SSBO::Update(GLintptr size,GLintptr offset,const void* data)
 {
-	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, (void*)data);
+	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, data);
 }
 
 void SSBO::Activate()

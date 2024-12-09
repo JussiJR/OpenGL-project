@@ -7,7 +7,8 @@
 #define EXTRACT_TEXTURE (edge >> 24) & 15;
 
 //	mvp
-uniform mat4 u_mvp;
+uniform mat4 u_view;
+uniform mat4 u_projection;
 
 //	Output coord
 out vec2 TextCoord;
@@ -56,8 +57,8 @@ void main(){
 	position.z = EXTRACT_POSITION_Z;
 
 	// set texture coordinate
-	TextCoord = (offset * 0.0625) + texturePosition[edge_texture];
+	TextCoord = (offset * 32) + texturePosition[edge_texture];
 	
 	// set position of vertex
-	gl_Position  = u_mvp * vec4(position,1);
+	gl_Position  = u_view * u_projection * vec4(position,1);
 }

@@ -2,25 +2,23 @@
 #ifndef __entity_h_
 #define __entity_h_
 #include <glm/matrix.hpp>
-
-using namespace glm;
-
 class Entity{
 private:
-
-
-public:
-	unsigned char CurrentChunk;
 
 	/// <summary>
 	/// Velocity of entity
 	/// </summary>
-	vec2 Velocity = vec2(0.0f,0.0f);
+	glm::vec2 Velocity = glm::vec2(0.0f, 0.0f);
+
+public:
+	unsigned char CurrentChunk;
+
+
 
 	/// <summary>
 	/// Position of entity
 	/// </summary>
-	vec2 Position;
+	glm::vec2 Position;
 
 	/// <summary>
 	/// Texture index
@@ -29,7 +27,7 @@ public:
 
 	Entity() {
 		CurrentChunk = 0;
-		Position = vec2(0.0f);
+		Position = glm::vec2(0.0f);
 		TextureIndex = 0;
 	};
 
@@ -44,7 +42,7 @@ public:
 	/// </summary>
 	/// <param name="textureIndex">index of the texture in texture map</param>
 	/// <param name="position">Position of entity on spawnposition</param>
-	Entity(unsigned char textureIndex, vec2 position);
+	Entity(unsigned char textureIndex, glm::vec2 position);
 
 	/// <summary>
 	/// Constructor 
@@ -59,7 +57,7 @@ public:
 	/// </summary>
 	/// <param name="force">added velocity</param>
 	/// <returns>Entity with applied velocity</returns>
-	Entity& operator>>(vec3& force);
+	Entity& operator>>(glm::vec3& force);
 
 	/// <summary>
 	/// Fast input position addition
@@ -67,7 +65,7 @@ public:
 	/// </summary>
 	/// <param name="force">position values to be added</param>
 	/// <returns>Entity with applied positiion addition</returns>
-	Entity& operator>>(vec2& force);
+	Entity& operator>>(glm::vec2& force);
 };
 #endif
 

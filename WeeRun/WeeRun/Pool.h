@@ -3,8 +3,6 @@
 #define __pool_h_
 #include "Entity.h"
 
-#define EXCEPTIONS_POOL_EMPTY_DATA 0x401F
-
 using namespace std;
 
 /// <summary>
@@ -68,7 +66,7 @@ public:
 	T* operator[](int i)
 	{
 		if (i >= _staticMaxSize)return NULL;
-		return &(_data[i < 0 ? _staticIndex : i]);
+		return &_data[i < 0 ? _staticIndex : i];
 	}
 	
 	
