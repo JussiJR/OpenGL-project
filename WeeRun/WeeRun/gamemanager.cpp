@@ -92,8 +92,11 @@ int GameManager::FixedUpdate(int* errorc)
 
 int GameManager::Render(int* errorc, int render_distance)
 {
-	int j = 0, k = 0;
-	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 0 };
+	// |PlaceHolder | ChunkStart|
+	int j = -1, k = 0;
+
+	// Buffer for data
+	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 1 };
 	{
 		//!	RENDER Wall
 		
@@ -141,8 +144,8 @@ int GameManager::Render(int* errorc, int render_distance)
 					//!		Check is it in view
 					if (view || last[1]) {
 						//!		Add items into buffer	
-						buffer[j++] = last[0];
-						buffer[j++] = edge;
+						buffer[++j] = last[0];
+						buffer[++j] = edge;
 					}
 
 					//! Setup last
@@ -152,7 +155,7 @@ int GameManager::Render(int* errorc, int render_distance)
 			}
 
 			//Close the chunk
-			buffer[k] = buffer[j - 1];
+			buffer[k] = buffer[j];
 
 		}
 	}
