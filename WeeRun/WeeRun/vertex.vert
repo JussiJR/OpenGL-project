@@ -16,7 +16,10 @@ out vec2 TextCoord;
 layout(std430 ,binding = 0) readonly buffer ssbo1{
 	uint map[];
 };
-
+//	Map data
+layout(std430 ,binding = 1) readonly buffer ssbo2{
+	uint edges[];
+};
 
 
 void main(){	
@@ -58,7 +61,7 @@ void main(){
 	position.z = EXTRACT_POSITION_Z;
 
 	// set texture coordinate
-	TextCoord = offset * texturePosition[edge_texture];
+	TextCoord = (offset * 0.0625) + texturePosition[edge_texture];
 	
 	// set position of vertex
 	gl_Position  = u_mvp * vec4(position,1);

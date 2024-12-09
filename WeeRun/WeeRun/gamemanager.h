@@ -112,8 +112,8 @@ private:
 	/// </summary>
 	Pool<Entity> _entitys = Pool<Entity>(10,1);
 
-	int* chunkOffsets;
-	int* chunkSizes;
+	int _chunkOffsets[63];
+	int _chunkSizes[63];
 	/// <summary>
 	/// Camera for scene / game
 	/// </summary>
@@ -122,7 +122,7 @@ private:
 	/// <summary>
 	/// Till better solution is found
 	/// </summary>
-	int* mapBuffer;
+	int* _mapBuffer;
 
 	/// <summary>
 	/// SSBO for _Map's data ( Will not change after loading map
@@ -184,9 +184,6 @@ private:
 	/// how many entities are in map ( includes entity that represents player ) 
 	/// </summary>
 	unsigned int _entityCount : 7;
-	
-	unsigned int edgeCount;
-
 public:
 
 	/// <summary>
@@ -236,12 +233,15 @@ public:
 inline string readFile(const char* path, unsigned int* error);
 
 /// <summary>
-/// gets buffer's desired length
+/// 
 /// </summary>
-/// <param name="root">pointer to root value of json</param>
-/// <param name="error">pointer to error integer</param>
-/// <returns>integer representing buffer's length</returns>
-inline int getBufferLength(Json::Value* root, unsigned int* error);
+/// <param name="root"></param>
+/// <param name="error"></param>
+/// <param name="edgecount"></param>
+/// <param name="chunkCount"></param>
+/// <param name="_chunkSizes"></param>
+/// <param name="_chunkOffsets"></param>
+inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecount, int* chunkCount, int _chunkSizes[63], int _chunkOffsets[63]);
 
 
 /// <summary>
@@ -285,9 +285,15 @@ inline float getDistance(vec2 direction, float* angle);
 /// <returns>true if object is in view otherwise false. </returns>
 inline bool inView(float angle, float yawn);
 
-
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="edge"></param>
+/// <param name="link"></param>
+/// <param name="texture"></param>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="portalLink"></param>
+/// <param name="portalChunkIndex"></param>
 inline void extractEdge(int edge, int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex);
-
-inline long long packEdgeBuffer(int texture, float distance, float position);
 #endif

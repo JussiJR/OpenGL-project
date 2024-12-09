@@ -15,7 +15,7 @@ public:
 	/// <summary>
 	/// Velocity of entity
 	/// </summary>
-	vec3 Velocity;
+	vec2 Velocity = vec2(0.0f,0.0f);
 
 	/// <summary>
 	/// Position of entity
@@ -27,7 +27,11 @@ public:
 	/// </summary>
 	unsigned char TextureIndex;
 
-	Entity() {};
+	Entity() {
+		CurrentChunk = 0;
+		Position = vec2(0.0f);
+		TextureIndex = 0;
+	};
 
 	/// <summary>
 	/// Constructor with only texture ( sets ithers to 0)

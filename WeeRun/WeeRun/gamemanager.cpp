@@ -5,6 +5,18 @@ GameManager::GameManager(const char* path)
 	//!		Ínitialized
 	Initialized = 0;
 
+	//!		Player state
+	_haunted = 0;
+
+	//!		Game settings
+	_difficulty = 0;
+	_gameMode = 0;
+
+	//!		Counters
+	_unixTimer = 0;
+	_entityCount = 1;
+	
+
 	//!		Initialize Pool
 	_entitys = Pool<Entity>(10, true);
 	
@@ -29,36 +41,22 @@ GameManager::GameManager(const char* path)
 		//!		Map initialization
 		{
 			//!		Get buffer length
-			edgeCount = getBufferLength(&root, &Initialized);
+			int i = 0, j = 0,k = 0;
+			getBufferLength(&root, &Initialized, &i, &j, _chunkSizes, _chunkOffsets);
 			if (Initialized) return;
 
 			//!		Create buffer
-			mapBuffer = new int[edgeCount]; 
-			fillBuffer(mapBuffer, &root, &Initialized);
+			_mapBuffer = new int[i];
+			fillBuffer(_mapBuffer, &root, &Initialized);
 
 			//!		Setup SSBOs
-			_mapData = SSBO(edgeCount, mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
+			_mapData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			
 		}
 		
 
 
 	}
-
-
-
-
-	//!		Player state
-	_haunted = 0;
-
-	//!		Game settings
-	_difficulty = 0;
-	_gameMode = 0;
-
-	//!		Counters
-	_unixTimer = 0;
-	_entityCount = 1;
-
 }
 
 GameManager::~GameManager()
@@ -67,7 +65,10 @@ GameManager::~GameManager()
 	_vertexArray.Delete();
 	_indices.Delete();
 	_shader.Delete();
-	
+
+	delete[] _mapBuffer;
+	delete[] _chunkOffsets;
+	delete[] _chunkSizes;
 }
 
 int GameManager::Update(int* errorc)
@@ -111,19 +112,23 @@ int GameManager::Render(int* errorc, int render_distance)
 			int chunk = _queue.front();
 			_queue.pop();
 			if (!chunk) break;//Kinda bruh
-			bufferoffset = chunkOffsets[chunk];
+			bufferoffset = _chunkOffsets[chunk];
 
 			//!		Loop chunk
-			while (i < chunkSizes[chunk]) {
+			while (i < _chunkSizes[chunk]) {
 
 				//!		Get edge data
-				int edge = mapBuffer[bufferoffset + link];
+				int edge = _mapBuffer[bufferoffset + link];
 				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
 				vec2 direction = vec2(x, y) - view;
 
+				/*
 				if (portalChunkIndex != chunk) {
 					_queue.push(portalChunkIndex);
 				}
+				*/
+
+
 				//!		Get direction
 				distance = getDistance(direction, &angle);
 
@@ -148,8 +153,10 @@ int GameManager::Render(int* errorc, int render_distance)
 	}
 	unsigned int count = j >> 1;
 
-	
 
+
+	//! Draw everything in one batch
+	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
 	return EXIT_SUCCESS;
 
 }
@@ -182,30 +189,25 @@ inline string readFile(const char* path,unsigned int* error) {
 	return ret;
 }
 
-inline int getBufferLength(Json::Value* root,unsigned int* error) 
+inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, int _chunkSizes[63], int _chunkOffsets[63])
 {
 	
-	int edgecount = 0;
 	Json::Value::ArrayIndex i = 0;
-
 	Json::Value chunkOffsets;
-	if (!isValid(root,&chunkOffsets,"chunkOffsets")) {
-		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-		return -1;
-	}
-
-	
-	
+	Json::Value chunkSizes;
+	if (!isValid(root,&chunkOffsets,"chunkOffsets")) * error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
 	while (i < chunkOffsets.size() && chunkOffsets[i].asInt() != 0) {
-		//					To avoid some random steps I think
-		edgecount += chunkOffsets[++i - 1].asInt();
+		int j = chunkOffsets[i].asInt();
+		*edgecount += j;
+		_chunkOffsets[i] = *edgecount;
+		_chunkSizes[i] = j;
+		i++;
 	}
+	if (!*edgecount) *error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
 
-	if (!edgecount) {
-		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_INVALID_MAP_TREE;
-		return -1;
-	}
-	return edgecount;
+
+
+	*chunkCount = i;
 }
 
 inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {
@@ -227,11 +229,10 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline float getDistance(vec2 direction,float* angle) {
-	float b;
-	long a;
+	
 	
 	//! normalize vectors or something
-	b = direction.x * direction.x + direction.y * direction.y;
+	float b = direction.x * direction.x + direction.y * direction.y;
 
 	//!	Calculate angle
 	*angle = atan2(direction.y, direction.x);
