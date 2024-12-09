@@ -4,24 +4,22 @@ Camera::Camera(Entity* assignation, vec3 offset, float p, float y)
 {
 	_assigned = assignation;
 	_offset = offset;
-	_pitch = p;
-	_yawn = y;
+	_rotation = vec3(p, 0, y);
+
+
 }
 
 Camera::Camera(Entity* assignation, vec2 rotation, vec3 offset)
 {
 	_assigned = assignation;
 	_offset = offset;
-	_pitch = rotation.x;
-	_yawn = rotation.y;
+	_rotation = vec3(rotation.x, 0, rotation.y);
 }
 
 Camera::Camera()
 {
 	_assigned = nullptr;
-	_offset = vec3(0);
-	_pitch = 0.f;
-	_yawn = 0.f;
+	_offset = _rotation = vec3(0);
 }
 
 Entity* Camera::getPointed() const
@@ -31,9 +29,9 @@ Entity* Camera::getPointed() const
 
 void Camera::Update(float p, float y)
 {
-	//!	Update pitch and yaw or whatever
-	_pitch = (_pitch > TWOPI ? 0.0f : _pitch) + p;
-	_yawn = (_yawn > TWOPI ? 0.0f : _yawn) + y;
+	//!	Update roll and yaw or whatever
+	_rotation.x = (_rotation.x > TWOPI ? 0.0f : _rotation.x) + p;
+	_rotation.z = (_rotation.z > TWOPI ? 0.0f : _rotation.z) + y;
 }
 
 vec3 Camera::GetPosition() const
@@ -42,7 +40,12 @@ vec3 Camera::GetPosition() const
 	return  vec3(_offset.x+_assigned->Position.x,_offset.y, _offset.z + _assigned->Position.y);
 }
 
-vec2 Camera::GetRotation() const
+vec3 Camera::GetRotation() const
 {
-	return vec2(_pitch,_yawn);
+	return _rotation;
+}
+
+mat4 Camera::GetProjection() const
+{
+	return _projection;
 }

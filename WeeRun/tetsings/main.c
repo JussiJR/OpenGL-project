@@ -1,8 +1,9 @@
 #include <math.h>
 #include <stdio.h>
+
+#define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) fov ;
+
 int main(int argc, char** argv) {
 	
-	float x = 9.0f;
-	long t = *(long*)&x;
-	printf("%f\n", x);
+	printf("%f\n", 90 *0.0174532925f);
 }

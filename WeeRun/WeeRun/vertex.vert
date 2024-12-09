@@ -44,7 +44,7 @@ void main(){
 
 	// Set offsets
 	offset.x = mod(gl_VertexID,2);
-	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID;
+	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID; // tactical return
 	
 	// extract data from map
 	uint edge = edges[uint(gl_InstanceID+offset.x)];

@@ -2,7 +2,9 @@
 //	- https://stackoverflow.com/questions/32205981/reading-json-files-in-c - reading 
 //	- https://stackoverflow.com/questions/56659583/how-to-read-an-array-of-values-from-json-file-to-c-array - some more info about json file reading
 //	- https://stackoverflow.com/questions/35271222/getting-the-angle-from-a-direction-vector - vec to radians direction
-//	- 
+//	- https://www.youtube.com/watch?v=EqNcqBdrNyI - Projection matrices
+//	- https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetUniformLocation.xhtml - Get uniform location
+//	- https://stackoverflow.com/questions/21967506/cant-set-uniform-value-in-opengl-shader - Set value to uniform
 
 #pragma once
 #ifndef __gamemanager_h_
@@ -31,12 +33,9 @@
 //!			Header files
 #include <glm/glm.hpp>
 #include <glm/packing.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/mat4x3.hpp>
-#include <glm/mat4x2.hpp>
-#include <glm/mat3x4.hpp>
-#include <glm/mat2x4.hpp>
-#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 //!		json
 //!			Header files		
 #include <json/value.h>
@@ -77,6 +76,10 @@
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_FRAGMENTNOTFOUND 0x303F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_SHADER_TEXTURENOTFOUND 0x304F
 #define EXCEPTION_GAMEMANAGER_INITIALIZATION_PLAYER_NOSPACE 0x501F
+//!				Rendering
+//!					Uniforms
+//!						Not found
+#define EXCEPTION_GAMEMANAGER_RENDERING_UNIFORM_NOTFOUND 0x601F
 
 //!		Constant values
 //!			Entity
@@ -96,6 +99,9 @@
 //!					Degree 2 radians
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
+//!				Game settings
+//!					Field of view
+#define GAMEMANAGER_GAMESETTINGS_FIELDOFVIEW 1.570796f;
 //!	Namespace usages
 using namespace std;
 
@@ -146,13 +152,6 @@ private:
 	/// Indices 
 	/// </summary>
 	EBO _indices;
-
-	//!		Uniforms
-	
-	/// <summary>
-	/// ViewMatrix uniform link 
-	/// </summary>
-	GLuint _mvpUniform;
 
 	//!		Player	
 	

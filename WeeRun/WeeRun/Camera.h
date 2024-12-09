@@ -4,8 +4,19 @@
 
 #define TWOPI 6.28318530718
 
+#include <glm/glm.hpp>
+#include <glm/packing.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/mat4x3.hpp>
+#include <glm/mat4x2.hpp>
+#include <glm/mat3x4.hpp>
+#include <glm/mat2x4.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "Entity.h"
+#include "main.h"
 
+using namespace glm;
 class Camera {
 private:
 
@@ -19,15 +30,10 @@ private:
 	/// </summary>
 	vec3 _offset;
 
-	/// <summary>
-	/// Pitch of the camera
-	/// </summary>
-	float _pitch;
+	vec3 _rotation;
 
-	/// <summary>
-	/// Yaw of the camera
-	/// </summary>
-	float _yawn;
+	mat4 _projection = perspective(90.0f, (float)(500/800), 1.0f, 100.0f);
+	
 
 public:
 
@@ -76,7 +82,9 @@ public:
 	/// Gets rotation
 	/// </summary>
 	/// <returns>Vec2 representing rotations pitch and yaw</returns>
-	vec2 GetRotation() const;
+	vec3 GetRotation() const;
+
+	mat4 GetProjection() const;
 };
 
 #endif

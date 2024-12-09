@@ -45,6 +45,13 @@ void ShaderProgram::Delete()
 {
 	glDeleteProgram(ID);
 }
+inline GLint ShaderProgram::getUniform(const char* name) const
+{
+	if (uniformCache.find(name) != uniformCache.end()) return uniformCache[name];
+	GLint location = glGetUniformLocation(ID, name);
+	if (location != -1) uniformCache[name] = location;
+	return location;
+}
 inline string readFile(const char* path) {
 	ifstream in(path, ios::binary);
 	if (!in) throw(errno);

@@ -58,10 +58,6 @@ GameManager::GameManager(const char* path)
 			_edgeData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
 			
 		}
-
-		//! Get uniforms
-		_mvpUniform = glGetUniformLocation(_shader.ID, "u_mvp");
-
 	}
 }
 
@@ -99,8 +95,12 @@ int GameManager::Render(int* errorc, int render_distance)
 	// |PlaceHolder | ChunkStart|
 	int j = -1, k = 0;
 
+	//! Retrieve camera position
+	vec2 camera_position = _camera.getPointed()->Position;
+	vec3 camera_rotation = _camera.GetRotation();
+
 	// Buffer for data
-	int buffer[500] { 0 };
+	int buffer[500] { 0 }; // just run over it
 	{
 		//!	RENDER Wall
 		
@@ -111,8 +111,7 @@ int GameManager::Render(int* errorc, int render_distance)
 		
 		// Current Edge data
 		int link = 0, texture, x, y, portalLink, portalChunkIndex;
-		float angle,yawOffset = _camera.GetRotation().x;
-		vec2 camera_position = _camera.getPointed()->Position;
+		float angle,yawOffset = camera_rotation.x;
 
 		//!	Loop threw camera view
 		_queue.push(_camera.getPointed()->CurrentChunk);
@@ -171,14 +170,28 @@ int GameManager::Render(int* errorc, int render_distance)
 			buffer[k] = buffer[j];
 		}
 	}
-	// Kinda cheap way to divide by 2.
-	unsigned int count = (j+1) >> 1;
+	
+	//!	Get actual count
+	unsigned int count = (j+1) >> 1;// Kinda cheap way to divide by 2.
 
-	// Set Render Data
+	//! Set Render Data
 	_edgeData.Update(sizeof(int) * j, 0, *buffer);
 
 	/*TODO: Calculate mvp*/
-	
+	mat4 view = glm::lookAt(
+							vec3(camera_position.x,1.81f,camera_position.y),		// Position
+							camera_rotation,										// Rotation
+							vec3(0,0,1));											// Up
+	mat4 mvp = view * _camera.GetProjection();
+
+	GLint u_mvp = _shader.getUniform("u_mvp");
+	if (u_mvp == -1) {
+		*errorc = EXCEPTION_GAMEMANAGER_RENDERING_UNIFORM_NOTFOUND;
+		return EXIT_FAILURE;
+	}
+
+	//!	Set mvp matrix uniform
+	glUniformMatrix4fv(u_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
 
 	//! Draw everything in one batch
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
@@ -253,7 +266,7 @@ inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 }
 
 inline bool inView(float angle,float yawn) {
-	return angle < GAMEMANAGER_CONVERTER_DEGREE2RADIANS(90) + yawn && angle > yawn;
+	return angle < GAMEMANAGER_GAMESETTINGS_FIELDOFVIEW + yawn && angle > yawn;
 }
 
 inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex) {
@@ -264,3 +277,4 @@ inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* p
 	*portalLink = (edge >> 6) & 0x1F;       
 	*portalChunkIndex = edge & 0x3F;
 }
+

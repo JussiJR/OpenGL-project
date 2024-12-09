@@ -8,19 +8,22 @@
 #include <sstream>
 #include <iostream>
 #include <cerrno>
-
+#include <unordered_map>
 using namespace std;
 
 /// <summary>
 /// class Shader program.
 /// </summary>
 class ShaderProgram {
+private:
+	mutable std::unordered_map<string, GLuint> uniformCache;
 public:
 
 	/// <summary>
 	/// ID to OpenGL shader program
 	/// </summary>
 	GLuint ID;
+
 
 	/// <summary>
 	/// Empty constructor
@@ -44,6 +47,12 @@ public:
 	/// </summary>
 	void Delete();
 
+	/// <summary>
+	/// Gets uniform from shader
+	/// </summary>
+	/// <param name="name">name of the uniform</param>
+	/// <returns>Location of uniform or -1 if not found or something like that</returns>
+	inline GLint getUniform(const char* name) const;
 };
 
 
