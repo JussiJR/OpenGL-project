@@ -92,7 +92,7 @@ int GameManager::FixedUpdate(int* errorc)
 
 int GameManager::Render(int* errorc, int render_distance)
 {
-	int i = 0, j = 0;
+	int j = 0;
 	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 0 };
 	{
 		//!	RENDER Wall
@@ -115,7 +115,7 @@ int GameManager::Render(int* errorc, int render_distance)
 			bufferoffset = _chunkOffsets[chunk];
 
 			//!		Loop chunk
-			while (i < _chunkSizes[chunk]) {
+			for (int i = 0;i < _chunkSizes[chunk];i++) {
 
 				//!		Get edge data
 				int edge = _mapBuffer[bufferoffset + link];
@@ -145,9 +145,6 @@ int GameManager::Render(int* errorc, int render_distance)
 					last[0] = edge;
 					last[1] = view;
 				}
-
-
-				++i;// to be sure
 			}
 		}
 	}
