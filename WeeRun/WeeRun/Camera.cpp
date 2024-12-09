@@ -27,6 +27,5 @@ void Camera::Update(float p, float y)
 
 glm::vec3 Camera::GetPosition()
 {
-	//LMAO RIP MEMORY
 	return  glm::vec3(Offset.x+_assigned->Position.x,Offset.y, Offset.z + _assigned->Position.y);
 }

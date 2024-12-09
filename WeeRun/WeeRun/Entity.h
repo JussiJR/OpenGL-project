@@ -11,19 +11,23 @@ private:
 	glm::vec2 Velocity = glm::vec2(0.0f, 0.0f);
 
 public:
+
+	/// <summary>
+	/// index of chunk where entity is 
+	/// </summary>
 	unsigned char CurrentChunk;
 
 
+	/// <summary>
+	/// Texture index
+	/// </summary>
+	unsigned char TextureIndex;
 
 	/// <summary>
 	/// Position of entity
 	/// </summary>
 	glm::vec2 Position;
 
-	/// <summary>
-	/// Texture index
-	/// </summary>
-	unsigned char TextureIndex;
 
 	Entity() {
 		CurrentChunk = 0;

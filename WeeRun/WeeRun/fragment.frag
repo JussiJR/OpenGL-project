@@ -3,5 +3,5 @@
 in vec2 TextCoord;
 out vec2 final;
 void main(){
-	final = 
+	final = TextCoord / 512;
 }
