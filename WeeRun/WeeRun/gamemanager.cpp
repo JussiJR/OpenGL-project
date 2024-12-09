@@ -92,7 +92,7 @@ int GameManager::FixedUpdate(int* errorc)
 
 int GameManager::Render(int* errorc, int render_distance)
 {
-	int j = 0;
+	int j = 0, k = 0;
 	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 0 };
 	{
 		//!	RENDER Wall
@@ -114,6 +114,9 @@ int GameManager::Render(int* errorc, int render_distance)
 			chunk = _queue.front();
 			_queue.pop();
 			bufferoffset = _chunkOffsets[chunk];
+
+			//! Set StartIndex
+			k = j;
 
 			//!		Loop chunk
 			for (int i = 0;i < _chunkSizes[chunk];i++) {
@@ -147,11 +150,14 @@ int GameManager::Render(int* errorc, int render_distance)
 					last[1] = view;
 				}
 			}
+
+			//Close the chunk
+			buffer[k] = buffer[j - 1];
+
 		}
 	}
-	unsigned int count = j >> 1;
-
-
+	// Kinda cheap way to divide by 2.
+	unsigned int count = (j+1) >> 1;
 
 	//! Draw everything in one batch
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
