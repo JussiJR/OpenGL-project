@@ -54,8 +54,8 @@ GameManager::GameManager(const char* path)
 			
 		}
 		
-
-
+		//! Get uniforms
+		_mvpUniform = glGetUniformLocation(_shader.ID, "u_mvp");
 	}
 }
 
@@ -108,7 +108,7 @@ int GameManager::Render(int* errorc, int render_distance)
 		// Current Edge data
 		int link = 0, texture, x, y, portalLink, portalChunkIndex;
 		float angle,yawOffset = _camera.GetRotation().x;
-		vec2 view = _camera.getPointed()->Position;
+		vec2 camera_position = _camera.getPointed()->Position;
 
 		//!	Loop threw camera view
 		_queue.push(_camera.getPointed()->CurrentChunk);
@@ -127,14 +127,16 @@ int GameManager::Render(int* errorc, int render_distance)
 				//!		Get edge data
 				edge = _mapBuffer[bufferoffset + link];
 				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
-				vec2 direction = vec2(x, y) - view;
 
+				//!	Add possible portal link to render pile
 				/*
 				if (portalChunkIndex != chunk) {
 					_queue.push(portalChunkIndex);
 				}
 				*/
 
+				//!		Calculate Direction in 2D space
+				vec2 direction = vec2(x, y) - camera_position;
 
 				//!	Calculate angle
 				angle = atan2(direction.y, direction.x);
@@ -156,16 +158,17 @@ int GameManager::Render(int* errorc, int render_distance)
 
 			//Close the chunk
 			buffer[k] = buffer[j];
-
 		}
 	}
 	// Kinda cheap way to divide by 2.
 	unsigned int count = (j+1) >> 1;
 
+	/*TODO: Calculate mvp*/
+	
+
 	//! Draw everything in one batch
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
 	return EXIT_SUCCESS;
-
 }
 
 

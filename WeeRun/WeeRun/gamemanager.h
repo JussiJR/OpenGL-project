@@ -152,7 +152,7 @@ private:
 	/// <summary>
 	/// ViewMatrix uniform link 
 	/// </summary>
-	GLuint _viewMatrixUniform;
+	GLuint _mvpUniform;
 
 	//!		Player	
 	
