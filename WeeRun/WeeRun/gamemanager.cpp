@@ -96,19 +96,22 @@ int GameManager::Render(int* errorc, int render_distance)
 	unsigned long buffer[INITIALIZATION_GLFW_WINDOW_SIZE_X]{ 0 };
 	{
 		//!	RENDER Wall
+		
 		//FIXME:  MANY MEMORY LOSS SPOT
 		queue<int> _queue = queue<int>();
+		unsigned long chunk, edge,bufferoffset;
 		unsigned long last[2]{ 0 };
+		
 		// Current Edge data
-		int link = 0, texture, x, y, portalLink, portalChunkIndex, bufferoffset;
-		float angle, yawOffset = _camera.GetRotation().x;
+		int link = 0, texture, x, y, portalLink, portalChunkIndex;
+		float angle,yawOffset = _camera.GetRotation().x;
 		vec2 view = _camera.getPointed()->Position;
 
 		//!	Loop threw camera view
 		_queue.push(_camera.getPointed()->CurrentChunk);
 		while (!_queue.empty()) {
 			//!		Get chunk data
-			int chunk = _queue.front();
+			chunk = _queue.front();
 			_queue.pop();
 			bufferoffset = _chunkOffsets[chunk];
 
@@ -116,7 +119,7 @@ int GameManager::Render(int* errorc, int render_distance)
 			for (int i = 0;i < _chunkSizes[chunk];i++) {
 
 				//!		Get edge data
-				int edge = _mapBuffer[bufferoffset + link];
+				edge = _mapBuffer[bufferoffset + link];
 				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
 				vec2 direction = vec2(x, y) - view;
 
@@ -130,9 +133,8 @@ int GameManager::Render(int* errorc, int render_distance)
 				//!	Calculate angle
 				angle = atan2(direction.y, direction.x);
 				angle += angle < 0 ? 6.28318530718f : 0.0f;
-
+				int view = inView(angle, yawOffset);
 				{
-					int view = inView(angle, yawOffset);
 					//!		Check is it in view
 					if (view || last[1]) {
 						//!		Add items into buffer	
