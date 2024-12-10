@@ -3,147 +3,50 @@
 //!	Methods
 //!		Main
 int main(int argc, char** argv){
+	int errorc = 0;
 
-
-
-#ifdef _DEBUG
-	//!	Check versions
-	//!		GLFW
-	printf("Compiled against GLFW %i.%i.%i\n",
-		GLFW_VERSION_MAJOR,
-		GLFW_VERSION_MINOR,
-		GLFW_VERSION_REVISION);
-#endif
-	//!	Initialization
-	//!		GLFW
-	//!			Hints
-	glfwInitHint(GLFW_JOYSTICK_HAT_BUTTONS, GLFW_FALSE);
-
-	//!			Base
-
-	if (!glfwInit()) {
-#ifdef _DEBUG
-		return glfwGetError(NULL);
-#else
-		return EXCEPTIONS_GLFW_INITIALIZATION_GLFWINIT;
-#endif
-	}
-
-
-	//!			Window hints
-#ifndef _DEBUG
-	//!				Window's borders
-	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-
-	//!				Window's always on top
-	glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
-
-	//!				Window's debuggability off
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
-
-#else
-	//!				Window's debuggability on
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
-
-#endif
-	//!				Window's resizability
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	//!	Initialize GLFW
+	if (InitializeGLFW()) return CustomGLFW_Initialization_exception;// specifies exception
 	
-	//!				Window's auto iconifying
-	glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_TRUE);
+	//!	Initialize GLFWwindow	
+	GLFWwindow* window = InitializeWindow(&errorc); // window of the game
+	if (errorc) return CustomGLFW_Window_Initialization_Exception;
 
-	//!				Window's context release behavior
-	glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, GLFW_RELEASE_BEHAVIOR_FLUSH);
+	//!	Initialize OpenGL
+	if (InitializeOpenGL(window)) return CustomOpenGL_Initialization_Exception;
 
-	//!				Window's context version
 
-	//!					Window's context version major
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-
-	//!					Window's context version minor
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
-	//!				OpenGL forward compatability
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-
-	//!				OpenGL core profile 
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	//!				V-Sync off
-	glfwSwapInterval(0);
-
-	//!			Create window
-	GLFWwindow* window = glfwCreateWindow(INITIALIZATION_GLFW_WINDOW_SIZE_X, INITIALIZATION_GLFW_WINDOW_SIZE_Y,
-		"WeeRun", NULL, NULL);
-	if (!window) {
-		glfwTerminate();
-#ifdef _DEBUG
-		return glfwGetError(NULL);
-#else
-		return EXCEPTIONS_GLFW_INITIALIZATION_GLFWCREATEWINDOW;
-#endif
-	}
-	//!			Set context
-	glfwMakeContextCurrent(window);
-
-	//!		OpenGL
-	//!			Base
-	if (!gladLoadGL()) {
-		glfwDestroyWindow(window);
-		glfwTerminate();
-#ifdef _DEBUG
-		return glGetError();
-#else
-		return EXCEPTIONS_OPENGL_INITIALIZATION_GLADLOADGL;
-#endif
+	//! Initialize game manager
+	GameManager manager = GameManager("chunk_data.json");
+	if (manager.Initialized) {
+		errorc = manager.Initialized;
+		manager.~GameManager();
+		goto cleanUp;
 	}
 
-	
-	{
-		int errorc = 0;
+	//!	Main loop
+	while (!glfwWindowShouldClose(window)) {
 
-		//!			Game manager
-		GameManager manager = GameManager("chunk_data.json");
-		if (manager.Initialized) {
-			int eMessage = manager.Initialized;
-			manager.~GameManager();
-			glfwDestroyWindow(window);
-			glfwTerminate();
-			return eMessage;
-		}
+		//!	OpenGL
+		//!		Clear buffers
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		//!			Color buffer
-		glClearColor(0.675f, 0.522f, 1.0f, 0.6937f);
+		//!	WeeRun
+		//!		Updating
+		if (manager.Update(&errorc)) goto cleanUp; // updated once every frame
+		//!		Rendering
+		if (manager.Render(&errorc, 5)) goto cleanUp; // draws once every frame
 
-		//!	Main loop
-		while (!glfwWindowShouldClose(window)) {
-
-			//!	OpenGL
-			//!		Clear buffers
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-
-			//!	WeeRun
-			//!		Updating
-			//TODO: Add Update methods 
-			//!		Fixed updating
-			//TODO: Add Update methods 
-			//!		Rendering
-			//TODO: Add Rendering methods 
-
-			//! GLFW
-			//!		Swap buffers
-			glfwSwapBuffers(window);
-#ifdef _DEBUG
-			glfwWaitEvents();
-#else
-			glfwPollEvents();
-#endif
-		}
+		//! GLFW
+		//!		Swap buffers
+		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
 
+cleanUp:
+	glfwDestroyWindow(window);
 	glfwTerminate();
-	return EXIT_SUCCESS;
+	return errorc;
 }
 
 void Keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
@@ -160,3 +63,77 @@ void CursorPosition_callback(GLFWwindow* window, double position_X, double posit
 
 }
 
+inline int InitializeGLFW(void) {
+	glfwInitHint(GLFW_JOYSTICK_HAT_BUTTONS, GLFW_FALSE);
+	if (!glfwInit()) return CustomGLFW_Exception;
+	return 0;
+}
+inline GLFWwindow* InitializeWindow(int* errorc) {
+
+	//!	Window hints
+#ifndef _DEBUG
+	//!		Window's borders
+	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+
+	//!		Window's always on top
+	glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
+
+	//!		Window's debuggability off
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_FALSE);
+
+#else
+	//!		Window's debuggability on
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+
+#endif
+	//!		Window's resizability
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+	//!		Window's auto iconifying
+	glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_TRUE);
+
+	//!		Window's context release behavior
+	glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, GLFW_RELEASE_BEHAVIOR_FLUSH);
+
+	//!		Window's context version
+
+	//!			Window's context version major
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+
+	//!			Window's context version minor
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+	//!		OpenGL forward compatability
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+
+	//!		OpenGL core profile 
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//!		V-Sync off
+	glfwSwapInterval(0);
+
+	//!	Create window
+	GLFWwindow* window = glfwCreateWindow(INITIALIZATION_GLFW_WINDOW_SIZE_X, INITIALIZATION_GLFW_WINDOW_SIZE_Y,"WeeRun", NULL, NULL);
+	if (!window) {
+		glfwTerminate();
+		*errorc = CustomGLFW_Window_Exception;
+		return nullptr;
+	}
+
+	//!	Set context
+	glfwMakeContextCurrent(window);
+	
+	return window;
+}
+
+inline int InitializeOpenGL(GLFWwindow* window) {
+	if (!gladLoadGL()) {
+		glfwDestroyWindow(window);
+		glfwTerminate();
+		return CustomOpenGL_Exception;
+	}
+	//!			Color buffer
+	glClearColor(0.675f, 0.522f, 1.0f, 0.6937f);
+
+	return 0;
+}

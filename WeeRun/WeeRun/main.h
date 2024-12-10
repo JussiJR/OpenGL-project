@@ -73,6 +73,12 @@
 
 //!	Includes
 
+//!		Exceptions
+//!			Header files
+#if !defined(__exceptions_h_)
+#include "Exceptions.h"
+#endif
+
 //!		stdio
 //!			Header files
 #include <stdio.h>
@@ -101,17 +107,9 @@
 
 //! Definitions
 //!		Initialization
-//!			GLFW
-//!				Window
-//!					Size
+//!			GLFW window size
 #define INITIALIZATION_GLFW_WINDOW_SIZE_X 800
 #define INITIALIZATION_GLFW_WINDOW_SIZE_Y 500
-
-//!			OpenGL
-//!				Buffers
-//!					Color
-//!						Clear
-
 
 //!		Misc
 //!			Exit codes
@@ -165,4 +163,31 @@ void Keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 /// <param name="position_X">position of the cursor in x axel</param>
 /// <param name="position_Y">position of the cursor in y axel</param>
 void CursorPosition_callback(GLFWwindow* window, double position_X, double position_Y);
+
+//!		Initializations
+//!			GLFW
+
+/// <summary>
+/// Initializes GLFW api.
+/// </summary>
+/// <returns>0 if success otherwise error code</returns>
+inline int InitializeGLFW(void);
+
+//!			GLFW window
+
+/// <summary>
+/// Initializes GLFW window
+/// </summary>
+/// <param name="errorc">pointer to integer representing error cache for to return it</param>
+/// <returns>initialized glfw window </returns>
+inline GLFWwindow* InitializeWindow(int* errorc);
+
+/// <summary>
+/// Initializes OpenGL
+/// </summary>
+/// <param name="window">pointer to window</param>
+/// <returns>0 if all goes well otherwise OpenGL exception</returns>
+inline int InitializeOpenGL(GLFWwindow* window);
+
+
 #endif

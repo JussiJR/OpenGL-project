@@ -53,7 +53,7 @@ public:
 	/// used to get pointer to entity what is assigned to camera
 	/// </summary>
 	/// <returns>Pointer to entity no error handling</returns>
-	Entity* getPointed();
+	Entity* getPointed(void) const;
 
 	/// <summary>
 	/// Update method for camera
@@ -66,10 +66,7 @@ public:
 	/// Gets position in vec3
 	/// </summary>
 	/// <returns>vec3 representing Position of entity assigned to camera + offset</returns>
-	glm::vec3 GetPosition();
-
-
-
+	glm::vec3 GetPosition(void) const;
 };
 
 

@@ -13,7 +13,7 @@ Camera::Camera(){
 	Offset = glm::vec3(0); 
 	Rotation = glm::vec3(0);
 }
-Entity* Camera::getPointed()
+Entity* Camera::getPointed(void) const
 {
 	return _assigned;
 }
@@ -25,7 +25,7 @@ void Camera::Update(float p, float y)
 	Rotation.z = (Rotation.z > fullCycle ? 0.0f : Rotation.z) + y;
 }
 
-glm::vec3 Camera::GetPosition()
+glm::vec3 Camera::GetPosition(void) const
 {
 	return  glm::vec3(Offset.x+_assigned->Position.x,Offset.y, Offset.z + _assigned->Position.y);
 }
