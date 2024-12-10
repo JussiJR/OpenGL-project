@@ -106,17 +106,6 @@
 #endif
 
 //! Definitions
-//!		Initialization
-//!			GLFW window size
-#define INITIALIZATION_GLFW_WINDOW_SIZE_X 800
-#define INITIALIZATION_GLFW_WINDOW_SIZE_Y 500
-
-//!		Misc
-//!			Exit codes
-#if !defined(EXIT_SUCCESS)
-#define EXIT_SUCCESS 0
-#endif
-
 #if defined(_DEBUG)
 //!		Debug
 //!			Logging
@@ -126,7 +115,8 @@
 #endif
 
 //!	Constexpr
-constexpr float Aspect_Ratio = INITIALIZATION_GLFW_WINDOW_SIZE_Y / INITIALIZATION_GLFW_WINDOW_SIZE_X;
+constexpr int WindowSize_X = 800, WindowSize_Y = 500;
+constexpr float Aspect_Ratio = WindowSize_Y / WindowSize_X;
 
 //!	Methods
 

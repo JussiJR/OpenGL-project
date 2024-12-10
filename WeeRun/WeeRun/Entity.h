@@ -26,12 +26,11 @@ public:
 	/// <summary>
 	/// Position of entity
 	/// </summary>
-	glm::vec2 Position;
-
-
+	float x;
+	float y;
 	Entity() {
 		CurrentChunk = 0;
-		Position = glm::vec2(0.0f);
+		x = y = 0;
 		TextureIndex = 0;
 	};
 
@@ -70,6 +69,7 @@ public:
 	/// <param name="force">position values to be added</param>
 	/// <returns>Entity with applied positiion addition</returns>
 	Entity& operator>>(glm::vec2& force);
+
 };
 #endif
 

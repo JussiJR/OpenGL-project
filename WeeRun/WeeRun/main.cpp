@@ -56,6 +56,7 @@ void Keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 		}
 	}
+
 }
 
 void CursorPosition_callback(GLFWwindow* window, double position_X, double position_Y)
@@ -118,7 +119,7 @@ inline GLFWwindow* InitializeWindow(int* errorc) {
 	glfwSwapInterval(0);
 
 	//!	Create window
-	GLFWwindow* window = glfwCreateWindow(INITIALIZATION_GLFW_WINDOW_SIZE_X, INITIALIZATION_GLFW_WINDOW_SIZE_Y,"WeeRun", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WindowSize_X, WindowSize_Y,"WeeRun", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 #ifdef _DEBUG
@@ -144,6 +145,5 @@ inline int InitializeOpenGL(GLFWwindow* window) {
 	}
 	//!			Color buffer
 	glClearColor(0.675f, 0.522f, 1.0f, 0.6937f);
-
-	return 0;
+	return EXIT_SUCCESS;
 }

@@ -6,11 +6,11 @@ VBO::VBO()
 	ID = 0;
 }
 
-VBO::VBO(std::vector<void*>& vertices)
+VBO::VBO(void* vertices,size_t size)
 {
 	glGenBuffers(1, &ID);
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(void*), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
 void VBO::Bind() const

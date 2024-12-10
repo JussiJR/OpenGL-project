@@ -15,7 +15,6 @@
 //!	Includes
 //!		VBO
 #include "VBO.h"
-#include "EBO.h"
 #include "VAO.h"
 #include "ShaderProgram.h"
 #include <iostream>
@@ -33,8 +32,8 @@
 #include <cmath>
 #include "main.h"
 #include <queue>
-
-
+#include "Edge.h"
+#include "UBO.h"
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 //!	Constexpr
@@ -60,18 +59,18 @@ private:
 	/// </summary>
 	Camera _camera;
 
-	int _chunkOffsets[63];
-	int _chunkSizes[63];
+	int _chunkOffsets[32];
+	int _chunkSizes[32];
 	
 	/// <summary>
 	/// Till better solution is found
 	/// </summary>
-	int* _mapBuffer;
+	edge _mapBuffer[512];
 
 	/// <summary>
-	/// SSBO for _Map's data ( Will not change after loading map
+	/// UBO for _Map's data ( Will not change after loading map
 	/// </summary>
-	SSBO _edgeData;
+	UBO _edgeData;
 
 
 	//!		Rendering
@@ -87,9 +86,9 @@ private:
 	VAO _vertexArray;
 
 	/// <summary>
-	/// Indices 
+	/// Vertex buffer object for vertex array
 	/// </summary>
-	EBO _indices;
+	VBO _vertexbuffer;
 
 	//!		Player	
 	
@@ -160,14 +159,13 @@ public:
 	int Render(int* errorc,int render_distance);
 };
 
-
 /// <summary>
-/// Reads data from file and returns it in string
+/// 
 /// </summary>
-/// <param name="path">path to file</param>
-/// <param name="error">pointer to error integer</param>
-/// <returns>string here data is</returns>
-inline string readFile(const char* path, unsigned int* error);
+/// <param name="buffer"></param>
+/// <param name="root"></param>
+/// <param name="error"></param>
+inline void fillBuffer(edge* buffer, Json::Value* root, unsigned int* error);
 
 /// <summary>
 /// 
@@ -190,14 +188,6 @@ inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecou
 void getRoot(Json::Value *root,const char* path, unsigned int* error);
 
 /// <summary>
-/// Fills buffer with map data
-/// </summary>
-/// <param name="buffer">pointer to target buffer</param>
-/// <param name="root">pointer to root </param>
-/// <param name="error">pointer to error integer</param>
-inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
-
-/// <summary>
 /// Checks if target name is in root
 /// </summary>
 /// <param name="root">value to check from</param>
@@ -205,16 +195,4 @@ inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error);
 /// <param name="name">name of the object</param>
 /// <returns>true if it is found otherwise false</returns>
 inline bool isValid(Json::Value* root, Json::Value* target, const char* name);
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="edge"></param>
-/// <param name="link"></param>
-/// <param name="texture"></param>
-/// <param name="x"></param>
-/// <param name="y"></param>
-/// <param name="portalLink"></param>
-/// <param name="portalChunkIndex"></param>
-inline void extractEdge(int edge, int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex);
 #endif

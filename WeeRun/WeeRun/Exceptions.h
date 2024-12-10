@@ -93,6 +93,14 @@ enum Exceptions_e {
 	Shader_Exception = 0x400F,
 
 	/// <summary>
+	/// Shader program validate exception.
+	/// Thrown: when program is not able to validate shader program.
+	/// </summary>
+	Shader_ShaderProgram_Validate_Exception = 0x412F,
+
+	//!	Vertex Shader Exceptions
+
+	/// <summary>
 	/// Default exception of Vertex shader.
 	/// Thrown: when there is no other suitable Exception
 	/// </summary>
@@ -110,6 +118,8 @@ enum Exceptions_e {
 	/// </summary>
 	Shader_Vertex_Compile_Exception = 0x403F,
 	
+	//!	Fragment Shader Exceptions
+
 	/// <summary>
 	/// Default exception of Fragment shader.
 	/// Thrown: when there is no other suitable Exception 
@@ -123,10 +133,19 @@ enum Exceptions_e {
 	Shader_Fragment_NotFound_Exception = 0x405F,
 	
 	/// <summary>
+	/// Fragment shader compile exception
+	/// Thrown: When program is not able to compile fragment shader
+	/// </summary>
+	Shader_Fragment_Compile_Exception = 0x406F,
+
+	/// <summary>
 	/// Default exception of Shader program.
 	/// Thrown: when there is no other suitable Exception 
 	/// </summary>
 	Shader_ShaderProgram_Exception = 0x407F,
+	
+	//! Shader uniform Exceptions
+
 	
 	/// <summary>
 	/// Default exception of shader uniforms.
@@ -152,12 +171,8 @@ enum Exceptions_e {
 	/// </summary>
 	Shader_ShaderProgram_ShaderUniform_InvalidOperation_Exception = 0x411F,
 	
-	/// <summary>
-	/// Shader program validate exception.
-	/// Thrown: when program is not able to validate shader program.
-	/// </summary>
-	Shader_ShaderProgram_Validate_Exception = 0x412F,
-	
+	//!	Texture exceptions
+
 	/// <summary>
 	/// Default exception of textures.
 	/// Thrown: when there is no other suitable Exception
@@ -188,6 +203,8 @@ enum Exceptions_e {
 	/// </summary>
 	Texture_InvalidTexture_OpenGLSide_Exception = 0x504F,
 	
+	//!	Dynamic memory exceptions
+
 	/// <summary>
 	/// Default exception of dynamic memory.
 	/// Thrown: when there is no other suitable Exception
@@ -200,6 +217,8 @@ enum Exceptions_e {
 	/// </summary>
 	DynamicMemory_Allocation_Exception = 0x601F,
 	
+	//!	Custom OpenGL exceptions
+
 	/// <summary>
 	/// default exception of CustomOpenGL
 	/// Thrown: when no other exception satisfies requirements.
@@ -208,7 +227,7 @@ enum Exceptions_e {
 	
 	/// <summary>
 	/// Custom openGL initialization exception
-	/// Thrown:
+	/// Thrown:when program is unable to link opengl methods to itself
 	/// </summary>
 	CustomOpenGL_Initialization_Exception = 0x701F
 }; 

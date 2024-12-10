@@ -3,7 +3,6 @@
 #define __camera_h_
 
 #include <glm/matrix.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include "Entity.h"
 #include "main.h"
 

@@ -48,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EBO.cpp">
-      <Filter>Source Files\OpenGL\Shader objects</Filter>
-    </ClCompile>
     <ClCompile Include="VBO.cpp">
       <Filter>Source Files\OpenGL\Shader objects</Filter>
     </ClCompile>
@@ -81,6 +78,12 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UBO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="template.txt" />
@@ -93,9 +96,6 @@
       <Filter>Header Files\Program</Filter>
     </ClInclude>
     <ClInclude Include="VBO.h">
-      <Filter>Header Files\OpenGL\Shader objects</Filter>
-    </ClInclude>
-    <ClInclude Include="EBO.h">
       <Filter>Header Files\OpenGL\Shader objects</Filter>
     </ClInclude>
     <ClInclude Include="SSBO.h">
@@ -118,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Exceptions.h">
       <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="UBO.h">
+      <Filter>Header Files\OpenGL\Shader objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

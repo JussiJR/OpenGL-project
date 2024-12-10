@@ -1,11 +1,12 @@
 // Vertex shader's Version
 #version 460 core
-
 //Defines
 #define EXTRACT_POSITION_Z  uint((edge >> 10) & 7); 
 #define EXTRACT_POSITION_X  uint((edge >> 17) & 7); 
 #define EXTRACT_TEXTURE (edge >> 24) & 15;
 
+// OpenGL Instancing tricking part
+layout(location = 0) float y; 
 //	mvp
 uniform mat4 u_view;
 uniform mat4 u_projection;
@@ -45,15 +46,14 @@ void main(){
 
 	// Set offsets
 	offset.x = mod(gl_VertexID,2);
-	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID; // tactical return
-	
+	offset.y = floor(gl_VertexID * 0.5) - gl_InstanceID;
 	// extract data from map
-	uint edge = edges[uint(gl_InstanceID+offset.x)];
+	uint edge = edges[uint(gl_InstanceID + gl_InstanceID+offset)]; 
 	uint edge_texture = EXTRACT_TEXTURE;
 
 	// set position
 	position.x = EXTRACT_POSITION_X;
-	position.y = offset.y * 9; 
+	position.y = y; 
 	position.z = EXTRACT_POSITION_Z;
 
 	// set texture coordinate

@@ -3,7 +3,7 @@
 GameManager::GameManager(const char* path)
 {
 	//!		Ínitialized
-	Initialized = 0;
+	Initialized = Exceptions_Null;
 	
 
 
@@ -42,8 +42,23 @@ GameManager::GameManager(const char* path)
 		getRoot(&root, path, &Initialized);
 		if (Initialized) return;
 		
+		//!	Initialize Shader program
 		_shader = ShaderProgram("vertex.vert", "fragment.frag");
 		_shader.Activate();
+
+		//! Initializee vap. vbo amd ubo
+		{
+			_vertexArray = VAO();
+			_vertexArray.Bind();
+
+			const float vYs[4] = { 0.0f,0.0f,9.0f,9.0f };
+			_vertexbuffer = VBO((void*)&vYs[0], 4 * sizeof(float)); //just do not complain
+			_vertexArray.LinkAttrib(_vertexbuffer, 0, 4, GL_FLOAT, 4, (void*)0);
+
+			const int uboPrefill[15]{ 0 };
+			_edgeData = UBO(sizeof(int) * 15,(void*) & uboPrefill[0], GL_DYNAMIC_DRAW);//just do not complain
+		}
+	
 
 		//!		Map initialization
 		{
@@ -53,24 +68,20 @@ GameManager::GameManager(const char* path)
 			if (Initialized) return;
 
 			//!		Create buffer
-			_mapBuffer = new int[i];
 			fillBuffer(_mapBuffer, &root, &Initialized);
-
-			//!		Setup SSBOs
-			_edgeData = SSBO(i, _mapBuffer, GL_DYNAMIC_STORAGE_BIT, 0);
-			
+			if (Initialized) return;
 		}
 
 		{
 			//!		Calculate projection matrix
 			GLint projectionUniform = _shader.getUniform("u_projection");
 			if (projectionUniform == -1) {
-				Initialized = 1323424;
+				Initialized = Shader_ShaderProgram_ShaderUniform_NotFound_Exception;
 				return;
 			}
 
 			//!		Set projection matrix and never touch again
-			glm::mat4 projection = glm::perspective(90.0f, (float)(500 / 800), 1.0f, 100.0f);
+			glm::mat4 projection = glm::perspective(90.0f, Aspect_Ratio, 0.75f, 100.0f);
 			glUniformMatrix4fv(projectionUniform, 1, GL_FALSE, glm::value_ptr(projection));
 		}
 
@@ -81,16 +92,13 @@ GameManager::~GameManager()
 {
 	//! Delete rendering stuff
 	_vertexArray.Delete();
-	_indices.Delete();
 	_shader.Delete();
 
-	delete[] _mapBuffer;
 }
 
 int GameManager::Update(int* errorc)
 {
-
-	///!	Update camera 
+	//!	Update camera 
 	_camera.Update(0.f,0.f);
 
 
@@ -112,7 +120,8 @@ int GameManager::Render(int* errorc, int render_distance)
 	int j = -1, k = 0;
 
 	//! Retrieve camera position
-	glm::vec2 camera_position = _camera.getPointed()->Position;
+	
+	glm::vec2 camera_position = glm::vec2(_camera.getPointed()->x, _camera.getPointed()->y);
 	glm::vec3 camera_rotation = _camera.Rotation;
 
 	// Buffer for data
@@ -122,11 +131,10 @@ int GameManager::Render(int* errorc, int render_distance)
 		
 		//FIXME:  MANY MEMORY LOSS SPOT
 		queue<int> _queue = queue<int>();
-		unsigned long chunk, edge,bufferoffset;
+		unsigned long chunk,bufferoffset,link = -1, current = -1;
 		unsigned long last[2]{ 0 };
 		
 		// Current Edge data
-		int link = 0, texture, x, y, portalLink, portalChunkIndex;
 		float angle,yawOffset = camera_rotation.x;
 
 		//!	Loop threw camera view
@@ -144,12 +152,12 @@ int GameManager::Render(int* errorc, int render_distance)
 			for (int i = 0;i < _chunkSizes[chunk];i++) {
 
 				//!		Get edge data
-				edge = _mapBuffer[bufferoffset + link];
-				extractEdge(edge, &link, &texture, &x, &y, &portalLink, &portalChunkIndex);
+				int index = link == -1 ? i : link;
+				edge _edge = _mapBuffer[bufferoffset + index];
 
 
 				//!		Calculate Direction in 2D space
-				glm::vec2 direction = glm::vec2(x, y) - camera_position;
+				glm::vec2 direction = _edge.Position() - camera_position;
 
 				//!	Calculate angle
 				angle = atan2f(direction.y, direction.x);
@@ -157,32 +165,24 @@ int GameManager::Render(int* errorc, int render_distance)
 
 				//!	Check is it in view
 				int view = angle < fov + yawOffset && angle > yawOffset;
+
+				//!	Add possible portal link to render pile and skip the edge adding (to reduce vertex amount)
+				if (_edge.PortalLinkChunkIndex != chunk) _queue.push(_edge.PortalLinkChunkIndex);
+
 				if (view || last[1]) 
 				{
+					//Pack 
+					current = _edge.pack();
 
-					//!	Add possible portal link to render pile and skip the edge adding (to reduce vertex amount)
-					if (portalChunkIndex != chunk) 
-					{
-						//!	Push to queue portal
-						_queue.push(portalChunkIndex);
-					}
-					else // Or add pair to renderable pile
-					{
-						//!	Add items into buffer	
-						buffer[++j] = last[0];
-						buffer[++j] = edge;
-					}
-				
+					//!	Add items into buffer	
+					buffer[++j] = last[0];
+					buffer[++j] = current;
 				}
 
-				//! Setup last
-				last[0] = edge;
+				//Set last
+				last[0] = current;
 				last[1] = view;
 			}
-
-			//Close the chunk
-			unsigned int last = buffer[j];
-			buffer[k] = last;
 		}
 	}
 	
@@ -193,8 +193,7 @@ int GameManager::Render(int* errorc, int render_distance)
 	_edgeData.Update(sizeof(int) * j, 0, buffer);
 	//!	Calculate mvp matrix
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(camera_position.x, 1.81f, camera_position.y)+
-		_camera.Offset,													// Position
+		glm::vec3(camera_position.x, 1.81f, camera_position.y),			// Position
 		camera_rotation,												// Rotation
 		glm::vec3(0, 0, 1));											// Up
 	
@@ -212,37 +211,10 @@ int GameManager::Render(int* errorc, int render_distance)
 	glUniformMatrix4fv(viewUniform, 1, GL_FALSE, glm::value_ptr(view));
 
 	//! Draw everything in one batch
-	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0, count);
+	glDrawElementsInstanced(GL_TRIANGLE_STRIP, 4, GL_FLOAT, 0, count);
 	return EXIT_SUCCESS;
 }
 
-
-
-inline string readFile(const char* path,unsigned int* error) {
-	FILE* fileptr;
-	fopen_s(&fileptr,path, "r");
-#if defined(_DEBUG)
-	if (!fileptr) {
-		throw(errno);
-		return "";
-	}
-#else
-	if (!fileptr) {
-		*error = Map_MapNotFound_Exception;
-		return "";
-	}
-#endif
-
-	//			Kinda like evil bit troll but not
-	char buffer[100];
-	int i = 0,size = 100;
-	string ret = "";
-	while (fgets(buffer,size, fileptr)) {	
-		ret += buffer;
-	}
-	fclose(fileptr);
-	return ret;
-}
 
 inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, int* _chunkSizes, int* _chunkOffsets)
 {
@@ -259,14 +231,29 @@ inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecoun
 		i++;
 	}
 	if (!*edgecount) *error = Map_InvalidMapExtension_Exception;
-
-
-
 	*chunkCount = i;
 }
 
-inline void fillBuffer(int* buffer, Json::Value* root, unsigned int* error) {
-	//TODO: Fill buffer with data
+inline void fillBuffer(edge* buffer, Json::Value* root, unsigned int* error){
+	Json::Value Chunks,Edges; 
+	int buffer_i = 0, edge_data;
+	map<int, glm::vec2> offsetBinder;
+	if (!isValid(root, &Chunks, "chunks")) {*error = MapTree_InvalidMap_Excecution;return;}
+	for (Json::Value::ArrayIndex i = 0;i < Chunks.size();i++) {
+		if (!isValid(&Chunks, &Edges, "edges")) { *error = MapTree_InvalidMap_Excecution;return; }
+		for (Json::Value::ArrayIndex j = 0;j < Edges.size();j++) {
+			edge_data = Edges[j].asInt();
+
+			//! Exctract the edge and apply offset
+			int link = (edge_data >> 28) & 0xF;
+			int texture = (edge_data >> 24) & 0xF;
+			int x = ((edge_data >> 17) & 0x7F);
+			int y = ((edge_data >> 10) & 0x7F);
+			int portalLink = (edge_data >> 6) & 0x1F;
+			int portalChunkIndex = edge_data & 0x3F;
+			buffer[buffer_i++] = edge(link,texture,x,y,portalLink,portalChunkIndex);
+		}
+	}
 }
 
 void getRoot(Json::Value* root,const char* path, unsigned int* error) {
@@ -279,16 +266,5 @@ void getRoot(Json::Value* root,const char* path, unsigned int* error) {
 
 inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 	*target = root->get(name, NULL);
-	if (!*target) return false;
-	return true;
+	return *target == NULL;
 }
-
-inline void extractEdge(int edge,int* link, int* texture, int* x, int* y, int* portalLink, int* portalChunkIndex) {
-	*link = (edge >> 28) & 0xF;             
-	*texture = (edge >> 24) & 0xF;          
-	*x = (edge >> 17) & 0x7F;               
-	*y = (edge >> 10) & 0x7F;               
-	*portalLink = (edge >> 6) & 0x1F;       
-	*portalChunkIndex = edge & 0x3F;
-}
-

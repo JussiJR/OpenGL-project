@@ -17,7 +17,7 @@ public:
 	
 	VBO();
 	// Constructor that generates a Vertex Buffer Object and links it to vertices
-	VBO(std::vector<void*>& vertices);
+	VBO(void* vertices, size_t size);
 
 	// Binds the VBO
 	void Bind() const;
