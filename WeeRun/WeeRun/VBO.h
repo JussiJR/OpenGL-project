@@ -20,11 +20,11 @@ public:
 	VBO(std::vector<void*>& vertices);
 
 	// Binds the VBO
-	void Bind();
+	void Bind() const;
 	// Unbinds the VBO
-	void Unbind();
+	void Unbind() const;
 	// Deletes the VBO
-	void Delete();
+	void Delete() const;
 };
 
 #endif

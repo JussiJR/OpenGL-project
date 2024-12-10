@@ -118,16 +118,16 @@ public:
 	/// <summary>
 	/// Bind method for EBO
 	/// </summary>
-	void Bind();
+	void Bind() const;
 	
 	/// <summary>
 	/// Unbind method for EBO
 	/// </summary>
-	void Unbind();
+	void Unbind() const;
 	
 	/// <summary>
 	/// Delete method for EBO
 	/// </summary>
-	void Delete();
+	void Delete() const;
 };
 #endif

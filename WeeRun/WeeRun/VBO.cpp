@@ -13,17 +13,17 @@ VBO::VBO(std::vector<void*>& vertices)
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(void*), vertices.data(), GL_STATIC_DRAW);
 }
 
-void VBO::Bind()
+void VBO::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 }
 
-void VBO::Unbind()
+void VBO::Unbind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void VBO::Delete()
+void VBO::Delete() const
 {
 	glDeleteBuffers(1, &ID);
 }

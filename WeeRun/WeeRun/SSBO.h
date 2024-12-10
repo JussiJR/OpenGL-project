@@ -164,7 +164,7 @@ public:
 	/// <summary>
 	/// Activation method
 	/// </summary>
-	void Activate();
+	void Activate() const;
 
 	/// <summary>
 	/// Used to retrieve data from ssbo
@@ -177,6 +177,6 @@ public:
 	/// <summary>
 	/// Disposing method or more precisely wrapper around opengl
 	/// </summary>
-	void Delete();
+	void Delete() const;
 };
 #endif

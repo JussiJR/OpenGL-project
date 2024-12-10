@@ -65,7 +65,12 @@ void CursorPosition_callback(GLFWwindow* window, double position_X, double posit
 
 inline int InitializeGLFW(void) {
 	glfwInitHint(GLFW_JOYSTICK_HAT_BUTTONS, GLFW_FALSE);
-	if (!glfwInit()) return CustomGLFW_Exception;
+	if (!glfwInit()) {
+#ifdef _DEBUG
+		
+#endif
+		return CustomGLFW_Exception;
+	}
 	return 0;
 }
 inline GLFWwindow* InitializeWindow(int* errorc) {
@@ -116,6 +121,8 @@ inline GLFWwindow* InitializeWindow(int* errorc) {
 	GLFWwindow* window = glfwCreateWindow(INITIALIZATION_GLFW_WINDOW_SIZE_X, INITIALIZATION_GLFW_WINDOW_SIZE_Y,"WeeRun", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
+#ifdef _DEBUG
+#endif
 		*errorc = CustomGLFW_Window_Exception;
 		return nullptr;
 	}
@@ -130,6 +137,9 @@ inline int InitializeOpenGL(GLFWwindow* window) {
 	if (!gladLoadGL()) {
 		glfwDestroyWindow(window);
 		glfwTerminate();
+#ifdef _DEBUG
+
+#endif
 		return CustomOpenGL_Exception;
 	}
 	//!			Color buffer

@@ -228,7 +228,7 @@ inline string readFile(const char* path,unsigned int* error) {
 	}
 #else
 	if (!fileptr) {
-		*error = EXCEPTION_GAMEMANAGER_INITIALIZATION_MAPNOTFOUND;
+		*error = Map_MapNotFound_Exception;
 		return "";
 	}
 #endif
@@ -250,7 +250,7 @@ inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecoun
 	Json::Value::ArrayIndex i = 0;
 	Json::Value chunkOffsets;
 	Json::Value chunkSizes;
-	if (!isValid(root,&chunkOffsets,"chunkOffsets")) * error = MapTreeException;
+	if (!isValid(root, &chunkOffsets, "chunkOffsets")) *error = Map_BrokenMap_Exception;
 	while (i < chunkOffsets.size() && chunkOffsets[i].asInt() != 0) {
 		int j = chunkOffsets[i].asInt();
 		*edgecount += j;
@@ -258,7 +258,7 @@ inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecoun
 		_chunkSizes[i] = j;
 		i++;
 	}
-	if (!*edgecount) *error = MapTreeException;
+	if (!*edgecount) *error = Map_InvalidMapExtension_Exception;
 
 
 

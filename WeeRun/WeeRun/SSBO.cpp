@@ -17,7 +17,7 @@ void SSBO::Update(GLintptr size,GLintptr offset,const void* data)
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER,offset,size, data);
 }
 
-void SSBO::Activate()
+void SSBO::Activate() const
 {
 
 }
@@ -27,7 +27,7 @@ void SSBO::Retrieve(GLintptr offset, GLsizeiptr size,void* target) const
 	glGetBufferSubData(ID, offset, size, target);
 }
 
-void SSBO::Delete()
+void SSBO::Delete() const
 {
 
 }
