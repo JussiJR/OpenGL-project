@@ -62,7 +62,7 @@ namespace MapEditor
                 int x = (int)nudX.Value;              // Value from nudX (0-127 or your chosen range)
                 int y = (int)nudY.Value;              // Value from nudY (0-127 or your chosen range)
                 int portalLink = (int)nudPortalLink.Value;  // Value from nudPortalLink (0-31 or your chosen range)
-                int portalChunkIndex = (int)chunkIndex.Value; // Value from nudPortalIndex (0-63 or your chosen range)
+                int portalChunkIndex = (int)nudPortalIndex.Value; // Value from nudPortalIndex (0-63 or your chosen range)
 
                 // Pack the edge data using bitwise operations with a 5-bit link
                 int edge_data = (int)(((link & 0x1F) << 28) |  // Now link uses 5 bits (0-31)
@@ -160,7 +160,6 @@ namespace MapEditor
                     lstEdges.Items.Add($"Link: {link}, Texture: {texture}, Portal: {portalChunkIndex}, PortalLink: {portalLink}, X: {x}, Y: {y}");
                 }
             }
-            panelVisualizer.Invalidate();
         }
 
         // Save the chunk data to a JSON file
