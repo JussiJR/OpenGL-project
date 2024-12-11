@@ -55,7 +55,7 @@ public:
 	/// </summary>
 	/// <param name="name">name of the uniform</param>
 	/// <returns>Location of uniform or -1 if not found or something like that</returns>
-	inline GLint getUniform(const char* name) const;
+	GLint getUniform(const char* name) const;
 };
 
 

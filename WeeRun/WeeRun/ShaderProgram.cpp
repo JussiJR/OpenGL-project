@@ -45,7 +45,7 @@ void ShaderProgram::Delete()
 {
 	glDeleteProgram(ID);
 }
-inline GLint ShaderProgram::getUniform(const char* name) const
+GLint ShaderProgram::getUniform(const char* name) const
 {
 	if (uniformCache.find(name) != uniformCache.end()) return uniformCache[name];
 	GLint location = glGetUniformLocation(ID, name);
