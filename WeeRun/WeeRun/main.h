@@ -114,9 +114,8 @@
 #define DEBUG_LOGGING_LOG(message)  fprintf(stderr, "LOG Log: " message "\n")			// Log error messages
 #endif
 
-//!	Constexpr
-constexpr int WindowSize_X = 800, WindowSize_Y = 500;
-constexpr float Aspect_Ratio = WindowSize_Y / WindowSize_X;
+
+constexpr float Aspect_Ratio = 500 / 800;
 
 //!	Methods
 

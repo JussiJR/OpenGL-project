@@ -101,10 +101,28 @@ GameManager::~GameManager()
 
 }
 
-int GameManager::Update(int* errorc)
+int GameManager::Update(GLFWwindow* window, int* errorc)
 {
-	//!	Update camera 
-	_camera.Update(0.f,0.f);
+	//! Get Mouse Position
+	double mouseX, mouseY;
+	glfwGetCursorPos(window, &mouseX, &mouseY);
+
+	//! Normalize mouse postion ( or change origin to middle of the screen instead of corner ) 
+	mouseX = (mouseX - halfHeight) * inverseHeight;
+	mouseY = (mouseY - halfHeight) * inverseHeight;
+
+	int mouseClick = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+	
+	//!	Update camera rotation
+	if (mouseClick == GLFW_RELEASE) {
+		_camera.dragging = 1;
+		return EXIT_SUCCESS; 
+	}
+	if (_camera.dragging) {
+		glfwSetCursorPos(window, 0.0, 0.0);
+		_camera.dragging = 0;
+	}
+	_camera.Update(mouseX, mouseY);
 
 
 
@@ -127,7 +145,7 @@ int GameManager::Render(int* errorc, int render_distance)
 	//! Retrieve camera position
 	
 	glm::vec2 camera_position = _camera.Assigned->Position;
-	glm::vec3 camera_rotation = _camera.Rotation;
+	glm::vec2 camera_rotation = _camera.Rotation;
 
 	// Buffer for data
 	int buffer[500] { 0 }; // just run over it
@@ -199,7 +217,7 @@ int GameManager::Render(int* errorc, int render_distance)
 	//!	Calculate mvp matrix
 	glm::mat4 view = glm::lookAt(
 		glm::vec3(camera_position.x, 1.81f, camera_position.y),			// Position
-		camera_rotation,												// Rotation
+		glm::vec3(camera_rotation.x,0,camera_rotation.y),				// Rotation
 		glm::vec3(0, 0, 1));											// Up
 	
 	

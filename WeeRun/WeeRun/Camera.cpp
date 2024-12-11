@@ -4,21 +4,22 @@ Camera::Camera(Entity* assignation, glm::vec3 offset, float p, float y)
 }
 
 Camera::Camera(Entity* assignation, glm::vec2 rotation, glm::vec3 offset)
-	: Assigned(assignation), Offset(offset), Rotation(glm::vec3(rotation.x, rotation.y, 0)) {
-
+	: Assigned(assignation), Offset(offset), Rotation(glm::vec3(rotation.x, rotation.y, 0)),dragging(true) {
 }
 
-Camera::Camera(){
+Camera::Camera():dragging(true){
 	Assigned = nullptr;
 	Offset = glm::vec3(0); 
 	Rotation = glm::vec3(0);
 }
 
-void Camera::Update(float p, float y)
+void Camera::Update(float rotationz, float rotationX)
 {
+
+
 	//!	Update roll and yaw or whatever
-	Rotation.x = (Rotation.x > fullCycle ? 0.0f : Rotation.x) + p;
-	Rotation.z = (Rotation.z > fullCycle ? 0.0f : Rotation.z) + y;
+	Rotation.x = (Rotation.x > fullCycle ? 0.0f : Rotation.x) + (rotationz * Sensitivity);
+	Rotation.y = (Rotation.y > fullCycle ? 0.0f : Rotation.y)+ (rotationz * Sensitivity);
 }
 
 glm::vec3 Camera::GetPosition(void) const

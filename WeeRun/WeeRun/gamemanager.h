@@ -36,10 +36,14 @@
 #include <queue>
 #include "Edge.h"
 #include "UBO.h"
+#include <GLFW/glfw3.h>
+
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 //!	Constexpr
 constexpr float fov = 1.570796f;
+constexpr float halfHeight = float(500 / 2);
+constexpr float inverseHeight = float(1 / 500);
 
 //!	Classes
 
@@ -144,7 +148,7 @@ public:
 	/// Method for updating game ( called once every frame )
 	/// </summary>
 	/// <param name="errorc">kind of call back to return error it may have countered</param>
-	int Update(int* errorc);
+	int Update(GLFWwindow* window,int* errorc);
 
 	/// <summary>
 	/// Method for fixed updating game ( Called fixed amount in second )

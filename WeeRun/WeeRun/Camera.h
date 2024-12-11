@@ -7,9 +7,11 @@
 
 
 constexpr float fullCycle = 6.28318530718f;
+constexpr float Sensitivity = 1.5f;
 
 class Camera {
 public:
+	unsigned char dragging = 0;
 
 	/// <summary>
 	/// pointer to assigned object
@@ -24,7 +26,9 @@ public:
 	/// <summary>
 	/// Vector representing rotation
 	/// </summary>
-	glm::vec3 Rotation;
+	glm::vec2 Rotation;
+
+
 	/// <summary>
 	/// Constructor
 	/// </summary>

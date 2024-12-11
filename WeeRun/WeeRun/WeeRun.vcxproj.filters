@@ -54,15 +54,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SSBO.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="VAO.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="VBO.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
@@ -78,9 +69,6 @@
     <ClCompile Include="Edge.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="UBO.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
@@ -91,7 +79,19 @@
       <Filter>Source Files\View</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model\Shader objects</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Source Files\Model\Shader objects</Filter>
+    </ClCompile>
+    <ClCompile Include="VAO.cpp">
+      <Filter>Source Files\Model\Shader objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SSBO.cpp">
+      <Filter>Source Files\Model\Shader objects</Filter>
+    </ClCompile>
+    <ClCompile Include="UBO.cpp">
+      <Filter>Source Files\Model\Shader objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

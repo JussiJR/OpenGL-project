@@ -31,7 +31,7 @@ int main(int argc, char** argv){
 
 		//!	WeeRun
 		//!		Updating
-		if (manager.Update(&errorc)) goto cleanUp; // updated once every frame
+		if (manager.Update(window,&errorc)) goto cleanUp; // updated once every frame
 		//!		Rendering
 		if (manager.Render(&errorc, 5)) goto cleanUp; // draws once every frame
 
@@ -117,7 +117,7 @@ inline GLFWwindow* InitializeWindow(int* errorc) {
 	glfwSwapInterval(0);
 
 	//!	Create window
-	GLFWwindow* window = glfwCreateWindow(WindowSize_X, WindowSize_Y,"WeeRun", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 500,"WeeRun", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 #ifdef _DEBUG

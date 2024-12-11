@@ -24,9 +24,7 @@ Texture::Texture(const char* path,unsigned int* errorc,GLint textureUniform)
 
 	UnBind();
 	stbi_image_free(img);
-
-	glUniform1i(textureUniform,0)
-
+	glUniform1i(textureUniform, 0);
 }
 
 void Texture::Bind() const

@@ -15,7 +15,7 @@ class Texture {
 private:
 	GLint ID;
 public:
-	Texture() :ID(-1){}
+	Texture():ID(-1){}
 	Texture(const char* path,unsigned int* errorc, GLint uniformlocation);
 	void Bind() const;
 	void UnBind() const;
