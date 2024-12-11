@@ -143,5 +143,6 @@ inline int InitializeOpenGL(GLFWwindow* window) {
 	}
 	//!			Color buffer
 	glClearColor(0.675f, 0.522f, 1.0f, 0.6937f);
+	glEnable(GL_DEPTH_TEST);
 	return EXIT_SUCCESS;
 }

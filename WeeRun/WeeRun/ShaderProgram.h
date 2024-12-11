@@ -1,3 +1,5 @@
+// - https://www.khronos.org/opengl/wiki/Example/GLSL_Shader_Compile_Error_Testing
+
 #pragma once
 #ifndef __shaderprogram_h_
 #define __shaderprogram_h_
@@ -38,7 +40,8 @@ public:
 	/// </summary>
 	/// <param name="vertexPath">Path to vertex shader</param>
 	/// <param name="fragmentPath">path to frament shader</param>
-	ShaderProgram(const char* vertexPath, const char* fragmentPath);
+	/// <param name="errorc">pointer to error output</param>
+	ShaderProgram(const char* vertexPath, const char* fragmentPath,int* errorc);
 
 	/// <summary>
 	/// Activation method

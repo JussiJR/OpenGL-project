@@ -8,6 +8,8 @@
 //	- https://www.youtube.com/watch?v=R-bjXOEQyX8 - Some Vertex shader ideas
 //	- https://www.youtube.com/watch?v=hf27qsQPRLQ - some optimizations
 //	- https://www.youtube.com/watch?v=L_YTFlnCLVE - Some Valve Portal linking ideas
+//	- https://www.google.com/search?q=going+3D+openGL+tutorial&oq=going+3D+openGL+tutorial&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDcxMzVqMGowqAIAsAIA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:682663f4,vid:HiCVXEkkSK4,st:0 - 3D rendering
+
 #pragma once
 #ifndef __gamemanager_h_
 #define __gamemanager_h_

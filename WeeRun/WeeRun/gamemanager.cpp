@@ -44,7 +44,8 @@ GameManager::GameManager(const char* path)
 		if (Initialized) return;
 		
 		//!	Initialize Shader program
-		_shader = ShaderProgram("vertex.vert", "fragment.frag");
+		_shader = ShaderProgram("vertex.vert", "fragment.frag", (int*) & Initialized);
+		if (Initialized) return;
 		_shader.Activate();
 
 		//! Initializee vap. vbo amd ubo

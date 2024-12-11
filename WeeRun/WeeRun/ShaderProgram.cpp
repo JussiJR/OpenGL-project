@@ -4,7 +4,7 @@ ShaderProgram::ShaderProgram()
 {
 	ID = 0;
 }
-ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
+ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath, int* errorc)
 {
 
 	std::string VertexCode = readFile(vertexPath);
@@ -19,11 +19,23 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 	glCompileShader(vertexShader);
 
 
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, errorc);
+	if (*errorc == GL_FALSE) {
+		*errorc = Shader_Vertex_Compile_Exception;
+		return;
+	}
 
 	//!	Fragmen shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &c_fragmentCode, NULL);
 	glCompileShader(fragmentShader);
+
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, errorc);
+	if (*errorc == GL_FALSE) {
+		*errorc = Shader_Fragment_Compile_Exception;
+		return;
+	}
+
 
 	//!	Shader program
 	ID = glCreateProgram();
