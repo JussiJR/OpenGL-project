@@ -239,12 +239,13 @@ inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecoun
 }
 
 inline void fillBuffer(edge* buffer, Json::Value* root, unsigned int* error){
-	Json::Value Chunks,Edges; 
+	Json::Value Chunks; 
 	int buffer_i = 0, edge_data;
 	map<int, glm::vec2> offsetBinder;
 	if (!isValid(root, &Chunks, "chunks")) {*error = MapTree_InvalidMap_Excecution;return;}
 	for (Json::Value::ArrayIndex i = 0;i < Chunks.size();i++) {
-		if (!isValid(&Chunks, &Edges, "edges")) { *error = MapTree_InvalidMap_Excecution;return; }
+		Json::Value Edges;
+		if (!isValid(&Chunks[i], &Edges, "edges")) { *error = MapTree_InvalidMap_Excecution;return; }
 		for (Json::Value::ArrayIndex j = 0;j < Edges.size();j++) {
 			edge_data = Edges[j].asInt();
 
@@ -270,5 +271,5 @@ void getRoot(Json::Value* root,const char* path, unsigned int* error) {
 
 inline bool isValid(Json::Value* root,Json::Value* target,const char* name) {
 	*target = root->get(name, NULL);
-	return *target == NULL;
+	return *target != NULL;
 }

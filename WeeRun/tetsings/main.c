@@ -4,6 +4,9 @@
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) fov ;
 
 int main(int argc, char** argv) {
-	
-	printf("%f\n", 90 *0.0174532925f);
+	long value = 1044381696;
+	float real = 0.5f;
+	printf("%f\n", *(float*)&value);
+	printf("%d\n", *(long*)&real);
+
 }

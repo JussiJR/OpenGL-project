@@ -4,7 +4,6 @@
 //!		Main
 int main(int argc, char** argv){
 	int errorc = 0;
-
 	//!	Initialize GLFW
 	if (InitializeGLFW()) return CustomGLFW_Initialization_exception;// specifies exception
 	
@@ -20,7 +19,6 @@ int main(int argc, char** argv){
 	GameManager manager = GameManager("chunk_data.json");
 	if (manager.Initialized) {
 		errorc = manager.Initialized;
-		manager.~GameManager();
 		goto cleanUp;
 	}
 

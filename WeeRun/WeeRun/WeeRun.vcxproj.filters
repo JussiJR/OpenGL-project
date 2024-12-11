@@ -90,6 +90,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\View</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="template.txt" />
@@ -131,6 +134,9 @@
     <ClInclude Include="gamemanager.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.vert">
@@ -141,6 +147,9 @@
     </None>
     <None Include="fragment.frag">
       <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Texture.h">
+      <Filter>Header Files\Model\OpenGL\Shader objects</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -220,6 +220,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="SSBO.cpp" />
     <ClCompile Include="stb_image_loader.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UBO.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Pool.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="SSBO.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="UBO.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
@@ -244,6 +246,7 @@
   <ItemGroup>
     <None Include="chunk_data.json" />
     <None Include="fragment.frag" />
+    <None Include="Texture.h" />
     <None Include="vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
