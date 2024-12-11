@@ -13,117 +13,123 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Notes">
-      <UniqueIdentifier>{1715f0fb-1ce2-48d6-9259-a82e1b123843}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{9944fa87-856f-45eb-8d8c-34b9e8e9878f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Maps">
       <UniqueIdentifier>{40ec75fc-d4dc-4012-8b14-768972dd5bcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\OpenGL">
-      <UniqueIdentifier>{34a2dcaa-6874-442e-9337-0fac49a3f67a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\OpenGL\Shader objects">
-      <UniqueIdentifier>{5b0baf72-b664-482c-a651-cd14c984c5b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Program">
-      <UniqueIdentifier>{ac222be6-3347-4de9-a7b9-448e60a9c608}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Misc">
-      <UniqueIdentifier>{1e4dd62d-7a8e-4680-9b5d-0468c237ba1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\OpenGL">
-      <UniqueIdentifier>{259193c8-5042-41e5-aa87-90067754f7ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\OpenGL\Shader objects">
-      <UniqueIdentifier>{6fd55497-d352-4585-add7-ca7877fbe134}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Misc">
       <UniqueIdentifier>{3d1a8515-5512-4ca9-b108-4ecedfa6afdb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Program">
-      <UniqueIdentifier>{f2e909ad-e997-4a5c-adf5-c0f3d2a96687}</UniqueIdentifier>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{291bda89-83e7-4b23-ad2c-46d693b51d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\OpenGL">
+      <UniqueIdentifier>{259193c8-5042-41e5-aa87-90067754f7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\OpenGL\Shader objects">
+      <UniqueIdentifier>{6fd55497-d352-4585-add7-ca7877fbe134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\View">
+      <UniqueIdentifier>{89534156-2b9f-4be5-bd17-d707319a127e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controller">
+      <UniqueIdentifier>{d751abce-0672-4a49-ab90-4dddc5686c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model">
+      <UniqueIdentifier>{ff5a358b-0f36-49ec-b4c1-ffeb1c6c5d08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Shader objects">
+      <UniqueIdentifier>{5b0baf72-b664-482c-a651-cd14c984c5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{52eda0ff-f0b9-4cba-ab60-6f14d7ef01e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View">
+      <UniqueIdentifier>{1e4dd62d-7a8e-4680-9b5d-0468c237ba1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{ac222be6-3347-4de9-a7b9-448e60a9c608}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VBO.cpp">
-      <Filter>Source Files\OpenGL\Shader objects</Filter>
+    <ClCompile Include="SSBO.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="VAO.cpp">
-      <Filter>Source Files\OpenGL\Shader objects</Filter>
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="SSBO.cpp">
-      <Filter>Source Files\OpenGL\Shader objects</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="gamemanager.cpp">
-      <Filter>Source Files\Program</Filter>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
-      <Filter>Source Files\OpenGL</Filter>
+      <Filter>Source Files\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image_loader.cpp">
-      <Filter>Source Files\Misc</Filter>
+    <ClCompile Include="gamemanager.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Misc</Filter>
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Edge.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="UBO.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image_loader.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
-    <ClInclude Include="gamemanager.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
     <ClInclude Include="VBO.h">
-      <Filter>Header Files\OpenGL\Shader objects</Filter>
+      <Filter>Header Files\Model\OpenGL\Shader objects</Filter>
     </ClInclude>
     <ClInclude Include="SSBO.h">
-      <Filter>Header Files\OpenGL\Shader objects</Filter>
+      <Filter>Header Files\Model\OpenGL\Shader objects</Filter>
     </ClInclude>
     <ClInclude Include="VAO.h">
-      <Filter>Header Files\OpenGL\Shader objects</Filter>
+      <Filter>Header Files\Model\OpenGL\Shader objects</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
-      <Filter>Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Pool.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Misc</Filter>
+      <Filter>Header Files\Model\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Exceptions.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="UBO.h">
-      <Filter>Header Files\OpenGL\Shader objects</Filter>
+      <Filter>Header Files\Model\OpenGL\Shader objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemanager.h">
+      <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
