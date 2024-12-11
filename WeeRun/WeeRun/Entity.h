@@ -26,11 +26,10 @@ public:
 	/// <summary>
 	/// Position of entity
 	/// </summary>
-	float x;
-	float y;
+	glm::vec2 Position;
 	Entity() {
 		CurrentChunk = 0;
-		x = y = 0;
+		Position = glm::vec2(0);
 		TextureIndex = 0;
 	};
 
@@ -54,22 +53,6 @@ public:
 	/// <param name="x">x float of X position for entity</param>
 	/// <param name="y">y float of Y position for entity</param>
 	Entity(unsigned char textureIndex,float x,float y);
-
-	/// <summary>
-	/// Fast input velocity
-	/// </summary>
-	/// <param name="force">added velocity</param>
-	/// <returns>Entity with applied velocity</returns>
-	Entity& operator>>(glm::vec3& force);
-
-	/// <summary>
-	/// Fast input position addition
-	/// 
-	/// </summary>
-	/// <param name="force">position values to be added</param>
-	/// <returns>Entity with applied positiion addition</returns>
-	Entity& operator>>(glm::vec2& force);
-
 };
 #endif
 

@@ -4,18 +4,17 @@
 
 #include <glm/matrix.hpp>
 #include "Entity.h"
-#include "main.h"
+
 
 constexpr float fullCycle = 6.28318530718f;
 
 class Camera {
-private:
+public:
 
 	/// <summary>
 	/// pointer to assigned object
 	/// </summary>
-	Entity* _assigned;
-public:
+	Entity* Assigned;
 
 	/// <summary>
 	/// Offset of the camera to assigned entity position
@@ -47,12 +46,6 @@ public:
 	/// Empty constructor (sets all to 0 or null)
 	/// </summary>
 	Camera();
-
-	/// <summary>
-	/// used to get pointer to entity what is assigned to camera
-	/// </summary>
-	/// <returns>Pointer to entity no error handling</returns>
-	Entity* getPointed(void) const;
 
 	/// <summary>
 	/// Update method for camera

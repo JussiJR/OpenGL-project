@@ -57,10 +57,10 @@ private:
 	/// <summary>
 	/// Camera for scene / game
 	/// </summary>
-	Camera _camera;
+	Camera  _camera;
 
-	int _chunkOffsets[32];
-	int _chunkSizes[32];
+	int* _chunkOffsets;
+	int* _chunkSizes;
 	
 	/// <summary>
 	/// Till better solution is found

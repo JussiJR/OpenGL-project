@@ -5,7 +5,8 @@ GameManager::GameManager(const char* path)
 	//!		Ínitialized
 	Initialized = Exceptions_Null;
 	
-
+	_chunkOffsets = new int[32];
+	_chunkSizes = new int[32];
 
 	//!		Player state
 	_haunted = 0;
@@ -91,8 +92,11 @@ GameManager::GameManager(const char* path)
 GameManager::~GameManager()
 {
 	//! Delete rendering stuff
+	_vertexbuffer.Delete();
+	_edgeData.UnMap();
 	_vertexArray.Delete();
 	_shader.Delete();
+
 
 }
 
@@ -121,7 +125,7 @@ int GameManager::Render(int* errorc, int render_distance)
 
 	//! Retrieve camera position
 	
-	glm::vec2 camera_position = glm::vec2(_camera.getPointed()->x, _camera.getPointed()->y);
+	glm::vec2 camera_position = _camera.Assigned->Position;
 	glm::vec3 camera_rotation = _camera.Rotation;
 
 	// Buffer for data
@@ -138,7 +142,7 @@ int GameManager::Render(int* errorc, int render_distance)
 		float angle,yawOffset = camera_rotation.x;
 
 		//!	Loop threw camera view
-		_queue.push(_camera.getPointed()->CurrentChunk);
+		_queue.push(_camera.Assigned->CurrentChunk);
 		while (!_queue.empty()) {
 			//!		Get chunk data
 			chunk = _queue.front();
