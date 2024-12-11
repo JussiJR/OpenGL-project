@@ -75,7 +75,7 @@ GameManager::GameManager(const char* path)
 
 		{
 			//!		Calculate projection matrix
-			GLint projectionUniform = _shader.getUniform("u_projection");
+			GLint projectionUniform = _shader.getUniform("u_projection ");
 			if (projectionUniform == -1) {
 				Initialized = Shader_ShaderProgram_ShaderUniform_NotFound_Exception;
 				return;

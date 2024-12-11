@@ -6,33 +6,33 @@ ShaderProgram::ShaderProgram()
 }
 ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 {
-	{
-		const char* vertexCode = readFile(vertexPath).c_str();
-		const char* fragCode = readFile(fragmentPath).c_str();
 
-		{
-			//!	Vertex shader
-			GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-			glShaderSource(vertexShader, 1, &vertexCode, NULL);
-			glCompileShader(vertexShader);
+	std::string VertexCode = readFile(vertexPath);
+	std::string fragCode = readFile(fragmentPath);
 
-			//!	Fragmen shader
-			GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-			glShaderSource(fragmentShader, 1, &fragCode, NULL);
-			glCompileShader(fragmentShader);
+	const char* c_vertexCode = VertexCode.c_str();
+	const char* c_fragmentCode = VertexCode.c_str();
 
-			//!	Shader program
-			ID = glCreateProgram();
-			glAttachShader(ID, vertexShader);
-			glAttachShader(ID, fragmentShader);
-			glLinkProgram(ID);
-
-			glDeleteShader(vertexShader);
-			glDeleteShader(fragmentShader);
-		}
-	}
+	//!	Vertex shader
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &c_vertexCode, NULL);
+	glCompileShader(vertexShader);
 
 
+
+	//!	Fragmen shader
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &c_fragmentCode, NULL);
+	glCompileShader(fragmentShader);
+
+	//!	Shader program
+	ID = glCreateProgram();
+	glAttachShader(ID, vertexShader);
+	glAttachShader(ID, fragmentShader);
+	glLinkProgram(ID);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 }
 
