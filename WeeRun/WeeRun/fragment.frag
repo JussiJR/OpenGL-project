@@ -1,10 +1,9 @@
-#version 460 core
+#version 430
 
-in vec2 TextCoord;
+in vec2 TextCoord;  // Receive texture coordinates from the vertex shader
 out vec4 fragColor;
 uniform sampler2D tex;
 
-void main(){
-	vec2 outTC = TextCoord / 512;
-	fragColor = texture(tex,outTC);
+void main() {
+    fragColor = texture(tex, TextCoord);  // Sample the texture using the passed coordinates
 }

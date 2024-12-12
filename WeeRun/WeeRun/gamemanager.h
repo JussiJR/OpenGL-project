@@ -42,8 +42,7 @@
 
 //!	Constexpr
 constexpr float fov = 1.570796f;
-constexpr float halfHeight = float(500 / 2);
-constexpr float inverseHeight = float(1 / 500);
+constexpr float halfHeight = 250;
 
 //!	Classes
 
@@ -148,21 +147,19 @@ public:
 	/// Method for updating game ( called once every frame )
 	/// </summary>
 	/// <param name="errorc">kind of call back to return error it may have countered</param>
-	int Update(GLFWwindow* window,int* errorc);
+	void Update(GLFWwindow* window,int* errorc);
 
 	/// <summary>
 	/// Method for fixed updating game ( Called fixed amount in second )
 	/// </summary>
 	/// <param name="errorc"> call back return for backtracking etc.</param>
-	/// <returns>0 if all goes according to plan otherwise error code as hexadecimal.</returns>
-	int FixedUpdate(int* errorc);
+	void FixedUpdate(int* errorc);
 
 	/// <summary>
 	/// Method for rendering ( called once every frame )
 	/// </summary>
 	/// <param name="errorc"> callback kind of value</param>
-	/// <param name="render_distance">constant num of render distance ( aka how much game will render</param>
-	int Render(int* errorc,int render_distance);
+	void Render(int* errorc,int render_distance);
 };
 
 /// <summary>

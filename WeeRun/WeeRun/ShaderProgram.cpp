@@ -1,26 +1,30 @@
 #include "ShaderProgram.h"
-inline string readFile(const char* path);
+inline string readFile(std::string path);
 ShaderProgram::ShaderProgram()
 {
 	ID = 0;
 }
 ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath, int* errorc)
 {
+	GLchar buffer[512];
+	int success;
 
 	std::string VertexCode = readFile(vertexPath);
 	std::string fragCode = readFile(fragmentPath);
 
 	const char* c_vertexCode = VertexCode.c_str();
-	const char* c_fragmentCode = VertexCode.c_str();
+	const char* c_fragmentCode = fragCode.c_str();
 
 	//!	Vertex shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &c_vertexCode, NULL);
 	glCompileShader(vertexShader);
-
-
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, errorc);
-	if (*errorc == GL_FALSE) {
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	std::cout << "VertexShader: \n" << std::endl;
+	glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
+	std::cout << buffer << std::endl;
+	std::cout << VertexCode << endl;
+	if (success == GL_FALSE) {
 		*errorc = Shader_Vertex_Compile_Exception;
 		return;
 	}
@@ -29,20 +33,27 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath, i
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &c_fragmentCode, NULL);
 	glCompileShader(fragmentShader);
-
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, errorc);
-	if (*errorc == GL_FALSE) {
+	std::cout << "Fragment shader: \n" << std::endl;
+	glGetShaderInfoLog(fragmentShader, 512, NULL, buffer);
+	std::cout << buffer << std::endl;
+	std::cout << fragCode << endl;
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	if (success == GL_FALSE) {
 		*errorc = Shader_Fragment_Compile_Exception;
 		return;
 	}
-
 
 	//!	Shader program
 	ID = glCreateProgram();
 	glAttachShader(ID, vertexShader);
 	glAttachShader(ID, fragmentShader);
 	glLinkProgram(ID);
-
+	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	if (!success) {
+		char infoLog[512];
+		glGetProgramInfoLog(ID, 512, NULL, infoLog);
+		std::cerr << "Program Linking Error:\n" << infoLog << std::endl;
+	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
@@ -65,7 +76,7 @@ GLint ShaderProgram::getUniform(const char* name) const
 	return location;
 }
 
-inline string readFile(const char* path) {
+inline string readFile(std::string path) {
 	ifstream in(path, ios::binary);
 	if (!in) throw(errno);
 

@@ -44,7 +44,7 @@ GameManager::GameManager(const char* path)
 		if (Initialized) return;
 		
 		//!	Initialize Shader program
-		_shader = ShaderProgram("vertex.vert", "fragment.frag", (int*) & Initialized);
+		_shader = ShaderProgram("vertex.vert","fragment.frag",(int*)&Initialized);
 		if (Initialized) return;
 		_shader.Activate();
 
@@ -76,7 +76,7 @@ GameManager::GameManager(const char* path)
 
 		{
 			//!		Calculate projection matrix
-			GLint projectionUniform = _shader.getUniform("u_projection ");
+			GLint projectionUniform = _shader.getUniform("u_projection");
 			if (projectionUniform == -1) {
 				Initialized = Shader_ShaderProgram_ShaderUniform_NotFound_Exception;
 				return;
@@ -101,43 +101,36 @@ GameManager::~GameManager()
 
 }
 
-int GameManager::Update(GLFWwindow* window, int* errorc)
+void GameManager::Update(GLFWwindow* window, int* errorc)
 {
 	//! Get Mouse Position
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 
 	//! Normalize mouse postion ( or change origin to middle of the screen instead of corner ) 
-	mouseX = (mouseX - halfHeight) * inverseHeight;
-	mouseY = (mouseY - halfHeight) * inverseHeight;
+	mouseX = (mouseX - halfHeight) * 0.001953125f;
+	mouseY = (mouseY - halfHeight) * 0.001953125f;
 
 	int mouseClick = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 	
 	//!	Update camera rotation
 	if (mouseClick == GLFW_RELEASE) {
 		_camera.dragging = 1;
-		return EXIT_SUCCESS; 
+		return;
 	}
 	if (_camera.dragging) {
 		glfwSetCursorPos(window, 0.0, 0.0);
 		_camera.dragging = 0;
 	}
 	_camera.Update(mouseX, mouseY);
-
-
-
-	return *errorc;
-	return EXIT_SUCCESS;
 }
 
-int GameManager::FixedUpdate(int* errorc)
+void GameManager::FixedUpdate(int* errorc)
 {
 
-	return *errorc;
-	return EXIT_SUCCESS;
 }
 
-int GameManager::Render(int* errorc, int render_distance)
+void GameManager::Render(int* errorc, int render_distance)
 {
 	// |PlaceHolder | ChunkStart|
 	int j = -1, k = 0;
@@ -224,18 +217,15 @@ int GameManager::Render(int* errorc, int render_distance)
 	//!	Get uniform
 	GLint viewUniform = _shader.getUniform("u_view");
 	if (viewUniform == -1) {
-		*errorc = 200;
-		return EXIT_FAILURE;
+		*errorc = Shader_ShaderProgram_ShaderUniform_NotFound_Exception;
+		return;
 	}
-
-	return viewUniform;
 
 	//!	Set mvp matrix uniform
 	glUniformMatrix4fv(viewUniform, 1, GL_FALSE, glm::value_ptr(view));
 
 	//! Draw everything in one batch
 	glDrawElementsInstanced(GL_TRIANGLE_STRIP, 4, GL_FLOAT, 0, count);
-	return EXIT_SUCCESS;
 }
 
 
