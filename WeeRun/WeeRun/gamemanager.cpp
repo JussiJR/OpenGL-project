@@ -74,6 +74,17 @@ GameManager::GameManager(const char* path)
 			if (Initialized) return;
 		}
 
+		//!	Load texture map
+		{
+			int u_texture = _shader.getUniform("tex");
+			if (u_texture == -1) {
+				Initialized = Shader_ShaderProgram_ShaderUniform_NotFound_Exception;
+				return;
+			}
+			_texture = Texture("texture.png", &Initialized, u_texture);
+			if (Initialized) return;
+		}
+
 		{
 			//!		Calculate projection matrix
 			GLint projectionUniform = _shader.getUniform("u_projection");

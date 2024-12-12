@@ -37,7 +37,7 @@
 #include "Edge.h"
 #include "UBO.h"
 #include <GLFW/glfw3.h>
-
+#include "Texture.h"
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 //!	Constexpr
@@ -84,6 +84,8 @@ private:
 	/// Shader program 
 	/// </summary>
 	ShaderProgram _shader;
+
+	Texture _texture;
 
 	/// <summary>
 	/// vertexArray of sizes for instanced rendering
