@@ -38,6 +38,8 @@
 #include "UBO.h"
 #include <GLFW/glfw3.h>
 #include "Texture.h"
+#include <set>
+
 #define GAMEMANAGER_CONVERTER_DEGREE2RADIANS(fov) ((float)fov * 0.0174532925f);
 
 //!	Constexpr
@@ -64,13 +66,13 @@ private:
 	/// </summary>
 	Camera  _camera;
 
-	int* _chunkOffsets;
-	int* _chunkSizes;
+	vector<int> _chunkOffsets;
+	vector<int> _chunkSizes;
 	
 	/// <summary>
 	/// Till better solution is found
 	/// </summary>
-	edge _mapBuffer[512];
+	edge* _mapBuffer;
 
 	/// <summary>
 	/// UBO for _Map's data ( Will not change after loading map
@@ -181,7 +183,7 @@ inline void fillBuffer(edge* buffer, Json::Value* root, unsigned int* error);
 /// <param name="chunkCount"></param>
 /// <param name="_chunkSizes"></param>
 /// <param name="_chunkOffsets"></param>
-inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecount, int* chunkCount, int* _chunkSizes, int* _chunkOffsets);
+inline void getBufferLength(Json::Value* root, unsigned int* error, int* edgecount, int* chunkCount, vector<int>& _chunkSizes, vector<int>& _chunkOffsets);
 
 
 /// <summary>

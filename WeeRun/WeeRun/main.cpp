@@ -31,12 +31,14 @@ int main(int argc, char** argv){
 
 		//!	WeeRun
 		//!		Updating
-		manager.Update(window,&errorc);
-		if (errorc) glfwSetWindowShouldClose(window,1); // updated once every frame
-		
+		manager.Update(window,&errorc); // updated once every frame
+
 		//!		Rendering
-		manager.Render(&errorc, 5);
-		if (errorc) glfwSetWindowShouldClose(window, 1); // draws once every frame
+		manager.Render(&errorc, 5); // draw once every frame
+
+
+		if(errorc) glfwSetWindowShouldClose(window,errorc); 
+		
 
 		//! GLFW
 		//!		Swap buffers

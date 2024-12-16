@@ -35,7 +35,7 @@ void main() {
     position.z = EXTRACT_POSITION_Z;
 
     textureCoord.x = float(mod(edge_texture, 4)) * 32.0; 
-    textureCoord.y = floor(float(edge_texture >> 2)) * 32.0;
+    textureCoord.y = float(edge_texture >> 2) * 32.0;
 
     TextCoord = textureCoord;
 

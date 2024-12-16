@@ -5,9 +5,6 @@ GameManager::GameManager(const char* path)
 	//!		Ínitialized
 	Initialized = Exceptions_Null;
 	
-	_chunkOffsets = new int[32];
-	_chunkSizes = new int[32];
-
 	//!		Player state
 	_haunted = 0;
 
@@ -54,11 +51,11 @@ GameManager::GameManager(const char* path)
 			_vertexArray.Bind();
 
 			const float vYs[4] = { 0.0f,0.0f,9.0f,9.0f };
-			_vertexbuffer = VBO((void*)&vYs[0], 4 * sizeof(float)); //just do not complain
+			_vertexbuffer = VBO((void*)&vYs, 4 * sizeof(float)); //just do not complain
 			_vertexArray.LinkAttrib(_vertexbuffer, 0, 4, GL_FLOAT, 4, (void*)0);
 
 			const int uboPrefill[15]{ 0 };
-			_edgeData = UBO(sizeof(int) * 15,(void*) & uboPrefill[0], GL_DYNAMIC_DRAW);//just do not complain
+			_edgeData = UBO(sizeof(int) * 15,(void*) & uboPrefill, GL_DYNAMIC_DRAW);//just do not complain
 		}
 	
 
@@ -68,6 +65,8 @@ GameManager::GameManager(const char* path)
 			int i = 0, j = 0,k = 0;
 			getBufferLength(&root, &Initialized, &i, &j, _chunkSizes, _chunkOffsets);
 			if (Initialized) return;
+
+			_mapBuffer = new edge[i];
 
 			//!		Create buffer
 			fillBuffer(_mapBuffer, &root, &Initialized);
@@ -132,8 +131,8 @@ void GameManager::Update(GLFWwindow* window, int* errorc)
 	if (_camera.dragging) {
 		glfwSetCursorPos(window, 0.0, 0.0);
 		_camera.dragging = 0;
+		_camera.Update(mouseX, mouseY);
 	}
-	_camera.Update(mouseX, mouseY);
 }
 
 void GameManager::FixedUpdate(int* errorc)
@@ -152,12 +151,15 @@ void GameManager::Render(int* errorc, int render_distance)
 	glm::vec2 camera_rotation = _camera.Rotation;
 
 	// Buffer for data
-	int buffer[500] { 0 }; // just run over it
+	std::vector<int> buffer = std::vector<int>();
+
+
 	{
 		//!	RENDER Wall
 		
 		//FIXME:  MANY MEMORY LOSS SPOT
-		queue<int> _queue = queue<int>();
+		queue<unsigned long> _queue;
+		std::set<unsigned long> visited;
 		unsigned long chunk,bufferoffset,link = -1, current = -1;
 		unsigned long last[2]{ 0 };
 		
@@ -182,7 +184,6 @@ void GameManager::Render(int* errorc, int render_distance)
 				int index = link == -1 ? i : link;
 				edge _edge = _mapBuffer[bufferoffset + index];
 
-
 				//!		Calculate Direction in 2D space
 				glm::vec2 direction = _edge.Position() - camera_position;
 
@@ -194,22 +195,28 @@ void GameManager::Render(int* errorc, int render_distance)
 				int view = angle < fov + yawOffset && angle > yawOffset;
 
 				//!	Add possible portal link to render pile and skip the edge adding (to reduce vertex amount)
-				if (_edge.PortalLinkChunkIndex != chunk) _queue.push(_edge.PortalLinkChunkIndex);
-
+				if (_edge.PortalLinkChunkIndex != chunk
+					&& visited.find(_edge.PortalLinkChunkIndex) != visited.end()) {
+					visited.insert(_edge.PortalLinkChunkIndex);
+					_queue.push(_edge.PortalLinkChunkIndex);
+				}
 				if (view || last[1]) 
 				{
 					//Pack 
 					current = _edge.pack();
 
 					//!	Add items into buffer	
-					buffer[++j] = last[0];
-					buffer[++j] = current;
+					buffer.push_back(last[0]);
+					buffer.push_back(current);
 				}
 
 				//Set last
 				last[0] = current;
 				last[1] = view;
 			}
+
+
+
 		}
 	}
 	
@@ -217,13 +224,17 @@ void GameManager::Render(int* errorc, int render_distance)
 	unsigned int count = (j+1) >> 1;// Kinda cheap way to divide by 2.
 
 	//! Set Render Data
-	_edgeData.Update(sizeof(int) * j, 0, buffer);
+	_edgeData.Update(buffer.size() * sizeof(int), 0, buffer.data());
+	
 	//!	Calculate mvp matrix
 	glm::mat4 view = glm::lookAt(
 		glm::vec3(camera_position.x, 1.81f, camera_position.y),			// Position
 		glm::vec3(camera_rotation.x,0,camera_rotation.y),				// Rotation
 		glm::vec3(0, 0, 1));											// Up
 	
+
+	_shader.Activate();
+	_texture.Bind();
 	
 	//!	Get uniform
 	GLint viewUniform = _shader.getUniform("u_view");
@@ -236,25 +247,34 @@ void GameManager::Render(int* errorc, int render_distance)
 	glUniformMatrix4fv(viewUniform, 1, GL_FALSE, glm::value_ptr(view));
 
 	//! Draw everything in one batch
-	glDrawElementsInstanced(GL_TRIANGLE_STRIP, 4, GL_FLOAT, 0, count);
+	glDrawElementsInstanced(GL_TRIANGLES, 4, GL_FLOAT, 0, count);
 }
 
 
-inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, int* _chunkSizes, int* _chunkOffsets)
+inline void getBufferLength(Json::Value* root,unsigned int* error, int* edgecount, int* chunkCount, vector<int>& _chunkSizes, vector<int>&  _chunkOffsets)
 {
 	
 	Json::Value::ArrayIndex i = 0;
 	Json::Value chunkOffsets;
 	Json::Value chunkSizes;
+
 	if (!isValid(root, &chunkOffsets, "chunkOffsets")) *error = Map_BrokenMap_Exception;
+
+	*edgecount = 0;
+	
 	while (i < chunkOffsets.size() && chunkOffsets[i].asInt() != 0) {
 		int j = chunkOffsets[i].asInt();
+		_chunkOffsets.push_back(*edgecount);
 		*edgecount += j;
-		_chunkOffsets[i] = *edgecount;
-		_chunkSizes[i] = j;
+		_chunkSizes.push_back(j);
 		i++;
 	}
-	if (!*edgecount) *error = Map_InvalidMapExtension_Exception;
+
+	if (!*edgecount) {
+		*error = Map_InvalidMapExtension_Exception;
+		return;
+	}
+
 	*chunkCount = i;
 }
 
